@@ -1,0 +1,309 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
+repo = 'altercation/vim-colors-solarized'
+hook_add = '''
+let g:solarized_termtrans=1
+set background=dark
+colorscheme solarized
+'''
+hook_source = '''
+colorscheme solarized
+'''
+
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+hook_add = '''
+let g:clever_f_ignore_case = 1
+let g:clever_f_use_migemo = 1
+let g:clever_f_not_overwrites_standard_mappings = 1
+map f <Plug>(clever-f-f)
+map F <Plug>(clever-f-F)
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+depends = ['tagbar', 'vim-fugitive']
+hook_add = '''
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
+hook_add = '''
+let g:airline_theme='solarized'
+'''
+
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'kballard/vim-fish'
+
+[[plugins]]
+repo = 'othree/yajs.vim' # ES6 syntax
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = ['neomru.vim', 'neoyank.vim']
+on_cmd = 'Denite'
+hook_add = '''
+nnoremap <silent> s` :<C-u>Denite filetype<CR>
+nnoremap <silent> sf :<C-u>Denite file_rec<CR>
+nnoremap <silent> sd :<C-u>DeniteBufferDir file_rec<CR>
+nnoremap <silent> sr :<C-u>Denite file_point file_old
+      \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+nnoremap <silent> sl :<C-u>Denite line<CR>
+nnoremap <silent> sg :<C-u>DeniteCursorWord grep<CR>
+nnoremap <silent> sG :<C-u>Denite grep<CR>
+nnoremap <silent> s* :<C-u>DeniteCursorWord -buffer-name=search -mode=normal line<CR>
+nnoremap <silent> sb :<C-u>Denite buffer<CR>
+nnoremap <silent> sm :<C-u>Denite file_mru<CR>
+nnoremap <silent> sy :<C-u>Denite neoyank<CR>
+nnoremap <silent> ss :<C-u>Denite -resume<CR>
+nnoremap <silent> sn :<C-u>Denite -resume -immediately -select=+1<CR>
+nnoremap <silent> sp :<C-u>Denite -resume -immediately -select=-1<CR>
+nnoremap <silent> / :<C-u>Denite -buffer-name=search line<CR>
+
+if executable('rg')
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['--vimgrep', '--no-heading'])
+else
+  call denite#custom#var('file_rec', 'command',
+        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+endif
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
+
+call denite#custom#map('insert', "jj", '<denite:enter_mode:normal>')
+'''
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+
+[[plugins]]
+repo = 't9md/vim-choosewin'
+hook_add = '''
+map t <Plug>(choosewin)
+let g:choosewin_statusline_replace = 0
+let g:choosewin_overlay_enable = 1
+let g:choosewin_overlay_clear_multibyte = 1
+let g:choosewin_blink_on_land = 0
+let g:choosewin_label = "fgtrdsa"
+let g:choosewin_tablabel = "123456789"
+let g:choosewin_keymap   = {
+      \'k' : 'tab_prev',
+      \'j' : 'tab_next',
+      \'h' : 'tab_first',
+      \'l' : 'tab_last',
+      \'<Space>' : 'win_land',
+      \'t' : 'win_land',
+      \}
+'''
+
+
+[[plugins]]
+repo = 'Lokaltog/vim-easymotion'
+hook_add = '''
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key=";"
+let g:EasyMotion_grouping=1
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
+'''
+
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'
+hook_add = '''
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+'''
+
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_exclude_filetypes = ['help', 'vimfiler', 'unite', 'go']
+'''
+
+[[plugins]]
+repo = 'simnalamburt/vim-mundo'
+hook_add = '''
+set undofile
+set undodir=~/.cache/nvim/undo
+nnoremap U :MundoToggle<CR>
+'''
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+hook_add = 'noremap ! :Switch<CR>'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'kana/vim-textobj-user'
+
+[[plugins]]
+repo = 'kana/vim-textobj-line'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'kana/vim-textobj-entire'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'kana/vim-textobj-function'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'thinca/vim-textobj-between.git'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'camelcasemotion'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'thinca/vim-textobj-comment'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'rhysd/vim-textobj-word-column'
+depends = ['vim-textobj-user']
+
+[[plugins]]
+repo = 'airblade/vim-rooter'
+hook_add = '''
+let g:rooter_change_directory_for_non_project_files = 'home'
+'''
+
+[[plugins]]
+repo = 'neomake/neomake'
+hook_add = '''
+let g:neomake_logfile= expand('~/.cache/nvim/neomake.log')
+augroup neomake_run
+  autocmd! BufWritePost,BufEnter * Neomake
+  " autocmd! InsertLeave *.js Neomake 
+  " vim終了時にeslint_dを終了
+  autocmd! VimLeave *.js  !eslint_d stop
+augroup END
+
+let g:neomake_javascript_enabled_makers = ['eslint_d']
+'''
+
+
+[[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+hook_add = '''
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
+"iTerm2 C-h key fixed for VIM and NeoVim https://geoffcorey.github.io/os/x/uncategorized/2015/10/12/iterm2-c-h-key-fixed-for-vim-and-neovim.html
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-/> :TmuxNavigatePrevious<cr>
+'''
+[[plugins]]
+repo = 'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'kana/vim-smartinput'
+
+[[plugins]]
+repo = 'cohama/vim-smartinput-endwise'
+depends = 'vim-smartinput'
+
+[[plugins]]
+repo = 'thinca/vim-qfreplace'
+
+[[plugins]]
+repo = 'kana/vim-submode'
+hook_add = '''
+call submode#enter_with('expand-region', 'nv', 'r', '<Leader>e', '<Plug>(expand_region_expand)')
+call submode#map('expand-region', 'nv', 'r', 'e', '<Plug>(expand_region_expand)')
+call submode#map('expand-region', 'nv', 'r', 's', '<Plug>(expand_region_shrink)')
+
+call submode#enter_with('winsize', 'n', '.', '<C-w>.', '<C-w><')
+call submode#enter_with('winsize', 'n', ',', '<C-w>,', '<C-w>>')
+call submode#enter_with('winsize', 'n', '=', '<C-w>=', '<C-w>+')
+call submode#enter_with('winsize', 'n', '-', '<C-w>-', '<C-w>-')
+call submode#map('winsize', 'n', '', '.', '<C-w><')
+call submode#map('winsize', 'n', '', ',', '<C-w>>')
+call submode#map('winsize', 'n', '', '=', '<C-w>+')
+call submode#map('winsize', 'n', '', '-', '<C-w>-')
+
+call submode#enter_with('changetab', 'n', '', 'gt', 'gt')
+call submode#enter_with('changetab', 'n', '', 'gT', 'gT')
+call submode#map('changetab', 'n', '', 't', 'gt')
+call submode#map('changetab', 'n', '', 'T', 'gT')
+'''
+
+[[plugins]]
+repo = 'ujihisa/neco-look'
+
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+[[plugins]]
+repo = 'rizzatti/dash.vim''
+hook_add = '''
+nmap <silent> <leader>d <Plug>DashSearch
+'''
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+nmap <Leader>tt :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_left = 1
+'''
+

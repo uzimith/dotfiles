@@ -1,0 +1,31 @@
+[user]
+  name = uzimith
+  email = uzimith.x9@gmail.com
+[github]
+  user = uzimith
+[core]
+  editor = vim
+  excludesfile = ~/.config/git/gitignore_global
+[push]
+  default = simple
+[pager]
+  diff =
+[mergetool]
+  keepBackup = true
+[hub]
+  protocol = https
+[ghq]
+  root = ~/src
+[alias]
+  co = checkout
+  s = status --short
+  a = add
+  c = commit
+  ca = commit --amend --no-edit
+  l = pull
+  p = push
+  rh = reset --soft HEAD
+  rhh = reset --hard HEAD
+  now = n
+[url "git@github.com:"]
+  pushinsteadof = https://github.com/

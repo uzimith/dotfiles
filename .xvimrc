@@ -1,0 +1,65 @@
+set ignorecase
+set smartcase
+set splitright
+set clipboard=unnamed
+imap jj <Esc>
+let mapleader = ","
+
+"move window
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+" 0, 9で行頭、行末へ
+nmap <Space>h 1
+nmap <Space>l $
+
+" Yを行末までヤンクに変更
+nnoremap Y y$
+
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <silent> <C-d> <C-g>u<Del>
+imap <C-A> <Home>
+imap <C-E> <End>
+
+"<space>j, <space>kで画面送り
+noremap <Space>j <C-f>
+noremap <Space>k <C-b>
+
+" Comment & uncomment
+nnoremap gcc :xccmd commentAndUncommentCurrentLines<CR>
+vmap gc :xccmd commentAndUncommentCurrentLines<CR>
+
+" Edit in scope
+nnoremap ,e :xccmd toggleTokenizedEditing<CR>
+
+" Open quickly
+nnoremap sd :xccmd openQuickly<CR>
+nnoremap sc :xccmd showDocumentItemsMenu<CR>
+nnoremap sn :xccmd jumpToNextCounterpart<CR>
+" run
+nnoremap ,rr :run<CR>
+" view
+nnoremap ,fi :xccmd toggleNavigatorsVisibility<CR>
+nnoremap ,fd :xccmd toggleDebuggerVisibility<CR>
+nnoremap ,fu :xccmd toggleUtilitiesVisibility<CR>
+nnoremap ,ft :xccmd toggleTabBar<CR>
+" Xcodeのコマンドについては以下を参照
+" https://github.com/JugglerShu/XVim/blob/master/Documents/Developers/MenuActionList.txt
+nmap ,s :xccmd changeToStandardEditor<CR>
+nmap ,a :xccmd changeToGeniusEditor<CR>
+nmap ,v :xccmd changeToVersionEditor<CR>
+nmap gt :xccmd selectNextTab<CR>
+nmap gT :xccmd selectPreviousTab<CR>
+nmap ,t :xccmd newTab<CR>
+nmap <C-w>q :xccmd closeCurrentTab<CR>
+
+inoremap ( ()<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+" inoremap { {}<Left>
+inoremap [ []<Left>
+

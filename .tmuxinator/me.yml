@@ -1,0 +1,19 @@
+name: me
+root: ~/dev/git/uzimith.github.io
+
+pre:
+  - open -a /Applications/Google\ Chrome\ Canary.app/ http://localhost:4567/
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+  - shell:
+      layout: main-vertical
+      panes:
+        -
+        - be middleman
+        - be guard
+  - git:
+    - git fetch --prune && git status --short --branch
+    - tig --all

@@ -1,0 +1,131 @@
+"=============================================
+" Vimp Config
+"=============================================
+set gui=nonavigation
+" スクロールの端などの際に出るbeepをoff
+set nobeep
+" 検索で大文字小文字を無視
+set ignorecase
+set toolbars=tabs
+" 自動入力欄フォーカスを無効化
+set focuscontent
+" hint用設定 キーボード中段のみを使う
+set hintchars=hjklasdfgyuiopqertnmzxcvb
+set complete=slS
+set wildoptions=auto
+" set editor='/usr/local/Cellar/macvim/7.4-73/bin/mvim -f'
+set editor='/usr/local/Cellar/macvim/HEAD/bin/mvim -f'
+set defsearch=google
+map <C-r> :source ~/.vimperatorrc<CR>
+"=============================================
+" Appearance Config
+"=============================================
+" Hint
+hi StatusLine color:black; background:#BBB; font-weight:normal;
+hi CompDesc color:#272; width:50%;
+hi Preview color:#44C;
+hi Hint font-family:monospace; font-size:11pt; line-height:1; color:black; background-color:#5FF; border-color:ButtonShadow; border-width:1px; border-style:solid; padding:1px;
+"=============================================
+" Key Config
+"=============================================
+noremap j 3j
+noremap k 3k
+noremap J <C-f>
+noremap K <C-b>
+noremap a :tabnext<CR>
+noremap A :tabprevious<CR>
+noremap s none
+map <C-h> :tabmove! -1<cr>
+map <C-l> :tabmove! +1<cr>
+cmap <C-n> <Tab>
+cmap <C-p> <S-Tab>
+"VISUAL MODE で選択文字列をグーグル検索
+vmap <silent> <C-g> y<Esc><Esc>P
+imap jj <ESC>
+noremap <A-Up> :set toolbars=tabs<CR>
+noremap <A-Down> :set toolbars=none<CR>
+
+set nextpattern=^\次,^\続き,\\bnext\\b,^(>>|»|》|≫),(>>|»|》|≫)$,\\bmore\\b
+set previouspattern=^\前,^\戻,\\b(prev,previus)\\b,^<$,^,^(<<|《|≪|«)$
+"=================================k============
+" Firefox Config
+"=============================================
+" ダウンロードウィンドウを完了後自動で閉じる
+set! browser.download.manager.closeWhenDone=true
+" ダウンロード履歴をFirefox終了時に削除
+set! browser.download.manager.retention=1
+" ダウンロードウィンドウを完了後自動で閉じる
+set! browser.download.manager.closeWhenDone=true
+" ファイルダウンロード完了時のウイルススキャン機能オフ
+set! browser.download.manager.scanWhenDone=false
+" JavaScriptでのウィンドウ移動・リサイズ拒否
+set! dom.disable_window_move_resize=true
+" JavaScriptのステータスバー操作を無効化
+set! dom.event.contextmenu.enabled=false
+" アドオンインストール時の待ち時間カット
+set! security.dialog_enable_delay=0
+"最小化した時にメモリを開放
+set! config.trim_on_minimize=true
+
+"=============================================
+" Plugin Config
+"=============================================
+" Smooziee 移動量を設定
+let g:smooziee_scroll_amount="250"
+let g:smooziee_scroll_interval="20"
+" copy.js
+javascript <<EOM
+  liberator.globalVariables.copy_templates = [
+    { label: 'url', value: '%URL%' },
+    { label: 'title', value: '%TITLE%' },
+    { label: 'plain', value: '%TITLE% %URL%' },
+    { label: 'anchor', value: '<a href="%URL%">%TITLE%</a>' },
+    { label: 'md', value: '[%TITLE%](%URL%)' },
+    { label: 'middleman', value: "- title: %TITLE% \n link: %URL%" },
+  ];
+EOM
+
+javascript if (typeof hBookmark != 'undefined') liberator.loadScript('chrome://hatenabookmark/content/vimperator/plugin/hatenabookmark.js', {__proto__: this});
+" autocmd VimperatorEnter .* :set complete+=H
+
+javascript <<EOM 
+  liberator.globalVariables.multi_requester_mappings = [
+  [',ma', 'alc'],
+  [',mw', 'wikipedia_ja']
+  ];
+EOM
+
+" press 'w' to look up the selected word in Dictionary.app
+javascript <<EOM
+(function () {
+mappings.addUserMap([modes.NORMAL], ['w'],
+    'Pass selected word to Dictionary.app',
+    function () {
+        var sel = window.content.getSelection();
+        if(sel.toString()) {
+            var word = encodeURI(sel.getRangeAt(0).toString().replace(/^\s+|\s+$/g, ""));
+            getBrowser().loadURI("dict:///"+word, null, null);
+            getBrowser().loadURI("dict:///"+word, null, null); // in case Dictionary.app is not launched.
+        }
+        else
+            liberator.echoerr('Dictionary.app: Word not selected.');
+    }, { }
+);
+})();
+EOM
+
+" //hatena
+set complete+=H
+"=============================================
+" qmark gomでgmailにジャンプ
+"=============================================
+qmark c http://www.google.com/calendar/render
+qmark g https://docs.google.com/
+qmark s https://app.gistboxapp.com/
+qmark f http://facebook.com/
+qmark m https://mail.google.com/
+qmark y http://jp.youtube.com/
+" qmark t https://twitter.com/
+qmark n http://www.nicovideo.jp/ranking/fav/daily/imas
+qmark d http://digg.com/
+echo "vimperatorrc is reloaded"

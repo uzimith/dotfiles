@@ -1,0 +1,39 @@
+# ~/.tmuxinator/vagrant.yml
+ 
+name: vagrant
+root: 
+
+pre:
+  - vagrant up
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+  - vagrant:
+      layout: main-vertical
+      panes:
+        - ssh:
+          - vagrant ssh
+        - vim:
+          - vim Vagrantfile
+        - mysql:
+          - vagrant ssh
+          - mysql -u root -proot
+  - shell: 
+  - git:
+     - git fetch --prune && git status --short --branch
+     - tig --all
+  - log:
+      layout: main-vertical
+      panes:
+        - top:
+          - vagrant ssh
+          - top
+        - accesslog:
+          - vagrant ssh
+          - tail -f /var/log/apache2/access.log
+        - errorlog:
+          - vagrant ssh
+          - tail -f /var/log/apache2/error.log

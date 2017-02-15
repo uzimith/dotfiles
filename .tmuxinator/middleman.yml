@@ -1,0 +1,19 @@
+# ~/.tmuxinator/middleman.yml
+
+name: middleman
+root: 
+
+pre:
+  - open -a /Applications/Google\ Chrome\ Canary.app/ http://localhost:4567/
+windows:
+  - editor:
+      layout: fb63,212x62,0,0[212x3,0,0,2,212x58,0,4,0]
+      panes:
+        - middleman
+        - vim:
+          - cd source
+          - vim
+  - shell: 
+  - git:
+    - git fetch --prune && git status --short --branch
+    - tig --all

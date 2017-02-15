@@ -1,0 +1,11 @@
+# ~/.tmuxinator/dev.yml
+
+name: dev
+root: 
+
+windows:
+  - editor: vim
+  - shell: 
+  - git:
+    - git fetch --prune && git status --short --branch
+    - tig --all

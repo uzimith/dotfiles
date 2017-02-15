@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require 'webrick'
+require 'optparse'
+opt = OptionParser.new
+
+OPTS = {}
+OPTS[:port] = 3000
+opt.on('-p VAL') {|v| OPTS[:port] = v.to_i || OPTS[:port]}
+
+opt.parse!(ARGV)
+if ARGV[0]
+  OPTS[:root] = "./" + ARGV[0]
+else
+  OPTS[:root] = "./"
+end
+
+srv = WEBrick::HTTPServer.new(
+  :BindAddress  => '127.0.0.1',
+  :Port         => OPTS[:port],
+  :DocumentRoot => OPTS[:root]
+)
+trap(:INT){srv.shutdown}
+srv.start

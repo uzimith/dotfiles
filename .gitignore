@@ -1,0 +1,22 @@
+.ssh/
+tags
+.sync
+fishd.*
+__*.fish
+.config/fish/functions/fisher.fish
+.config/hub
+.config/wireshark
+.config/gcloud
+.netrwhist
+
+# fisherman
+.config/fisherman
+.config/fish/completions/docker.fish
+.config/fish/conf.d/z.fish
+.config/fish/functions/__z.fish
+.config/fish/functions/__z_add.fish
+.config/fish/functions/__z_complete.fish
+.config/fish/functions/__zo.fish
+.config/fish/functions/getopts.fish
+.config/fish/functions/z.awk
+.config/fish/functions/zadd.awk

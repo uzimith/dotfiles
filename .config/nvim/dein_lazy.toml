@@ -1,0 +1,128 @@
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+depends = ['neosnippet.vim']
+on_i = 1
+hook_source = '''
+let g:deoplete#enable_at_startup = 1
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+depends = ['neosnippet-snippets', 'context_filetype.vim']
+on_i = 1
+on_ft = 'snippet'
+hook_source = '''
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#enable_snipmate_compatibility = 1
+  let g:neosnippet#enable_completed_snippet = 1
+  let g:neosnippet#expand_word_boundary = 1
+  let g:neosnippet#snippets_directory = '~/.config/nvim/snippets,' . dein#get('neosnippet-snippets').path . '/neosnippets'
+'''
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
+repo = 'Shougo/unite.vim'
+epends = 'neomru.vim'
+on_source = 'denite.nvim'
+
+[[plugins]]
+repo = 'elzr/vim-json'
+on_ft = 'json'
+hook_add = '''
+let g:vim_json_syntax_conceal = 0
+'''
+
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_source = 'deoplete.nvim'
+build = 'make'
+
+[[plugins]]
+repo = 'Shougo/vimfiler.vim'
+depends = 'unite.vim'
+on_if = "isdirectory(bufname('%'))"
+hook_add = '''
+nnoremap <silent> <Leader>fi :VimFilerBufferDir -split -explorer -winwidth=35 -no-quit -invisible -toggle -auto-cd<CR>
+nnoremap <silent> <Leader>ff :VimFilerBufferDir -invisible<CR>
+nnoremap <silent> <Leader>fc :VimFilerCurrentDir -invisible<CR>
+'''
+hook_source = '''
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+" Like Textmate icons.
+let g:vimfiler_tree_leaf_icon = ' '
+let g:vimfiler_tree_opened_icon = '▾'
+let g:vimfiler_tree_closed_icon = '▸'
+let g:vimfiler_file_icon = ' '
+let g:vimfiler_readonly_file_icon = ''
+let g:vimfiler_marked_file_icon = '*'
+'''
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+on_map = {n = '<Leader>'}
+hook_add = '''
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
+nnoremap <Leader>gl :<C-u>Glog<CR>
+nnoremap <Leader>ga :<C-u>Gwrite<CR>
+nnoremap <Leader>gr :<C-u>Gread<CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <Leader>gC :<C-u>Git commit --amend<CR>
+nnoremap <Leader>gp :<C-u>Git push<CR>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>gm :<C-u>Merginal<CR>
+'''
+
+[[plugins]]
+repo = 'Shougo/neco-vim'
+on_ft = 'vim'
+
+[[plugins]]
+repo = 'eagletmt/neco-ghc'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = 'go'
+hook_source = '''
+  let g:go_fmt_command = 'goimports'
+  let g:go_fmt_fail_silently = 1
+  let s:goargs = go#package#ImportPath(expand('%:p:h'))
+  let g:neomake_go_errcheck_maker = {
+    \ 'args': ['-abspath', s:goargs],
+    \ 'append_file': 0,
+    \ 'errorformat': '%f:%l:%c:\ %m, %f:%l:%c\ %#%m',
+    \ }
+  let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
+  au FileType go nmap <leader>gd <Plug>(go-def)
+  au FileType go nmap <leader>gt <Plug>(go-doc-tab)
+  au FileType go nmap <leader>gv <Plug>(go-doc-split)
+  au FileType go nmap <leader>go <Plug>(go-doc-browser)
+'''
+
+[[plugins]]
+repo = 'jodosha/vim-godebug'
+on_ft = 'go'
+hook_source = '''
+ let g:go_term_enabled=1
+'''

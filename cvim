@@ -1,0 +1,29 @@
+set noautofocus
+let scrollstep=230
+set smoothscroll
+let scrollduration= 200
+let barposition = "bottom"
+let locale = "jp"
+let hintcharacters = "hjklasdfgyuiopqertnmzxcvb"
+let mapleader = ","
+let blacklists = ["https://mail.google.com/*","*://mail.google.com/*","@https://mail.google.com/mail/*"]
+let completionengines = ['google']
+let defaultengine = "google.co.jp"
+let searchengine amazonjp = "https://www.amazon.co.jp/s/?field-keywords=%s"
+let searchalias a = "amazonjp"
+let searchengine gmail = "https://inbox.google.com/search/%s"
+let searchengine twitter = "http://twitter.com/search?q=%s"
+
+map a nextTab
+map A previousTab
+map u lastClosedTab
+map d closeTab
+map J scrollFullPageDown
+map K scrollFullPageUp
+
+let qmark c = ["http://www.google.com/calendar/render"]
+let qmark g = ["https://docs.google.com/"]
+let qmark f = ["http://facebook.com/"]
+let qmark m = ["https://inbox.google.com/"]
+let qmark y = ["http://jp.youtube.com/"]
+let qmark t = ["https://twitter.com/"]

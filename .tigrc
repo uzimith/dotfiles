@@ -1,0 +1,50 @@
+######
+#key
+######
+bind main V !@git revert %(commit)
+bind main <Ctrl-r> !#git reset --soft %(commit)
+bind main ! !@git reset --hard %(commit)
+bind main <Ctrl-p> !@git pull --rebase
+bind main R !git rebase -i %(commit)
+bind main m :enter
+bind main T !@git tag %(prompt) %(commit)
+
+bind diff R !@git rebase -i %(commit)
+bind diff n :next
+bind diff p :previous
+
+bind status m :enter
+bind status P !git push origin
+bind status <Ctrl-a> !@git add -A
+bind status C !@git commit -m %(prompt)
+bind status A !@git commit --amend
+bind status <Ctrl-!> !@?rm %(file)
+bind stage n :next
+bind stage p :previous
+
+bind refs n !@?git checkout -b %(prompt) %(branch)
+bind refs N !@git checkout -b feature/%(prompt) %(branch)
+bind refs m !@git merge %(branch)
+bind refs r !@git rebase %(branch)
+bind refs c !@git checkout %(branch)
+
+bind stash s !@git stash save %(prompt)
+
+bind generic ø @sh -c "printf '%s' %(commit) | pbcopy""'"
+
+# move
+bind main G none
+bind generic R none
+bind generic J none
+bind generic K none
+bind generic g move-first-line
+bind generic G move-last-line
+bind generic J move-page-down
+bind generic K move-page-up
+bind generic ; view-main
+
+######
+#disply
+######
+set main-view = id date author commit-title:graph=yes,refs=yes
+set mouse = yes

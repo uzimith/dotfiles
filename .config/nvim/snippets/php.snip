@@ -1,0 +1,51 @@
+snippet <n
+  <?php namespace ${1};
+  
+  ${0}
+
+snippet get
+  Route::get('${1}', [
+    "as"   => "${2}"
+    "uses" => "${3}"
+  ]);
+  ${0}
+
+snippet post
+  Route::post('${1}', [
+    "as"   => "${2}"
+    "uses" => "${3}"
+  ]);
+  ${0}
+
+snippet any
+  Route::any('${1}', [
+    "as"   => "${2}"
+    "uses" => "${3}"
+  ]);
+  ${0}
+
+snippet gruop
+  Route::gruop([${1:"before" => ""}], function()
+  {
+    ${0}
+  }
+  );
+
+snippet cont
+  Route::controller('${1}', '${2}');
+
+snippet resource
+  Route::resource('${1}', '${2}');
+
+snippet where
+  ->where('${1}','[${2}]');
+
+snippet f.
+	function ()
+	{
+		${0}
+	}
+
+snippet r
+  return ${1};{${0}}
+
