@@ -8,6 +8,8 @@ __*.fish
 .config/wireshark
 .config/gcloud
 .netrwhist
+.gitconfig
+.home
 
 # fisherman
 .config/fisherman

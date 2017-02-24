@@ -1,7 +1,13 @@
 #!/bin/bash
 
+mkdir -p $HOME/src/github.com/uzimith/
+git clone --recursive https://github.com/uzimith/dotfiles.git $HOME/src/github.com/uzimith/dotfiles
+ln -s $HOME/src/github.com/uzimith/dotfiles $HOME/dotfiles 
+
 # dotfiles
-DOT_FILES=(.config .hammerspoon .tmux.conf .tmuxinator .gitconfig .gitignore_global .ssh bin .tigrc .vimperatorrc .vimperator .pryrc .eslintrc.json)
+DOT_FILES=(.config .hammerspoon .tmux.conf .tmuxinator .gitconfig .gitignore_global .ssh bin .tigrc .vimperatorrc .vimperator .pryrc .eslintrc.json .ctags)
+
+ln -s $HOME/dotfiles/$file $HOME/$file
 
 for file in ${DOT_FILES[@]}
 do

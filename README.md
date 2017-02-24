@@ -4,10 +4,8 @@ dotfiles
 ## Setup
 
 ```
-cd ~
-git clone --recursive https://github.com/uzimith/dotfiles.git
-cd ~/dotfiles
-bash setup.sh
+$ curl https://raw.githubusercontent.com/uzimith/dotfiles/master/setup.sh > setup.sh
+$ ./setup.sh
 ```
 
 ## Environment
