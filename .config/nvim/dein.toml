@@ -28,6 +28,24 @@ colorscheme solarized
 '''
 
 [[plugins]]
+repo = 'vim-airline/vim-airline'
+hook_add = '''
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+'''
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+depends = 'vim-airline'
+hook_add = '''
+let g:airline_theme='solarized'
+'''
+
+[[plugins]]
 repo = 'rhysd/clever-f.vim'
 hook_add = '''
 let g:clever_f_ignore_case = 1
@@ -39,25 +57,6 @@ map F <Plug>(clever-f-F)
 
 [[plugins]]
 repo = 'kana/vim-niceblock'
-
-# [[plugins]]
-# repo = 'vim-airline/vim-airline'
-# depends = ['vim-fugitive']
-# hook_add = '''
-# let g:airline_powerline_fonts = 1
-#
-# let g:airline#extensions#tabline#enabled = 1
-# let g:airline#extensions#tabline#show_buffers = 0
-# let g:airline#extensions#tabline#show_tabs = 1
-# let g:airline#extensions#tabline#fnamemod = ':t'
-# '''
-
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
-depends = 'vim-airline'
-hook_add = '''
-let g:airline_theme='solarized'
-'''
 
 [[plugins]]
 repo = 'cespare/vim-toml'
@@ -311,3 +310,13 @@ repo = 'digitaltoad/vim-pug'
 
 [[plugins]]
 repo = 'kchmck/vim-coffee-script'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
+hook_add = '''
+nmap <Leader>tt :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_left = 1
+'''
+

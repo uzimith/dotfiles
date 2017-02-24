@@ -123,14 +123,3 @@ hook_source = '''
   let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
 '''
 
-
-[[plugins]]
-repo = 'majutsushi/tagbar'
-on_i = 1
-hook_add = '''
-nmap <Leader>tt :TagbarToggle<CR>
-let g:tagbar_autoclose = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_left = 1
-'''
-
