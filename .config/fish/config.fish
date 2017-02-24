@@ -21,13 +21,20 @@ set -gx GOPATH $HOME
 set -gx PATH $PATH $GOPATH/bin
 
 #Android SDK
-#set -gx PATH $PATH ~/Library/Android/sdk/platform-tools
-#set -gx PATH $PATH ~/Library/Android/sdk/tools
-#set -gx ANDROID_HOME $PATH ~/Library/Android/sdk
+if test -d ~/Library/Android/sdk/
+  set -gx PATH $PATH ~/Library/Android/sdk/platform-tools
+  set -gx PATH $PATH ~/Library/Android/sdk/tools
+  set -gx ANDROID_HOME $PATH ~/Library/Android/sdk
+end
 
 # Google Cloud SDK
-set fish_user_paths /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-set -x MANPATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/help/man /usr/local/share/man /usr/share/man /opt/x11/share/man
+if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+  set fish_user_paths /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+  set -x MANPATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/help/man /usr/local/share/man /usr/share/man /opt/x11/share/man
+end
+
+set -U fish_user_paths $fish_user_paths /usr/local/opt/openssl/bin
+
 
 #rbenv
 rbenv init - | source
