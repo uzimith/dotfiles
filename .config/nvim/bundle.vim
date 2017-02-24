@@ -30,4 +30,5 @@ endif
 
 if dein#check_install()
   call dein#install()
+  "call :UpdateRemotePlugins
 endif
