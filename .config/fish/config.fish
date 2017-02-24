@@ -2,6 +2,7 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 set -gx LANG 'ja_JP.UTF-8'
 set -gx LC_ALL 'ja_JP.UTF-8'
 set -gx EDITOR vim
+ulimit -n 4096
 
 ##
 # PATH
