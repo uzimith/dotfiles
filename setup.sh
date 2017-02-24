@@ -16,3 +16,5 @@ fisher
 pip install git+git://github.com/powerline/powerline
 pip install neovim
 pip3 install neovim
+npm install -g eslint
+npm install -g eslint_d

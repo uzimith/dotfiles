@@ -38,16 +38,19 @@ map F <Plug>(clever-f-F)
 '''
 
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-depends = ['tagbar', 'vim-fugitive']
-hook_add = '''
-let g:airline_powerline_fonts = 1
+repo = 'kana/vim-niceblock'
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-'''
+# [[plugins]]
+# repo = 'vim-airline/vim-airline'
+# depends = ['vim-fugitive']
+# hook_add = '''
+# let g:airline_powerline_fonts = 1
+#
+# let g:airline#extensions#tabline#enabled = 1
+# let g:airline#extensions#tabline#show_buffers = 0
+# let g:airline#extensions#tabline#show_tabs = 1
+# let g:airline#extensions#tabline#fnamemod = ':t'
+# '''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -78,6 +81,7 @@ nnoremap <silent> sr :<C-u>Denite file_point file_old
 nnoremap <silent> sl :<C-u>Denite line<CR>
 nnoremap <silent> sg :<C-u>DeniteCursorWord grep<CR>
 nnoremap <silent> sG :<C-u>Denite grep<CR>
+vnoremap <silent> sg y:Denite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 nnoremap <silent> s* :<C-u>DeniteCursorWord -buffer-name=search -mode=normal line<CR>
 nnoremap <silent> sb :<C-u>Denite buffer<CR>
 nnoremap <silent> sm :<C-u>Denite file_mru<CR>
@@ -228,7 +232,8 @@ repo = 'neomake/neomake'
 hook_add = '''
 let g:neomake_logfile= expand('~/.cache/nvim/neomake.log')
 augroup neomake_run
-  autocmd! BufWritePost,BufEnter * Neomake
+  " autocmd! BufWritePost,BufEnter * Neomake
+  autocmd! BufWritePost * Neomake
   " autocmd! InsertLeave *.js Neomake 
   " vim終了時にeslint_dを終了
   autocmd! VimLeave *.js  !eslint_d stop
@@ -299,11 +304,10 @@ nmap <silent> <leader>d <Plug>DashSearch
 '''
 
 [[plugins]]
-repo = 'majutsushi/tagbar'
-hook_add = '''
-nmap <Leader>tt :TagbarToggle<CR>
-let g:tagbar_autoclose = 1
-let g:tagbar_autofocus = 1
-let g:tagbar_left = 1
-'''
+repo = 'mxw/vim-jsx'
 
+[[plugins]]
+repo = 'digitaltoad/vim-pug'
+
+[[plugins]]
+repo = 'kchmck/vim-coffee-script'

@@ -102,6 +102,13 @@ on_ft = 'vim'
 repo = 'eagletmt/neco-ghc'
 
 [[plugins]]
+repo = 'jodosha/vim-godebug'
+on_ft = 'go'
+hook_source = '''
+ let g:go_term_enabled=1
+'''
+
+[[plugins]]
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_source = '''
@@ -114,15 +121,16 @@ hook_source = '''
     \ 'errorformat': '%f:%l:%c:\ %m, %f:%l:%c\ %#%m',
     \ }
   let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
-  au FileType go nmap <leader>gd <Plug>(go-def)
-  au FileType go nmap <leader>gt <Plug>(go-doc-tab)
-  au FileType go nmap <leader>gv <Plug>(go-doc-split)
-  au FileType go nmap <leader>go <Plug>(go-doc-browser)
 '''
 
+
 [[plugins]]
-repo = 'jodosha/vim-godebug'
-on_ft = 'go'
-hook_source = '''
- let g:go_term_enabled=1
+repo = 'majutsushi/tagbar'
+on_i = 1
+hook_add = '''
+nmap <Leader>tt :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_left = 1
 '''
+
