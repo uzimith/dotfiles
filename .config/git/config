@@ -24,8 +24,10 @@
   ca = commit --amend --no-edit
   l = pull
   p = push
-  rh = reset --soft HEAD
+  rh = reset --soft HEAD^
   rhh = reset --hard HEAD
   now = n
 [url "git@github.com:"]
   pushinsteadof = https://github.com/
+[web]
+	browser = open
