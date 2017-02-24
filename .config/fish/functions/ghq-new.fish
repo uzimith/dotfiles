@@ -17,7 +17,7 @@ function ghq-new
         end
     end
     if not test "$repository"
-        echo 'A repository name is required. "ghq_new [reopsitory]"'
+        echo 'A repository name is required. "ghq-new [reopsitory]"'
         return 1
     end
 
