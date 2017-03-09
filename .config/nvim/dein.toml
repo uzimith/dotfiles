@@ -29,7 +29,7 @@ colorscheme solarized
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
-if = 'filereadable( $HOME . "/.config/.home" )'
+if = 'filereadable( $HOME . "/.home" )'
 hook_add = '''
 let g:airline_powerline_fonts = 1
 
@@ -372,3 +372,19 @@ repo = 'kchmck/vim-coffee-script'
 
 [[plugins]]
 repo = 'leafgarland/typescript-vim'
+
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+hook_add = '''
+nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
+nnoremap <Leader>gl :<C-u>Glog<CR>
+nnoremap <Leader>ga :<C-u>Gwrite<CR>
+nnoremap <Leader>gr :<C-u>Gread<CR>
+nnoremap <Leader>gc :<C-u>Gcommit<CR>
+nnoremap <Leader>gC :<C-u>Git commit --amend<CR>
+nnoremap <Leader>gp :<C-u>Git push<CR>
+nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>gm :<C-u>Merginal<CR>
+'''
+
