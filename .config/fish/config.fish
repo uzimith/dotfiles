@@ -21,6 +21,10 @@ set -gx PATH $XDG_CONFIG_HOME/bin $PATH
 set -gx GOPATH $HOME
 set -gx PATH $PATH $GOPATH/bin
 
+# Rust
+set -gx CARGO_HOME $HOME/.cargo
+set -gx PATH $PATH $CARGO_HOME/bin
+
 #Android SDK
 if test -d ~/Library/Android/sdk/
   set -gx PATH $PATH ~/Library/Android/sdk/platform-tools
@@ -45,7 +49,7 @@ rbenv init - | source
 ##
 
 alias vim='nvim'
-alias l='ll | peco'
+alias l='ll -a'
 alias rgf='ripgrep_glob'
 alias prg='peco_ripgrep_vim'
 
@@ -99,3 +103,4 @@ alias wifilist='networksetup -listallhardwareports'
 alias wifiget='networksetup -getairportnetwork en0'
 alias wifiset='networksetup -setairportnetwork en0'
 alias wifipower='networksetup -setairportpower en0'
+ssh-add -A
