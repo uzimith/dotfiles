@@ -113,7 +113,7 @@ hook_source = '''
 
 [[plugins]]
 on_ft = 'typescript'
-repo = 'mhartington/nvim-typescript'
+repo = 'jason0x43/vim-js-indent'
 
 [[plugins]]
 on_ft = 'typescript'

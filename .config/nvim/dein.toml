@@ -3,18 +3,7 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-hook_post_update = '''
-  if dein#util#_is_windows()
-    let cmd = 'tools\\update-dll-mingw'
-  elseif dein#util#_is_cygwin()
-    let cmd = 'make -f make_cygwin.mak'
-  elseif executable('gmake')
-    let cmd = 'gmake'
-  else
-    let cmd = 'make'
-  endif
-  let g:dein#plugin.build = cmd
-'''
+build = 'make'
 
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
@@ -204,13 +193,13 @@ let g:choosewin_keymap   = {
 
 
 [[plugins]]
-repo = 'Lokaltog/vim-easymotion'
+repo = 'easymotion/vim-easymotion'
 hook_add = '''
-let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
 let g:EasyMotion_leader_key=";"
-let g:EasyMotion_grouping=1
-hi EasyMotionTarget ctermbg=none ctermfg=red
-hi EasyMotionShade  ctermbg=none ctermfg=blue
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_smartcase = 1
+" hi EasyMotionTarget ctermbg=none ctermfg=red
+" hi EasyMotionShade  ctermbg=none ctermfg=blue
 '''
 
 
@@ -371,7 +360,7 @@ repo = 'digitaltoad/vim-pug'
 repo = 'kchmck/vim-coffee-script'
 
 [[plugins]]
-repo = 'leafgarland/typescript-vim'
+repo = 'HerringtonDarkholme/yats.vim'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
@@ -388,3 +377,5 @@ nnoremap <Leader>gb :<C-u>Gblame<CR>
 nnoremap <Leader>gm :<C-u>Merginal<CR>
 '''
 
+[[plugins]]
+repo = 'ianks/vim-tsx'
