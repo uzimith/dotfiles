@@ -378,4 +378,4 @@ nnoremap <Leader>gm :<C-u>Merginal<CR>
 '''
 
 [[plugins]]
-repo = 'ianks/vim-tsx'
+repo = 'mattn/emmet-vim'
