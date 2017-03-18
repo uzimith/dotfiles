@@ -1,5 +1,6 @@
 filetype off
 filetype plugin indent off
+filetype plugin indent on
 
 let g:python_host_prog = expand('/usr/local/bin/python')
 let g:python3_host_prog = expand('/usr/local/bin/python3')
