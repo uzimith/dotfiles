@@ -7,8 +7,10 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#enable_debug = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_profile = 1
 autocmd CompleteDone * pclose!
+let g:deoplete#enable_profile = 1
+let g:deoplete#enable_debug = 1
+call deoplete#enable_logging('DEBUG', 'deoplete.log')
 '''
 
 [[plugins]]
@@ -117,5 +119,4 @@ repo = 'jason0x43/vim-js-indent'
 
 [[plugins]]
 on_ft = 'typescript'
-repo = 'jason0x43/vim-js-indent'
-
+repo = 'mhartington/nvim-typescript'
