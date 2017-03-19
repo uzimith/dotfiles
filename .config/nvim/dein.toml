@@ -281,7 +281,7 @@ let g:neomake_logfile= expand('~/.cache/nvim/neomake.log')
 augroup neomake_run
   " autocmd! BufWritePost,BufEnter * Neomake
   autocmd! BufWritePost * Neomake
-  " autocmd! InsertLeave *.js Neomake 
+  " autocmd! InsertLeave *.js Neomake
   " vim終了時にeslint_dを終了
   autocmd! VimLeave *.js  !eslint_d stop
 augroup END
@@ -379,3 +379,9 @@ nnoremap <Leader>gm :<C-u>Merginal<CR>
 
 [[plugins]]
 repo = 'mattn/emmet-vim'
+
+[[plugins]]
+repo = 'Chiel92/vim-autoformat'
+hook_add = '''
+autocmd FileType vim,tex,conf let b:autoformat_autoindent=0
+'''
