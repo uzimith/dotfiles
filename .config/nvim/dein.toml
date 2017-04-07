@@ -120,8 +120,8 @@ depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 hook_add = '''
 nnoremap <silent> s` :<C-u>Denite filetype<CR>
-nnoremap <silent> sf :<C-u>Denite file_rec<CR>
-nnoremap <silent> sd :<C-u>DeniteBufferDir file_rec<CR>
+nnoremap <silent> sd :<C-u>Denite file_rec<CR>
+nnoremap <silent> sf :<C-u>DeniteBufferDir file_rec<CR>
 nnoremap <silent> sr :<C-u>Denite file_point file_old
       \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
 nnoremap <silent> sl :<C-u>Denite line<CR>
