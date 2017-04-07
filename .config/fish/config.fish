@@ -27,15 +27,15 @@ set -gx PATH $PATH $CARGO_HOME/bin
 
 #Android SDK
 if test -d ~/Library/Android/sdk/
-  set -gx PATH $PATH ~/Library/Android/sdk/platform-tools
-  set -gx PATH $PATH ~/Library/Android/sdk/tools
-  set -gx ANDROID_HOME $PATH ~/Library/Android/sdk
+    set -gx PATH $PATH ~/Library/Android/sdk/platform-tools
+    set -gx PATH $PATH ~/Library/Android/sdk/tools
+    set -gx ANDROID_HOME $PATH ~/Library/Android/sdk
 end
 
 # Google Cloud SDK
 if test -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-  set fish_user_paths /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
-  set -x MANPATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/help/man /usr/local/share/man /usr/share/man /opt/x11/share/man
+    set fish_user_paths /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin
+    set -x MANPATH /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/help/man /usr/local/share/man /usr/share/man /opt/x11/share/man
 end
 
 set -U fish_user_paths $fish_user_paths /usr/local/opt/openssl/bin
@@ -95,12 +95,11 @@ set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packag
 powerline-setup
 function fish_mode_prompt; end # fishのmodeを非表示
 
-##
-# mac
-##
+    ##
+    # mac
+    ##
 
-alias wifilist='networksetup -listallhardwareports'
-alias wifiget='networksetup -getairportnetwork en0'
-alias wifiset='networksetup -setairportnetwork en0'
-alias wifipower='networksetup -setairportpower en0'
-ssh-add -A
+    alias wifilist='networksetup -listallhardwareports'
+    alias wifiget='networksetup -getairportnetwork en0'
+    alias wifiset='networksetup -setairportnetwork en0'
+    alias wifipower='networksetup -setairportpower en0'
