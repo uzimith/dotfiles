@@ -18,7 +18,6 @@ colorscheme solarized
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
-if = 'filereadable( $HOME . "/.home" )'
 hook_add = '''
 let g:airline_powerline_fonts = 1
 
