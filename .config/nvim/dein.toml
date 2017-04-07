@@ -287,6 +287,8 @@ augroup neomake_run
 augroup END
 
 let g:neomake_javascript_enabled_makers = ['eslint_d']
+
+let g:neomake_rust_enabled_makers = []
 '''
 
 
