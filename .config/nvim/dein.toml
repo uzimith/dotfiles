@@ -385,5 +385,6 @@ repo = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'Chiel92/vim-autoformat'
 hook_add = '''
+au BufWrite * :Autoformat
 autocmd FileType vim,tex,conf let b:autoformat_autoindent=0
 '''
