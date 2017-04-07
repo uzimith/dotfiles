@@ -33,6 +33,7 @@
                 "f9": "fastforward"
             },
             "name": "HHKB",
+            "one_to_many_mappings": {},
             "selected": true,
             "simple_modifications": {
                 "caps_lock": "left_control",
@@ -69,8 +70,10 @@
                 "f9": "fastforward"
             },
             "name": "Usual",
+            "one_to_many_mappings": {},
             "selected": false,
             "simple_modifications": {},
+            "standalone_keys": {},
             "virtual_hid_keyboard": {
                 "caps_lock_delay_milliseconds": 0,
                 "keyboard_type": "ansi",
