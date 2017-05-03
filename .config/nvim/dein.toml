@@ -386,7 +386,7 @@ repo = 'mattn/emmet-vim'
 repo = 'Chiel92/vim-autoformat'
 hook_add = '''
 au BufWrite * :Autoformat
-autocmd FileType vim,tex,conf let b:autoformat_autoindent=0
+autocmd FileType vim,tex,conf,yaml let b:autoformat_autoindent=0
 '''
 
 [[plugins]]
@@ -395,7 +395,19 @@ repo = 'rust-lang/rust.vim'
 [[plugins]]
 repo = 'racer-rust/vim-racer'
 hook_add = '''
-set hidden
 let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
+'''
+
+[[plugins]]
+repo = 'derekwyatt/vim-scala'
+
+[[plugins]]
+repo = 'ensime/ensime-vim'
+hook_add = '''
+let ensime_server_v2=1
+autocmd BufWritePost *.scala silent :EnTypeCheck
+au FileType scala nnoremap gc :EnTypeCheck<CR>
+au FileType scala nnoremap gt :EnType<CR>
+au FileType scala nnoremap gd :EnDeclaration<CR>
 '''
