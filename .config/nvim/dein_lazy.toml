@@ -11,6 +11,12 @@ autocmd CompleteDone * pclose!
 " let g:deoplete#enable_profile = 1
 " let g:deoplete#enable_debug = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.scala = [
+  \ '[^. *\t]\.\w*',
+  \ '[:\[,] ?\w*',
+  \ '^import .*'
+  \] 
 '''
 
 [[plugins]]
