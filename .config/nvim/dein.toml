@@ -119,11 +119,31 @@ repo = 'Shougo/denite.nvim'
 depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 hook_add = '''
+if executable('rg')
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--hidden' , '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['--hidden', '--vimgrep', '--no-heading'])
+endif
+call denite#custom#map('insert', '<C-j>',
+      \ '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>',
+      \ '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('normal', 'r',
+      \ '<denite:do_action:quickfix>', 'noremap')
+
+call denite#custom#map('normal', 'hh', '<denite:insert_word:../>', 'noremap')
+call denite#custom#map('insert', 'hh', '<denite:insert_word:../>', 'noremap')
+call denite#custom#map('normal', '<C-h>', '<denite:insert_word:../>', 'noremap')
+call denite#custom#map('insert', '<C-h>', '<denite:insert_word:../>', 'noremap')
+call denite#custom#map('insert', "jj", '<denite:enter_mode:normal>')
 nnoremap <silent> s` :<C-u>Denite filetype<CR>
-nnoremap <silent> sd :<C-u>Denite file_rec<CR>
-nnoremap <silent> sf :<C-u>DeniteBufferDir file_rec<CR>
-nnoremap <silent> sr :<C-u>Denite file_point file_old
-      \ `finddir('.git', ';') != '' ? 'file_rec/git' : 'file_rec'`<CR>
+nnoremap <silent> sd :<C-u>DeniteBufferDir file file:new<CR>
+nnoremap <silent> sf :<C-u>Denite file_rec file:new<CR>
 nnoremap <silent> sl :<C-u>Denite line<CR>
 nnoremap <silent> sg :<C-u>DeniteCursorWord grep<CR>
 nnoremap <silent> sG :<C-u>Denite grep<CR>
@@ -135,29 +155,6 @@ nnoremap <silent> sy :<C-u>Denite neoyank<CR>
 nnoremap <silent> ss :<C-u>Denite -resume<CR>
 nnoremap <silent> sn :<C-u>Denite -resume -immediately -select=+1<CR>
 nnoremap <silent> sp :<C-u>Denite -resume -immediately -select=-1<CR>
-nnoremap <silent> / :<C-u>Denite -buffer-name=search line<CR>
-
-if executable('rg')
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'default_opts',
-        \ ['--hidden', '--vimgrep', '--no-heading'])
-else
-  call denite#custom#var('file_rec', 'command',
-        \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-endif
-call denite#custom#map('insert', '<C-j>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>',
-      \ '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('normal', 'r',
-      \ '<denite:do_action:quickfix>', 'noremap')
-
-call denite#custom#map('insert', "jj", '<denite:enter_mode:normal>')
 '''
 
 [[plugins]]
@@ -256,7 +253,7 @@ repo = 'thinca/vim-textobj-between.git'
 depends = ['vim-textobj-user']
 
 [[plugins]]
-repo = 'camelcasemotion'
+repo = 'bkad/CamelCaseMotion'
 depends = ['vim-textobj-user']
 
 [[plugins]]
@@ -271,24 +268,13 @@ depends = ['vim-textobj-user']
 repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_change_directory_for_non_project_files = 'home'
-let g:rooter_patterns = ['Rakefile', 'tsconfig.json', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+let g:rooter_patterns = ['build.gradle', 'Rakefile', 'tsconfig.json', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 '''
 
 [[plugins]]
 repo = 'neomake/neomake'
 hook_add = '''
-let g:neomake_logfile= expand('~/.cache/nvim/neomake.log')
-augroup neomake_run
-  " autocmd! BufWritePost,BufEnter * Neomake
-  autocmd! BufWritePost * Neomake
-  " autocmd! InsertLeave *.js Neomake
-  " vim終了時にeslint_dを終了
-  autocmd! VimLeave *.js  !eslint_d stop
-augroup END
-
-let g:neomake_javascript_enabled_makers = ['eslint_d']
-
-let g:neomake_rust_enabled_makers = []
+call neomake#configure#automake('w')
 '''
 
 
@@ -296,14 +282,13 @@ let g:neomake_rust_enabled_makers = []
 repo = 'christoomey/vim-tmux-navigator'
 hook_add = '''
 let g:tmux_navigator_no_mappings = 1
-
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <BS> :TmuxNavigateLeft<cr>
 "iTerm2 C-h key fixed for VIM and NeoVim https://geoffcorey.github.io/os/x/uncategorized/2015/10/12/iterm2-c-h-key-fixed-for-vim-and-neovim.html
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-/> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <C-/> :TmuxNaviga<cr>
 '''
 [[plugins]]
 repo = 'tyru/open-browser.vim'
@@ -367,7 +352,7 @@ repo = 'HerringtonDarkholme/yats.vim'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 hook_add = '''
-nnoremap <Leader>gd :<C-u>Gdiff<CR>
+nnoremap <Leader>gd :<C-u>Gvdiff<CR>
 nnoremap <silent> <Leader>gs :<C-u>Gstatus<CR>
 nnoremap <Leader>gl :<C-u>Glog<CR>
 nnoremap <Leader>ga :<C-u>Gwrite<CR>
@@ -385,7 +370,7 @@ repo = 'mattn/emmet-vim'
 [[plugins]]
 repo = 'Chiel92/vim-autoformat'
 hook_add = '''
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
 autocmd FileType vim,tex,conf,yaml let b:autoformat_autoindent=0
 '''
 
@@ -402,12 +387,28 @@ let g:racer_experimental_completer = 1
 [[plugins]]
 repo = 'derekwyatt/vim-scala'
 
+# [[plugins]]
+# repo = 'vim-syntastic/syntastic'
+# hook_add = '''
+# set statusline+=%#warningmsg#
+# set statusline+=%{SyntasticStatuslineFlag()}
+# set statusline+=%*
+#
+# let g:syntastic_always_populate_loc_list = 1
+# let g:syntastic_auto_loc_list = 1
+# let g:syntastic_check_on_open = 1
+# let g:syntastic_check_on_wq = 0
+# '''
+
 [[plugins]]
-repo = 'ensime/ensime-vim'
+repo = 'kylef/apiblueprint.vim'
+
+[[plugins]]
+repo = 'artur-shaik/vim-javacomplete2'
 hook_add = '''
-let ensime_server_v2=1
-autocmd BufWritePost *.scala silent :EnTypeCheck
-au FileType scala nnoremap gc :EnTypeCheck<CR>
-au FileType scala nnoremap gt :EnType<CR>
-au FileType scala nnoremap gd :EnDeclaration<CR>
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 '''

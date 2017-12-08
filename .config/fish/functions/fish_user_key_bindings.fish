@@ -6,6 +6,7 @@ function fish_user_key_bindings
   bind -M default -m insert sG peco_open_repository
   bind -M default -m insert sr peco_recent_directory
   bind -M default -m insert sm peco_select_history
+  bind -M default -m insert sc telmapp_ca_id
   bind -M default -m default 's*' peco_ripgrep_vim
   bind -M default -m insert sd peco_ls
 

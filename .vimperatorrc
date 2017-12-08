@@ -125,7 +125,7 @@ qmark s https://app.gistboxapp.com/
 qmark f http://facebook.com/
 qmark m https://mail.google.com/
 qmark y http://jp.youtube.com/
-" qmark t https://twitter.com/
+qmark t https://twitter.com/
 qmark n http://www.nicovideo.jp/ranking/fav/daily/imas
 qmark d http://digg.com/
 echo "vimperatorrc is reloaded"

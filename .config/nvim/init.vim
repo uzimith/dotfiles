@@ -1,5 +1,5 @@
-filetype off
-filetype plugin indent off
+" filetype off
+" filetype plugin indent off
 filetype plugin indent on
 
 let g:python_host_prog = expand('/usr/local/bin/python')
@@ -16,3 +16,4 @@ if filereadable( $HOME . "/.config/nvim/secret.vim" )
 endif
 
 filetype plugin indent on
+syntax enable

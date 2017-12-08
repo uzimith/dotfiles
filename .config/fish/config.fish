@@ -40,9 +40,20 @@ end
 
 set -U fish_user_paths $fish_user_paths /usr/local/opt/openssl/bin
 
+# java
+set -gx JAVA_HOME (/usr/libexec/java_home -v 1.8)
+
 
 #rbenv
 rbenv init - | source
+
+#pyenv
+set -x PATH $HOME/.pyenv/bin $PATH
+. (pyenv init - | psub)
+. (pyenv virtualenv-init - | psub)
+
+#nodebrew
+set -x PATH $HOME/.nodebrew/current/bin $PATH
 
 ##
 # alias
@@ -86,20 +97,32 @@ alias itunes="open -a iTunes"
 alias prev="open -a Preview"
 alias vlc="open -a VLC.app"
 
-##
+# seq
+alias seq1='seq -f "%01g"'
+alias seq2='seq -f "%02g"'
+alias seq3='seq -f "%03g"'
+alias seq4='seq -f "%04g"'
+
+# xpanes
+alias x-ebt='aws elasticbeanstalk describe-environments | jq -r ".Environments[] | [.EnvironmentName, .CNAME] | @tsv" | peco | cut -f 1 | xargs -I"{}" aws ec2 describe-instances --filters "Name=tag:elasticbeanstalk:environment-name,Values={}" | jq -r "[.Reservations[].Instances[].PrivateIpAddress] | map(select(.)) | .[]" | xpanes -c "ssh {}"'
+
+# aws
+alias open-ebt='aws elasticbeanstalk describe-environments | jq -r ".Environments[] | [.EnvironmentName, .ApplicationName, .EnvironmentId, .CNAME] | @tsv" | peco | awk \'{print sprintf("https://ap-northeast-1.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-1#/environment/dashboard?applicationName=%s&environmentId=%s", $2, $3)}\' | xargs open'
+
 # powerline
 ##
 
 powerline-daemon -q
 set fish_function_path $fish_function_path "/usr/local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
-function fish_mode_prompt; end # fishのmodeを非表示
+function fish_mode_prompt
+end # fishのmodeを非表示
 
-    ##
-    # mac
-    ##
+##
+# mac
+##
 
-    alias wifilist='networksetup -listallhardwareports'
-    alias wifiget='networksetup -getairportnetwork en0'
-    alias wifiset='networksetup -setairportnetwork en0'
-    alias wifipower='networksetup -setairportpower en0'
+alias wifilist='networksetup -listallhardwareports'
+alias wifiget='networksetup -getairportnetwork en0'
+alias wifiset='networksetup -setairportnetwork en0'
+alias wifipower='networksetup -setairportpower en0'

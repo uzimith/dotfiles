@@ -1,0 +1,35 @@
+inoremap jj <Esc>
+
+noremap j gj
+noremap k gk
+noremap <Down> gj
+noremap <Up>   gk
+
+noremap <Space>h  ^
+noremap <Space>l  $
+
+nnoremap Y y$
+
+" insert mode での移動
+inoremap  <C-e> <END>
+inoremap  <C-a> <HOME>
+
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <silent> <C-d> <C-g>u<Del>
+
+"<space>j, <space>kで画面送り
+noremap J <C-f>
+noremap <Space>j J
+noremap K <C-b>
+noremap <Space>k <Space>k
+
+set clipboard=unnamed
+noremap ,rr :action Run<CR>
+noremap ,rd :action Debug<CR>
+map ; :action AceTargetAction<CR>
+autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx action Macro.run_prettier
+nnoremap gcc :action CommentByLineComment<CR>
+vnoremap gc :action Macro.run_linecomment<CR>

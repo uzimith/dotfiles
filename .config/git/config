@@ -1,6 +1,6 @@
 [user]
-  name = uzimith
-  email = uzimith.x9@gmail.com
+	name = uzimith
+	email = uzimith.x9@gmail.com
 [github]
   user = uzimith
 [core]
@@ -27,7 +27,7 @@
   rh = reset --soft HEAD^
   rhh = reset --hard HEAD
   now = n
-[url "git@github.com:"]
-  pushinsteadof = https://github.com/
 [web]
 	browser = open
+[includeIf "gitdir:~/src/ghe.ca-tools.org/"]
+  path = ~/.config/git/config-work

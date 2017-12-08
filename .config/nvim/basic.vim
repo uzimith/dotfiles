@@ -35,6 +35,8 @@ set clipboard=unnamed
 set autoread
 augroup vimrc-checktime
   autocmd!
-  autocmd WinEnter * checktime
+  autocmd InsertEnter,WinEnter * checktime
 augroup END
+:command C checktime
 
+autocmd FileType javascript set formatprg=prettier\ --stdin
