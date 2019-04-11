@@ -85,3 +85,7 @@ function! MySetSearch(cmd, ...)
   let @/ = pattern
   let @" = saved_reg
 endfunction
+
+nnoremap <silent> <leader>en :lnext<CR>
+nnoremap <silent> <leader>ep :lprevious<CR>
+

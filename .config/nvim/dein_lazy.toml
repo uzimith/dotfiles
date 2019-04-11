@@ -11,12 +11,11 @@ autocmd CompleteDone * pclose!
 " let g:deoplete#enable_profile = 1
 " let g:deoplete#enable_debug = 1
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')
+set completeopt+=noselect
 let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.scala = [
-  \ '[^. *\t]\.\w*',
-  \ '[:\[,] ?\w*',
-  \ '^import .*'
-  \] 
+call deoplete#custom#option('omni_patterns', {
+  \ 'scala': ['[^.\s*\t]\.\w*', '[:\[,] ?\w*','^import .*', '[^.\s*\t]override def ']
+  \})
 '''
 
 [[plugins]]
@@ -63,11 +62,6 @@ let g:vim_json_syntax_conceal = 0
 '''
 
 [[plugins]]
-repo = 'zchee/deoplete-go'
-on_source = 'deoplete.nvim'
-build = 'make'
-
-[[plugins]]
 repo = 'Shougo/vimfiler.vim'
 depends = 'unite.vim'
 on_if = "isdirectory(bufname('%'))"
@@ -106,18 +100,14 @@ hook_source = '''
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_source = '''
-  let g:go_fmt_command = 'goimports'
+  let g:go_version_warning = 0
   let g:go_doc_keywordprg_enabled = 0
-  let g:go_fmt_fail_silently = 1
-  let s:goargs = go#package#ImportPath(expand('%:p:h'))
-  let g:neomake_go_errcheck_maker = {
-    \ 'args': ['-abspath', s:goargs],
-    \ 'append_file': 0,
-    \ 'errorformat': '%f:%l:%c:\ %m, %f:%l:%c\ %#%m',
-    \ }
-  let g:neomake_go_enabled_makers = ['golint', 'govet', 'errcheck']
+  let g:go_def_mapping_enabled = 0
 '''
 
+[[plugins]]
+on_ft = 'typescript'
+repo = 'HerringtonDarkholme/yats.vim'
 
 [[plugins]]
 on_ft = 'typescript'
@@ -126,3 +116,8 @@ repo = 'jason0x43/vim-js-indent'
 [[plugins]]
 on_ft = 'typescript'
 repo = 'mhartington/nvim-typescript'
+build = './install.sh'
+
+[[plugins]]
+on_ft = 'swift'
+repo = 'landaire/deoplete-swift'

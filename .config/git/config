@@ -18,12 +18,16 @@
   root = ~/src
 [alias]
   co = checkout
+  f = fetch -p
   s = status --short
   a = add
   c = commit
   ca = commit --amend --no-edit
-  l = pull
   p = push
+  r = rebase
+  ri = rebase -i
+  ra = rebase --abort
+  rc = rebase --continue
   rh = reset --soft HEAD^
   rhh = reset --hard HEAD
   now = n
@@ -31,3 +35,6 @@
 	browser = open
 [includeIf "gitdir:~/src/ghe.ca-tools.org/"]
   path = ~/.config/git/config-work
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+

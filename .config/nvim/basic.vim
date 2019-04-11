@@ -23,6 +23,9 @@ set incsearch
 set splitright
 set display=lastline
 set pumheight=10
+set undofile
+set undodir=~/.cache/nvim/undo
+set shell=/bin/bash
 
 " ターミナルでマウスを使用できるようにする
 set mouse=a

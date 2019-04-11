@@ -26,3 +26,8 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+.vscode
+
+.ensime
+.ensime_cache
+.idea

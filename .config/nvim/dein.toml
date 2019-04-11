@@ -136,26 +136,40 @@ call denite#custom#map('insert', '<C-k>',
 call denite#custom#map('normal', 'r',
       \ '<denite:do_action:quickfix>', 'noremap')
 
-call denite#custom#map('normal', 'hh', '<denite:insert_word:../>', 'noremap')
-call denite#custom#map('insert', 'hh', '<denite:insert_word:../>', 'noremap')
-call denite#custom#map('normal', '<C-h>', '<denite:insert_word:../>', 'noremap')
-call denite#custom#map('insert', '<C-h>', '<denite:insert_word:../>', 'noremap')
+call denite#custom#map('normal', 'hh', '<denite:move_up_path>', 'noremap')
+call denite#custom#map('insert', 'hh', '<denite:move_up_path>', 'noremap')
+call denite#custom#map('normal', '<C-h>', '<denite:move_up_path>', 'noremap')
+call denite#custom#map('insert', '<C-h>', '<denite:move_up_path>', 'noremap')
 call denite#custom#map('insert', "jj", '<denite:enter_mode:normal>')
-nnoremap <silent> s` :<C-u>Denite filetype<CR>
-nnoremap <silent> sd :<C-u>DeniteBufferDir file file:new<CR>
-nnoremap <silent> sf :<C-u>Denite file_rec file:new<CR>
-nnoremap <silent> sl :<C-u>Denite line<CR>
-nnoremap <silent> sg :<C-u>DeniteCursorWord grep<CR>
-nnoremap <silent> sG :<C-u>Denite grep<CR>
-vnoremap <silent> sg y:Denite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-nnoremap <silent> s* :<C-u>DeniteCursorWord -buffer-name=search -mode=normal line<CR>
-nnoremap <silent> sb :<C-u>Denite buffer<CR>
-nnoremap <silent> sm :<C-u>Denite file_mru<CR>
-nnoremap <silent> sy :<C-u>Denite neoyank<CR>
-nnoremap <silent> ss :<C-u>Denite -resume<CR>
+
+call denite#custom#source('filetype', 'matchers', ['matcher/substring'])
+call denite#custom#source('file', 'matchers', ['matcher/substring'])
+call denite#custom#source('file/rec', 'matchers', ['matcher/substring'])
+call denite#custom#source('file_mru', 'matchers', ['matcher/substring'])
+call denite#custom#source('grep', 'matchers', ['matcher/substring'])
+call denite#custom#source('line', 'matchers', ['matcher/substring'])
+call denite#custom#source('buffer', 'matchers', ['matcher/substring'])
+call denite#custom#source('neoyank', 'matchers', ['matcher/substring'])
+
+nnoremap <silent> s` :<C-u>Denite -split=no filetype<CR>
+nnoremap <silent> sf :<C-u>DeniteBufferDir -split=no file file:new<CR>
+nnoremap <silent> sd :<C-u>Denite -split=no file/rec file:new<CR>
+nnoremap <silent> sl :<C-u>Denite -split=no line<CR>
+nnoremap <silent> sg :<C-u>DeniteCursorWord -split=no grep<CR>
+nnoremap <silent> sG :<C-u>Denite -split=no grep<CR>
+vnoremap <silent> sg y:Denite -split=no grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+nnoremap <silent> s* :<C-u>DeniteCursorWord -split=no -buffer-name=search -mode=normal line<CR>
+nnoremap <silent> sb :<C-u>Denite -split=no buffer<CR>
+nnoremap <silent> sm :<C-u>Denite -split=no file_mru<CR>
+nnoremap <silent> sy :<C-u>Denite -split=no neoyank<CR>
+nnoremap <silent> ss :<C-u>Denite -split=no -resume<CR>
 nnoremap <silent> sn :<C-u>Denite -resume -immediately -select=+1<CR>
 nnoremap <silent> sp :<C-u>Denite -resume -immediately -select=-1<CR>
 '''
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+build = 'env PY3=ON ./install.sh'
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
@@ -219,11 +233,9 @@ let g:indent_guides_exclude_filetypes = ['help', 'vimfiler', 'unite', 'go']
 '''
 
 [[plugins]]
-repo = 'simnalamburt/vim-mundo'
+repo = 'mbbill/undotree'
 hook_add = '''
-set undofile
-set undodir=~/.cache/nvim/undo
-nnoremap U :MundoToggle<CR>
+noremap U :UndotreeToggle<CR>
 '''
 
 [[plugins]]
@@ -368,40 +380,54 @@ nnoremap <Leader>gm :<C-u>Merginal<CR>
 repo = 'mattn/emmet-vim'
 
 [[plugins]]
-repo = 'Chiel92/vim-autoformat'
+repo = 'sbdchd/neoformat'
 hook_add = '''
-" au BufWrite * :Autoformat
-autocmd FileType vim,tex,conf,yaml let b:autoformat_autoindent=0
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * Neoformat
+augroup END
+
+let g:neoformat_enabled_javascript = []
+
+let g:neoformat_scala_scalafmt = {
+  \ 'exe': 'scalafmt',
+  \ 'replace': 1,
+  \ }
+
+let g:neoformat_sbt_scalafmt = {
+  \ 'exe': 'scalafmt',
+  \ 'replace': 1,
+  \ }
+
+let g:neoformat_enabled_sbt = ['scalafmt']
 '''
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
-
-[[plugins]]
-repo = 'racer-rust/vim-racer'
 hook_add = '''
-let g:racer_cmd = '$HOME/.cargo/bin/racer'
-let g:racer_experimental_completer = 1
+" let g:rustfmt_autosave = 1
+" let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 '''
 
 [[plugins]]
 repo = 'derekwyatt/vim-scala'
 
-# [[plugins]]
-# repo = 'vim-syntastic/syntastic'
-# hook_add = '''
-# set statusline+=%#warningmsg#
-# set statusline+=%{SyntasticStatuslineFlag()}
-# set statusline+=%*
-#
-# let g:syntastic_always_populate_loc_list = 1
-# let g:syntastic_auto_loc_list = 1
-# let g:syntastic_check_on_open = 1
-# let g:syntastic_check_on_wq = 0
-# '''
-
 [[plugins]]
-repo = 'kylef/apiblueprint.vim'
+repo = 'autozimu/LanguageClient-neovim'
+build = 'bash install.sh'
+hook_add = '''
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['gopls'],
+    \ }
+
+augroup go_augroup
+  nnoremap <silent> <Leader>k :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+augroup END
+'''
 
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
@@ -411,4 +437,10 @@ nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 nmap <F5> <Plug>(JavaComplete-Imports-Add)
 nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+'''
+
+
+[[plugins]]
+repo = 'kballard/vim-swift'
+hook_add = '''
 '''

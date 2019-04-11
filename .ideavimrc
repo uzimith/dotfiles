@@ -29,7 +29,11 @@ noremap <Space>k <Space>k
 set clipboard=unnamed
 noremap ,rr :action Run<CR>
 noremap ,rd :action Debug<CR>
-map ; :action AceTargetAction<CR>
+noremap ;j :action KJumpAction.BelowLine<CR>
+noremap ;k :action KJumpAction.AboveLine<CR>
+
 autocmd BufWritePost *.js,*.jsx,*.ts,*.tsx action Macro.run_prettier
 nnoremap gcc :action CommentByLineComment<CR>
 vnoremap gc :action Macro.run_linecomment<CR>
+nnoremap ss :action SearchEverywhere<CR>
+nnoremap sm :action RecentFiles<CR>
