@@ -3,6 +3,8 @@ repo = 'Shougo/deoplete.nvim'
 depends = ['neosnippet.vim']
 on_i = 1
 hook_source = '''
+" set completeopt+=noinsert
+" set completeopt-=preview
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#enable_debug = 1
@@ -14,7 +16,8 @@ autocmd CompleteDone * pclose!
 set completeopt+=noselect
 let g:deoplete#omni#input_patterns = {}
 call deoplete#custom#option('omni_patterns', {
-  \ 'scala': ['[^.\s*\t]\.\w*', '[:\[,] ?\w*','^import .*', '[^.\s*\t]override def ']
+  \ 'scala': ['[^.\s*\t]\.\w*', '[:\[,] ?\w*','^import .*', '[^.\s*\t]override def '],
+  \ 'go': '[^. *\t]\.\w*',
   \})
 '''
 
@@ -79,24 +82,26 @@ hook_source = '''
 repo = 'fatih/vim-go'
 on_ft = 'go'
 hook_source = '''
+  let g:go_fmt_command = "goimports"
   let g:go_version_warning = 0
+  let g:go_def_mode='gopls'
+  let g:go_info_mode='gopls'
   let g:go_doc_keywordprg_enabled = 0
   let g:go_def_mapping_enabled = 0
 '''
 
 [[plugins]]
-on_ft = 'typescript'
-repo = 'HerringtonDarkholme/yats.vim'
-
-[[plugins]]
-on_ft = 'typescript'
-repo = 'jason0x43/vim-js-indent'
-
-[[plugins]]
-on_ft = 'typescript'
-repo = 'mhartington/nvim-typescript'
-build = './install.sh'
-
-[[plugins]]
 on_ft = 'swift'
 repo = 'landaire/deoplete-swift'
+#
+# [[plugins]]
+# on_ft = 'go'
+# repo = 'deoplete-plugins/deoplete-go'
+# build = 'make'
+# hook_source = '''
+# let g:deoplete#enable_at_startup = 1
+# " deoplete-go settings
+# let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+# let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+# '''
+#

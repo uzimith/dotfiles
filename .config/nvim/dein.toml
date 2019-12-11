@@ -17,20 +17,25 @@ call defx#custom#column('mark', {
       \ 'selected_icon': '✓',
       \ })
 
-nnoremap <silent> <Leader>fi :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap <silent> ,fi :Defx `expand('%:p:h')` -search=`expand('%:p')` -split=vertical -winwidth=30 -direction=topleft<CR>
+nnoremap <silent> ,ff :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+nnoremap <silent> ,fp :Defx<CR>
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> o
   \ defx#is_directory() ?
   \ defx#do_action('open_or_close_tree') :
-  \ defx#do_action('open')
+  \ defx#do_action('drop')
   nnoremap <silent><buffer><expr> c defx#do_action('copy')
   nnoremap <silent><buffer><expr> m defx#do_action('move')
   nnoremap <silent><buffer><expr> p defx#do_action('paste')
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('open')
-  nnoremap <silent><buffer><expr> e defx#do_action('open')
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+  nnoremap <silent><buffer><expr> e defx#do_action('drop')
+  nnoremap <silent><buffer><expr> E defx#do_action('open')
   nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> s defx#do_action('open', 'split')
+  nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
   nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
   nnoremap <silent><buffer><expr> N defx#do_action('new_file')
   nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
@@ -41,7 +46,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
   nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
   nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> ; defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> > defx#do_action('toggle_ignored_files')
   nnoremap <silent><buffer><expr> . defx#do_action('repeat')
   nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
   nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
@@ -50,7 +55,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
   nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
   nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
+  " nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
   nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
   nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
 endfunction
@@ -171,27 +176,50 @@ depends = ['neomru.vim', 'neoyank.vim']
 on_cmd = 'Denite'
 hook_add = '''
 if executable('rg')
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--hidden' , '--files', '--glob', '!.git'])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'default_opts',
-        \ ['--hidden', '--vimgrep', '--no-heading'])
+	call denite#custom#var('grep', 'command', ['rg'])
+	call denite#custom#var('grep', 'default_opts',
+			\ ['-i', '--vimgrep', '--no-heading'])
+	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
 endif
-call denite#custom#map('insert', '<C-j>',
-      \ '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>',
-      \ '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('normal', 'r',
-      \ '<denite:do_action:quickfix>', 'noremap')
 
-call denite#custom#map('normal', 'hh', '<denite:move_up_path>', 'noremap')
-call denite#custom#map('insert', 'hh', '<denite:move_up_path>', 'noremap')
-call denite#custom#map('normal', '<C-h>', '<denite:move_up_path>', 'noremap')
-call denite#custom#map('insert', '<C-h>', '<denite:move_up_path>', 'noremap')
-call denite#custom#map('insert', "jj", '<denite:enter_mode:normal>')
+call denite#custom#option('_', {
+            \ 'start_filter': 1,
+            \ 'split': 'floating',
+            \ 'prompt': '$ ',
+            \ 'wincol': 0,
+            \ 'winrow': 0,
+            \ 'winheight': 1000,
+            \ 'winwidth': 1000,
+            \ 'winminheight': -1,
+            \ 'highlight-filter-background': 'Normal',
+            \ 'highlight_window_background': 'Normal',
+            \ })
+
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+  call deoplete#custom#buffer_option('auto_complete', v:false)
+  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  imap <silent><buffer> jj <Plug>(denite_filter_quit)
+endfunction
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
 
 call denite#custom#source('filetype', 'matchers', ['matcher/substring'])
 call denite#custom#source('file', 'matchers', ['matcher/substring'])
@@ -202,25 +230,20 @@ call denite#custom#source('line', 'matchers', ['matcher/substring'])
 call denite#custom#source('buffer', 'matchers', ['matcher/substring'])
 call denite#custom#source('neoyank', 'matchers', ['matcher/substring'])
 
-nnoremap <silent> s` :<C-u>Denite -split=no filetype<CR>
+nnoremap <silent> s` :<C-u>Denite filetype<CR>
 nnoremap <silent> sf :<C-u>DeniteBufferDir -split=no file file:new<CR>
-nnoremap <silent> sd :<C-u>Denite -split=no file/rec file:new<CR>
-nnoremap <silent> sl :<C-u>Denite -split=no line<CR>
+nnoremap <silent> sd :<C-u>Denite file file:new<CR>
+nnoremap <silent> sl :<C-u>Denite line<CR>
 nnoremap <silent> sg :<C-u>DeniteCursorWord -split=no grep<CR>
-nnoremap <silent> sG :<C-u>Denite -split=no grep<CR>
-vnoremap <silent> sg y:Denite -split=no grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+nnoremap <silent> sG :<C-u>Denite grep<CR>
 nnoremap <silent> s* :<C-u>DeniteCursorWord -split=no -buffer-name=search -mode=normal line<CR>
-nnoremap <silent> sb :<C-u>Denite -split=no buffer<CR>
-nnoremap <silent> sm :<C-u>Denite -split=no file_mru<CR>
-nnoremap <silent> sy :<C-u>Denite -split=no neoyank<CR>
-nnoremap <silent> ss :<C-u>Denite -split=no -resume<CR>
+nnoremap <silent> sb :<C-u>Denite buffer<CR>
+nnoremap <silent> sm :<C-u>Denite file_mru<CR>
+nnoremap <silent> sy :<C-u>Denite neoyank<CR>
+nnoremap <silent> ss :<C-u>Denite -resume<CR>
 nnoremap <silent> sn :<C-u>Denite -resume -immediately -select=+1<CR>
 nnoremap <silent> sp :<C-u>Denite -resume -immediately -select=-1<CR>
 '''
-
-[[plugins]]
-repo = 'nixprime/cpsm'
-build = 'env PY3=ON ./install.sh'
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
@@ -440,23 +463,19 @@ augroup END
 
 let g:neoformat_enabled_javascript = []
 
-let g:neoformat_scala_scalafmt = {
-  \ 'exe': 'scalafmt',
-  \ 'replace': 1,
+let g:neoformat_typescriptreact_prettier = {
+  \ 'exe': 'prettier',
+  \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
+  \ 'stdin': 1
   \ }
 
-let g:neoformat_sbt_scalafmt = {
-  \ 'exe': 'scalafmt',
-  \ 'replace': 1,
-  \ }
-
-let g:neoformat_enabled_sbt = ['scalafmt']
+let g:neoformat_enabled_typescriptreact = ['prettier']
 '''
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 hook_add = '''
-" let g:rustfmt_autosave = 1
+" let g:rustfmt_autosave = 0
 " let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 '''
 
@@ -465,19 +484,45 @@ repo = 'derekwyatt/vim-scala'
 
 [[plugins]]
 repo = 'autozimu/LanguageClient-neovim'
+branch = 'next'
 build = 'bash install.sh'
 hook_add = '''
+let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['gopls'],
+    \ 'cpp': ['clangd'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'typescriptreact': ['typescript-language-server', '--stdio'],
     \ }
+" let g:LanguageClient_loggingLevel = 'DEBUG'
+" let g:LanguageClient_loggingFile =  expand('LanguageClient.log') 
+" let g:LanguageClient_waitOutputTimeout = 30
+let g:LanguageClient_hoverPreview = "Always"
 
-augroup go_augroup
-  nnoremap <silent> <Leader>k :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+augroup LanguageClient_config
+  autocmd!
+  autocmd User LanguageClientStopped call LanguageClient#startServer()
 augroup END
+
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    " nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+  endif
+endfunction
+
+autocmd FileType * call LC_maps()
+autocmd BufRead * call LanguageClient#exit()
+
+autocmd FileType typescript call s:lc_my_settings()
+function! s:lc_my_settings() abort
+    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+endfunction
+
 '''
 
 [[plugins]]
@@ -490,8 +535,12 @@ nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
 nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
 '''
 
-
 [[plugins]]
 repo = 'kballard/vim-swift'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'hashivim/vim-terraform'
 hook_add = '''
 '''
