@@ -1,3 +1,4 @@
+set termguicolors
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,cp932,euc-jp,shift-jis,default,latin
@@ -23,9 +24,11 @@ set incsearch
 set splitright
 set display=lastline
 set pumheight=10
+set pumblend=20 
 set undofile
 set undodir=~/.cache/nvim/undo
 set shell=/bin/bash
+set showtabline=2 " 常にタブラインを表示
 
 " ターミナルでマウスを使用できるようにする
 set mouse=a
@@ -41,5 +44,3 @@ augroup vimrc-checktime
   autocmd InsertEnter,WinEnter * checktime
 augroup END
 :command C checktime
-
-autocmd FileType javascript set formatprg=prettier\ --stdin

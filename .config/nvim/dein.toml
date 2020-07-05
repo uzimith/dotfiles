@@ -62,14 +62,10 @@ endfunction
 '''
 
 [[plugins]]
-repo = 'altercation/vim-colors-solarized'
+repo = 'iCyMind/NeoSolarized'
 hook_add = '''
-let g:solarized_termtrans=1
-set background=dark
-colorscheme solarized
-'''
-hook_source = '''
-colorscheme solarized
+au ColorScheme * hi Normal ctermbg=none guibg=none
+colorscheme NeoSolarized
 '''
 
 [[plugins]]
@@ -354,7 +350,7 @@ depends = ['vim-textobj-user']
 repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_change_directory_for_non_project_files = 'home'
-let g:rooter_patterns = ['build.gradle', 'Rakefile', 'tsconfig.json', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+let g:rooter_patterns = ['go.mod', 'build.gradle', 'Rakefile', 'tsconfig.json', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
 '''
 
 [[plugins]]
@@ -470,6 +466,12 @@ let g:neoformat_typescriptreact_prettier = {
   \ }
 
 let g:neoformat_enabled_typescriptreact = ['prettier']
+
+let g:neoformat_go_goreturns = {
+  \ 'exe': 'goreturns',
+  \ 'stdin': 1,
+  \ }
+let g:neoformat_enabled_go = ['goreturns']
 '''
 
 [[plugins]]
@@ -495,16 +497,18 @@ let g:LanguageClient_serverCommands = {
     \ 'cpp': ['clangd'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'typescriptreact': ['typescript-language-server', '--stdio'],
+    \ 'dart': ['~/flutter/bin/cache/dart-sdk/bin/dart', '~/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp', "--client-id", 'vim', '--client-version','LnaguageClient'],
+    \ }
+let g:LanguageClient_rootMarkers = {
+    \ 'rust': ['Cargo.toml'],
+    \ 'go': ['go.mod'],
+    \ 'typescript': ['tsconfig.json'],
+    \ 'dart': ['pubspec.yaml'],
     \ }
 " let g:LanguageClient_loggingLevel = 'DEBUG'
 " let g:LanguageClient_loggingFile =  expand('LanguageClient.log') 
 " let g:LanguageClient_waitOutputTimeout = 30
 let g:LanguageClient_hoverPreview = "Always"
-
-augroup LanguageClient_config
-  autocmd!
-  autocmd User LanguageClientStopped call LanguageClient#startServer()
-augroup END
 
 function LC_maps()
   if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -515,13 +519,12 @@ function LC_maps()
 endfunction
 
 autocmd FileType * call LC_maps()
-autocmd BufRead * call LanguageClient#exit()
 
-autocmd FileType typescript call s:lc_my_settings()
-function! s:lc_my_settings() abort
-    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-endfunction
+" autocmd FileType typescript call s:lc_my_settings()
+" function! s:lc_my_settings() abort
+"     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+"     nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" endfunction
 
 '''
 
@@ -543,4 +546,19 @@ hook_add = '''
 [[plugins]]
 repo = 'hashivim/vim-terraform'
 hook_add = '''
+'''
+
+[[plugins]]
+repo = 'dart-lang/dart-vim-plugin'
+hook_add = '''
+'''
+
+[[plugins]]
+repo = 'thosakwe/vim-flutter'
+hook_add = '''
+nnoremap <leader>fa :FlutterRun<cr>
+nnoremap <leader>fq :FlutterQuit<cr>
+nnoremap <leader>fr :FlutterHotReload<cr>
+nnoremap <leader>fR :FlutterHotRestart<cr>
+nnoremap <leader>fD :FlutterVisualDebug<cr>
 '''

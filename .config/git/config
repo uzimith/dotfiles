@@ -21,20 +21,26 @@
   f = fetch -p
   s = status --short
   a = add
+  m = merge
   c = commit
   ca = commit --amend --no-edit
   p = push
-  r = rebase
   ri = rebase -i
   ra = rebase --abort
   rc = rebase --continue
-  rh = reset --soft HEAD^
-  rhh = reset --hard HEAD
+  r = reset
+  rs = reset --soft HEAD^
+  rh = reset --hard HEAD
   now = n
+  empty = commit --allow-empty 
 [web]
 	browser = open
-[includeIf "gitdir:~/src/ghe.ca-tools.org/"]
-  path = ~/.config/git/config-work
+[include]
+  path = ~/.config/git/config-secret
 [url "git@github.com:"]
 	insteadOf = https://github.com/
-
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

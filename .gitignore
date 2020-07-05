@@ -9,9 +9,14 @@ __*.fish
 .config/gcloud
 .config/yarn
 .config/configstore
+.config/gh
 .netrwhist
 .gitconfig
 .home
+bin
+powerline
+.config/karabiner/automatic_backups
+.config/git/config-*
 
 # fisherman
 .config/fisherman

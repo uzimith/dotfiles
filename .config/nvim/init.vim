@@ -2,8 +2,14 @@
 " filetype plugin indent off
 filetype plugin indent on
 
-let g:python_host_prog = expand('/usr/local/bin/python')
-let g:python3_host_prog = expand('/usr/local/bin/python3')
+if has("mac")
+  let g:python3_host_prog = expand('/usr/local/bin/python')
+elseif has("unix")
+  let g:python3_host_prog = expand('/usr/bin/python')
+elseif has("win64")
+elseif has("win32unix")
+elseif has("win32")
+endif
 
 source ~/.config/nvim/basic.vim
 source ~/.config/nvim/apperance.vim

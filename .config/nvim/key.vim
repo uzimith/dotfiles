@@ -50,7 +50,6 @@ vnoremap v $h
 
 " タブ
 noremap tc :tabnew<CR>
-set showtabline=2 " 常にタブラインを表示
 
 " 検索
 nnoremap <Leader>cd :lcd %:h<CR>
