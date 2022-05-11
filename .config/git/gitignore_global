@@ -31,3 +31,4 @@ Temporary Items
 .ensime
 .ensime_cache
 .idea
+.rgignore
