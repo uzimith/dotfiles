@@ -88,3 +88,6 @@ endfunction
 nnoremap <silent> <leader>en :lnext<CR>
 nnoremap <silent> <leader>ep :lprevious<CR>
 
+nnoremap <silent> c. q:k<Cr>
+
+cnoremap w!! w !sudo tee > /dev/null %<CR> :e!<CR>

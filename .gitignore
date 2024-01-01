@@ -3,6 +3,7 @@ tags
 .sync
 fishd.*
 __*.fish
+.config/coc
 .config/fish/functions/fisher.fish
 .config/hub
 .config/wireshark

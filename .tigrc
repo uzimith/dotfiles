@@ -17,7 +17,7 @@ bind status m :enter
 bind status P !git push origin
 bind status <Ctrl-a> !@git add -A
 bind status C !@git commit -m %(prompt)
-bind status A !@git commit --amend
+bind status A !@git commit --amend --no-edit
 bind status <Ctrl-!> !@?rm %(file)
 bind stage n :next
 bind stage p :previous

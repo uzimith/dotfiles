@@ -3,7 +3,7 @@
 filetype plugin indent on
 
 if has("mac")
-  let g:python3_host_prog = expand('/usr/local/bin/python')
+  let g:python3_host_prog = expand('/opt/homebrew/bin/python3')
 elseif has("unix")
   let g:python3_host_prog = expand('/usr/bin/python')
 elseif has("win64")

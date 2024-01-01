@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # dotfiles
-DOT_FILES=(.config .tmux.conf .ssh bin .tigrc)
+DOT_FILES=(.config .tmux.conf .ssh bin .tigrc .hammerspoon)
 
 ln -s $HOME/dotfiles/$file $HOME/$file
 
@@ -12,6 +12,3 @@ do
 done
 
 chmod ~/.ssh/* 600
-git clone git://github.com/powerline/powerline
-pip install git+git://github.com/powerline/powerline
-pip install neovim

@@ -1,0 +1,6 @@
+{
+  "gopls": {
+    "build.buildFlags": ["-tags=integration"]
+  },
+  "vetur.experimental.templateInterpolationService": false
+}

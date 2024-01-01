@@ -9,9 +9,9 @@ function fish_user_key_bindings
     end
 
     bind -M default -m default sk peco_kill
-    bind -M default -m insert sg peco_select_repository
-    bind -M default -m insert sG peco_open_repository
-    bind -M default -m insert sr peco_recent_directory
+    bind -M default -m insert sr peco_select_repository
+    bind -M default -m insert sR peco_open_repository
+    bind -M default -m insert sh peco_recent_directory
     bind -M default -m insert sm peco_select_history
     bind -M default -m insert sc telmapp_ca_id
     bind -M default -m default 's*' peco_ripgrep_vim

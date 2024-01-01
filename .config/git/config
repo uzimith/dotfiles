@@ -4,7 +4,7 @@
 [github]
   user = uzimith
 [core]
-  editor = vim
+  editor = nvim
   excludesFile = ~/.config/git/gitignore_global
 [push]
   default = simple
@@ -15,7 +15,7 @@
 [hub]
   protocol = https
 [ghq]
-  root = ~/src
+	root = ~/src
 [alias]
   co = checkout
   f = fetch -p
@@ -33,6 +33,7 @@
   rh = reset --hard HEAD
   now = n
   empty = commit --allow-empty 
+	pf = push --force-with-lease
 [web]
 	browser = open
 [include]

@@ -9,9 +9,7 @@ ulimit -n 4096
 ##
 
 # homebrew
-set -gx PATH /usr/local/bin $PATH
-set -gx PATH /usr/local/sbin $PATH
-set -gx PATH /usr/local/opt/bison/bin $PATH
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # clang
 set -gx PATH /usr/local/opt/llvm/bin $PATH
@@ -86,6 +84,11 @@ alias ta='tig --all'
 alias ts='tig status'
 alias gd='git branch --merged | grep -v \'*\' | xargs git branch -d'
 
+# kubectl
+alias k='kubectl'
+alias kc='kubectx | peco | xargs kubectx'
+alias kn='kubens | peco | xargs kubens'
+
 # util
 alias cat='bat --paging=never'
 
@@ -121,3 +124,7 @@ switch (uname)
         source $HOME/.config/fish/mac.fish
 end
 source $HOME/.config/fish/secret.fish
+
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+source /opt/homebrew/opt/asdf/share/fish/vendor_completions.d/asdf.fish
+source "$HOME/.rye/env.fish"

@@ -62,10 +62,17 @@ endfunction
 '''
 
 [[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+
+[[plugins]]
 repo = 'iCyMind/NeoSolarized'
 hook_add = '''
 au ColorScheme * hi Normal ctermbg=none guibg=none
 colorscheme NeoSolarized
+set background=light
 '''
 
 [[plugins]]
@@ -174,7 +181,7 @@ hook_add = '''
 if executable('rg')
 	call denite#custom#var('grep', 'command', ['rg'])
 	call denite#custom#var('grep', 'default_opts',
-			\ ['-i', '--vimgrep', '--no-heading'])
+			\ ['-i', '--vimgrep', '--no-heading', '--hidden'])
 	call denite#custom#var('grep', 'recursive_opts', [])
 	call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 	call denite#custom#var('grep', 'separator', ['--'])
@@ -183,13 +190,12 @@ endif
 
 call denite#custom#option('_', {
             \ 'start_filter': 1,
-            \ 'split': 'floating',
+            \ 'auto_resize': 1,
+            \ 'vertical_preview': 1,
+            \ 'split': 'no',
             \ 'prompt': '$ ',
-            \ 'wincol': 0,
-            \ 'winrow': 0,
-            \ 'winheight': 1000,
-            \ 'winwidth': 1000,
             \ 'winminheight': -1,
+            \ 'preview_width': 100,
             \ 'highlight-filter-background': 'Normal',
             \ 'highlight_window_background': 'Normal',
             \ })
@@ -198,53 +204,109 @@ autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
   call deoplete#custom#buffer_option('auto_complete', v:false)
   inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  imap <silent><buffer> jj <Plug>(denite_filter_quit)
+  imap <silent><buffer> jj <Plug>(denite_filter_update)
+
+  nnoremap <silent><buffer> <C-b> :<C-u>call <SID>denite_quickfix()<CR>
+	function! s:denite_quickfix()
+	  call denite#call_map('toggle_select_all')
+	  call denite#call_map('do_action', 'qfreplace')
+	endfunction
+endfunction
+
+function! MyDeniteReplace(context)
+  let qflist = []
+  for target in a:context['targets']
+    if !has_key(target, 'action__path') | continue | endif
+    if !has_key(target, 'action__line') | continue | endif
+    if !has_key(target, 'action__text') | continue | endif
+
+    call add(qflist, {
+          \ 'filename': target['action__path'],
+          \ 'lnum': target['action__line'],
+          \ 'text': target['action__text']
+          \ })
+  endfor
+  call setqflist(qflist)
+  call qfreplace#start('')
+endfunction
+call denite#custom#action('file', 'qfreplace', 'MyDeniteReplace')
+
+function! s:denite_qfreplace()
+  call denite#call_map('toggle_select_all')
+  call denite#call_map('do_action', 'qfreplace')
 endfunction
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR>
   \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> d
-  \ denite#do_map('do_action', 'delete')
   nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
+  \ denite#do_map('toggle_auto_action', 'preview_bat')
   nnoremap <silent><buffer><expr> q
   \ denite#do_map('quit')
   nnoremap <silent><buffer><expr> i
   \ denite#do_map('open_filter_buffer')
   nnoremap <silent><buffer><expr> <Space>
-  \ denite#do_map('toggle_select').'j'
+  \ denite#do_map('toggle_select')
+  nnoremap <silent><buffer><expr> h
+  \ denite#do_map('move_up_path')
+  nnoremap <silent><buffer> f
+  \ :<C-u>call <SID>denite_qfreplace()<CR>
 endfunction
 
 call denite#custom#source('filetype', 'matchers', ['matcher/substring'])
 call denite#custom#source('file', 'matchers', ['matcher/substring'])
 call denite#custom#source('file/rec', 'matchers', ['matcher/substring'])
-call denite#custom#source('file_mru', 'matchers', ['matcher/substring'])
+call denite#custom#source('file_mru', 'matchers', ['matcher/substring', 'matcher/project_files'])
+" call denite#custom#source('file_mru', 'matchers', ['matcher/substring'])
 call denite#custom#source('grep', 'matchers', ['matcher/substring'])
 call denite#custom#source('line', 'matchers', ['matcher/substring'])
 call denite#custom#source('buffer', 'matchers', ['matcher/substring'])
 call denite#custom#source('neoyank', 'matchers', ['matcher/substring'])
 
+function! DeniteRepository()
+  call LanguageClient#shutdown()
+  call denite#helper#call_denite('Denite', 'ghq -default-action=cd', '', '')
+endfunction
+
 nnoremap <silent> s` :<C-u>Denite filetype<CR>
-nnoremap <silent> sf :<C-u>DeniteBufferDir -split=no file file:new<CR>
-nnoremap <silent> sd :<C-u>Denite file file:new<CR>
+nnoremap <silent> sf :<C-u>DeniteBufferDir -no-start_filter file file:hidden file:new<CR>
+nnoremap <silent> sd :<C-u>DeniteProjectDir -no-start_filter file file:hidden file:new<CR>
 nnoremap <silent> sl :<C-u>Denite line<CR>
-nnoremap <silent> sg :<C-u>DeniteCursorWord -split=no grep<CR>
+nnoremap <silent> sg :<C-u>DeniteCursorWord grep<CR>
 nnoremap <silent> sG :<C-u>Denite grep<CR>
-nnoremap <silent> s* :<C-u>DeniteCursorWord -split=no -buffer-name=search -mode=normal line<CR>
+nnoremap <silent> s* :<C-u>DeniteCursorWord -buffer-name=search -mode=normal line<CR>
 nnoremap <silent> sb :<C-u>Denite buffer<CR>
 nnoremap <silent> sm :<C-u>Denite file_mru<CR>
+nnoremap <silent> sM :<C-u>Denite -matchers=matcher/substring file_mru<CR>
 nnoremap <silent> sy :<C-u>Denite neoyank<CR>
+nnoremap <silent> sq :<C-u>Denite quickfix<CR>
+nnoremap <silent> sr :<C-u>call DeniteRepository()<CR>
 nnoremap <silent> ss :<C-u>Denite -resume<CR>
-nnoremap <silent> sn :<C-u>Denite -resume -immediately -select=+1<CR>
-nnoremap <silent> sp :<C-u>Denite -resume -immediately -select=-1<CR>
+nnoremap <silent> sn :<C-u>Denite -resume -immediately -cursor-pos=+1<CR>
+nnoremap <silent> sp :<C-u>Denite -resume -immediately -cursor-pos=-1<CR>
 '''
+
+[[plugins]]
+repo = 'neoclide/denite-extra'
+
+[[plugins]]
+repo = 'Jagua/vim-denite-ghq'
+
 
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
-
+hook_add = '''
+let g:precious_enable_switchers = {
+\	"*" : {
+\		"setfiletype" : 1
+\	},
+\	"vue" : {
+\		"setfiletype" : 0
+\	},
+\}
+'''
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 
@@ -305,7 +367,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'defx']
 [[plugins]]
 repo = 'mbbill/undotree'
 hook_add = '''
-noremap U :UndotreeToggle<CR>
+nnoremap U :UndotreeToggle<CR>
 '''
 
 [[plugins]]
@@ -351,14 +413,8 @@ repo = 'airblade/vim-rooter'
 hook_add = '''
 let g:rooter_change_directory_for_non_project_files = 'home'
 let g:rooter_patterns = ['go.mod', 'build.gradle', 'Rakefile', 'tsconfig.json', '.git', '.git/', '_darcs/', '.hg/', '.bzr/', '.svn/']
+let g:rooter_cd_cmd = 'lcd'
 '''
-
-[[plugins]]
-repo = 'neomake/neomake'
-hook_add = '''
-call neomake#configure#automake('w')
-'''
-
 
 [[plugins]]
 repo = 'christoomey/vim-tmux-navigator'
@@ -442,7 +498,7 @@ nnoremap <Leader>gr :<C-u>Gread<CR>
 nnoremap <Leader>gc :<C-u>Gcommit<CR>
 nnoremap <Leader>gC :<C-u>Git commit --amend<CR>
 nnoremap <Leader>gp :<C-u>Git push<CR>
-nnoremap <Leader>gb :<C-u>Gblame<CR>
+nnoremap <Leader>gb :<C-u>Git blame<CR>
 nnoremap <Leader>gm :<C-u>Merginal<CR>
 '''
 
@@ -450,83 +506,77 @@ nnoremap <Leader>gm :<C-u>Merginal<CR>
 repo = 'mattn/emmet-vim'
 
 [[plugins]]
-repo = 'sbdchd/neoformat'
-hook_add = '''
-augroup fmt
-  autocmd!
-  autocmd BufWritePre * Neoformat
-augroup END
-
-let g:neoformat_enabled_javascript = []
-
-let g:neoformat_typescriptreact_prettier = {
-  \ 'exe': 'prettier',
-  \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
-  \ 'stdin': 1
-  \ }
-
-let g:neoformat_enabled_typescriptreact = ['prettier']
-
-let g:neoformat_go_goreturns = {
-  \ 'exe': 'goreturns',
-  \ 'stdin': 1,
-  \ }
-let g:neoformat_enabled_go = ['goreturns']
-'''
-
-[[plugins]]
 repo = 'rust-lang/rust.vim'
 hook_add = '''
-" let g:rustfmt_autosave = 0
-" let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
+let g:rustfmt_autosave = 1
+let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 '''
 
 [[plugins]]
 repo = 'derekwyatt/vim-scala'
 
 [[plugins]]
-repo = 'autozimu/LanguageClient-neovim'
-branch = 'next'
-build = 'bash install.sh'
+repo = 'neoclide/coc.nvim'
+branch = 'release'
+build = 'yarn install --frozen-lockfile'
 hook_add = '''
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'go': ['gopls'],
-    \ 'cpp': ['clangd'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'typescriptreact': ['typescript-language-server', '--stdio'],
-    \ 'dart': ['~/flutter/bin/cache/dart-sdk/bin/dart', '~/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp', "--client-id", 'vim', '--client-version','LnaguageClient'],
-    \ }
-let g:LanguageClient_rootMarkers = {
-    \ 'rust': ['Cargo.toml'],
-    \ 'go': ['go.mod'],
-    \ 'typescript': ['tsconfig.json'],
-    \ 'dart': ['pubspec.yaml'],
-    \ }
-" let g:LanguageClient_loggingLevel = 'DEBUG'
-" let g:LanguageClient_loggingFile =  expand('LanguageClient.log') 
-" let g:LanguageClient_waitOutputTimeout = 30
-let g:LanguageClient_hoverPreview = "Always"
-
-function LC_maps()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    " nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<cr>
-    nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-  endif
-endfunction
-
-autocmd FileType * call LC_maps()
-
-" autocmd FileType typescript call s:lc_my_settings()
-" function! s:lc_my_settings() abort
-"     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-"     nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" endfunction
-
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 '''
+
+# [[plugins]]
+# repo = 'autozimu/LanguageClient-neovim'
+# branch = 'next'
+# build = 'bash install.sh'
+# hook_add = '''
+# let g:LanguageClient_loadSettings = 1
+# let g:LanguageClient_autoStart = 1
+# let g:LanguageClient_serverCommands = {
+#     \ 'rust': ['rust-analyzer'],
+#     \ 'go': ['gopls'],
+#     \ 'python': ['pylsp'],
+#     \ 'cpp': ['clangd'],
+#     \ 'typescript': ['typescript-language-server', '--stdio'],
+#     \ 'typescriptreact': ['typescript-language-server', '--stdio'],
+#     \ 'vue': ['vls'],
+#     \ 'dart': ['~/flutter/bin/cache/dart-sdk/bin/dart', '~/flutter/bin/cache/dart-sdk/bin/snapshots/analysis_server.dart.snapshot', '--lsp', "--client-id", 'vim', '--client-version','LnaguageClient'],
+#     \ }
+# let g:LanguageClient_rootMarkers = {
+#     \ 'rust': ['Cargo.toml'],
+#     \ 'go': ['go.mod'],
+#     \ 'typescript': ['tsconfig.json'],
+#     \ 'dart': ['pubspec.yaml'],
+#     \ }
+# let g:LanguageClient_hoverPreview = "Always"
+# let g:LanguageClient_selectionUI = 'quickfix'
+# let g:LanguageClient_diagnosticsEnable = 1
+# let g:LanguageClient_diagnosticsMaxSeverity = "Error"
+#
+# function LC_maps()
+#   if has_key(g:LanguageClient_serverCommands, &filetype)
+#     nmap <F5> <Plug>(lcn-menu)
+#     nnoremap <buffer> <silent> gk :call LanguageClient#textDocument_hover()<cr>
+#     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+#     nnoremap rn :call LanguageClient#textDocument_rename()<CR>
+#   endif
+# endfunction
+# autocmd FileType * call LC_maps()
+#
+# function! YourStatusLineMessage() abort
+#   let l:diagnosticsDict = LanguageClient#statusLineDiagnosticsCounts()
+#   let l:errors = get(l:diagnosticsDict,'E',0)
+#   let l:warnings = get(l:diagnosticsDict,'W',0)
+#   let l:informations = get(l:diagnosticsDict,'I',0)
+#   let l:hints = get(l:diagnosticsDict,'H',0)
+#   return l:errors + l:warnings + l:informations + l:hints == 0 ? "✔ " : "E:" . l:errors . " " . "W :" . l:warnings . "I:" . l:informations . " " . "H:" . l:hints
+# endfunction
+#
+# let g:LanguageClient_loggingFile = expand('~/.cache/LanguageClient.log')
+# let g:LanguageClient_settingsPath = expand('~/.config/nvim/settings.json')
+# let g:LanguageClient_usePopupHover = 0
+# '''
 
 [[plugins]]
 repo = 'artur-shaik/vim-javacomplete2'
@@ -561,4 +611,50 @@ nnoremap <leader>fq :FlutterQuit<cr>
 nnoremap <leader>fr :FlutterHotReload<cr>
 nnoremap <leader>fR :FlutterHotRestart<cr>
 nnoremap <leader>fD :FlutterVisualDebug<cr>
+'''
+
+# [[plugins]]
+# repo = 'dense-analysis/ale'
+# hook_add = '''
+# let g:ale_fixers = {
+# \   'javascript': ['prettier'],
+# \   'typescript': ['prettier'],
+# \   'typescriptreact': ['prettier'],
+# \   'html': ['prettier'],
+# \   'vue': ['prettier'],
+# \   'json': ['prettier'],
+# \   'go': ['goimports'],
+# \   'rust': ['rustfmt'],
+# \}
+#
+# let g:ale_rustfmt_executable = '$HOME/.cargo/bin/rustfmt'
+# let g:ale_disable_lsp = 1 
+# let g:ale_fix_on_save = 1
+# let g:ale_go_gofmt_options = "-local github.com/abema"
+# '''
+
+
+[[plugins]]
+repo = 'bfredl/nvim-miniyank'
+hook_add = '''
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+'''
+
+[[plugins]]
+repo = 'luochen1990/rainbow'
+hook_add = '''
+let g:rainbow_active = 1
+'''
+
+[[plugins]]
+repo = 'posva/vim-vue'
+
+[[plugins]]
+repo = 'mechatroner/rainbow_csv'
+
+[[plugins]]
+repo = 'vim-python/python-syntax'
+hook_add = '''
+let g:python_highlight_all = 1
 '''

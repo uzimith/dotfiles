@@ -21,9 +21,9 @@ depends = ['neosnippet-snippets', 'context_filetype.vim']
 on_i = 1
 on_ft = 'snippet'
 hook_source = '''
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
+  imap <C-y>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-y>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-y>     <Plug>(neosnippet_expand_target)
   smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
   \ "\<Plug>(neosnippet_expand_or_jump)"
   \: "\<TAB>"
@@ -41,14 +41,8 @@ endif
 '''
 
 [[plugins]]
-repo = 'Shougo/neomru.vim'
-
-[[plugins]]
-repo = 'Shougo/neoyank.vim'
-
-[[plugins]]
 repo = 'Shougo/unite.vim'
-epends = 'neomru.vim'
+depends = 'neomru.vim'
 on_source = 'denite.nvim'
 
 [[plugins]]
@@ -73,29 +67,5 @@ hook_source = '''
 '''
 
 [[plugins]]
-repo = 'fatih/vim-go'
-on_ft = 'go'
-hook_source = '''
-  let g:go_fmt_command = "goimports"
-  let g:go_version_warning = 0
-  let g:go_def_mode='gopls'
-  let g:go_info_mode='gopls'
-  let g:go_doc_keywordprg_enabled = 0
-  let g:go_def_mapping_enabled = 0
-'''
-
-[[plugins]]
 on_ft = 'swift'
 repo = 'landaire/deoplete-swift'
-#
-# [[plugins]]
-# on_ft = 'go'
-# repo = 'deoplete-plugins/deoplete-go'
-# build = 'make'
-# hook_source = '''
-# let g:deoplete#enable_at_startup = 1
-# " deoplete-go settings
-# let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-# let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-# '''
-#

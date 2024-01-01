@@ -2,7 +2,7 @@ function fish_notify --on-event fish_prompt
     set _display_status $status
     if test $CMD_DURATION
         set secs (math "$CMD_DURATION / 1000")
-        if test $secs -ge 10
+        if test $secs -ge 30
             switch (uname)
                 case Linux
                     # WSL
