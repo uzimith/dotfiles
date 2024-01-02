@@ -4,6 +4,8 @@ tags
 fishd.*
 __*.fish
 .config/coc
+.config/github-copilot
+.config/iTerm2
 .config/fish/functions/fisher.fish
 .config/hub
 .config/wireshark
