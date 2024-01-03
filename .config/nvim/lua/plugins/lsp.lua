@@ -62,10 +62,6 @@ return {
             },
             }
 
-        -- efm
-        elseif server == "efm" then
-            opts = vim.tbl_deep_extend("force", opts, efm_opts())
-
         -- emmet
             elseif server == "emmet_language_server" then
             opts.filetypes = { "html", "css", "scss", "sass", "less" }
@@ -85,7 +81,7 @@ return {
 
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gK', vim.lsp.buf.hover, opts)
         vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
         vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)

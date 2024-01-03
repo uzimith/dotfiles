@@ -11,7 +11,9 @@ return {
       "Shougo/ddc-source-around",
       "Shougo/ddc-source-lsp",
       "Shougo/ddc-source-cmdline",
+      "Shougo/ddc-source-cmdline-history",
       "LumaKernel/ddc-source-file",
+      "Shougo/ddc-source-line",
       -- Filter
       "Shougo/ddc-filter-matcher_head",
       "Shougo/ddc-filter-sorter_rank",
@@ -41,11 +43,13 @@ return {
 
         patch_global("cmdlineSources", {
             [":"] = {
+                "cmdline-history",
                 "cmdline",
                 "around",
             },
             ["/"] = {
                 "around",
+                "line",
             },
             ["?"] = {
                 "around",
@@ -64,16 +68,19 @@ return {
               mark = "[A]",
             },
             lsp = {
-              mark = "[LS]",
+              mark = "[LSP]",
               dup = "keep",
               keywordPattern = "[a-zA-Z0-9_À-ÿ$#\\-*]*",
               forceCompletionPattern = [[\.\w*|:\w*|->\w*]],
               sorters = { "sorter_lsp-kind", "sorter_rank" },
             },
             file = {
-              mark = "[F]",
+              mark = "[FILE]",
               isVolatile = true,
               forceCompletionPattern = [[\S/\S*]],
+            },
+            line = {
+              mark = "[LINE]",
             },
             cmdline = {
               mark = "[CMD]",
@@ -82,12 +89,15 @@ return {
               mark = "[HIST]",
             },
           })
-    
+
         patch_global("sourceParams", {
             lsp = {
                 enableResolveItem = true,
                 enableAdditionalTextEdit = true,
                 confirmBehavior = "replace",
+            },
+            line = {
+                maxSize = 1000,
             },
         })
 
@@ -101,25 +111,27 @@ return {
       vim.fn["pum#set_option"]({
         auto_select = true,
         padding = true,
-        border = "single",
+        border = "none",
         preview = false,
         scrollbar_char = "▋",
         highlight_normal_menu = "Normal",
       })
-      local opts = { silent = true, noremap = true }
-      vim.keymap.set('i', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('i', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      vim.keymap.set('i', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
-      vim.keymap.set('i', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
-      
-      vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
-      vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
+      -- local opts = { silent = true, noremap = true}
+      local opts = { noremap = true}
+      vim.keymap.set('i', '<C-n>', function() vim.fn["pum#map#select_relative"](1) end, opts)
+      vim.keymap.set('i', '<Down>', function() vim.fn["pum#map#select_relative"](1) end, opts)
+      vim.keymap.set('i', '<C-p>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
+      vim.keymap.set('i', '<Up>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
+      vim.keymap.set('i', '<C-y>', function() vim.fn["pum#map#confirm"]() end, opts)
+      vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
+      -- vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
+      -- vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      -- vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
+      -- vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      -- vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
+      -- vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
     end,
-  },  
+  },
   {
     "uga-rosa/ddc-previewer-floating",
     config = function()
