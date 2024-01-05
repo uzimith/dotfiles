@@ -38,11 +38,13 @@ return {
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu lsp_diagnostic<CR>", opts)
       vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
-      vim.keymap.set('n', 'sg', function() vim.fn["ddu#start"]({name = 'grep', input = vim.fn.expand('<cword>')}) end, opts)
+      vim.keymap.set('n', 'sg', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
+        opts)
       vim.keymap.set("n", "sG", '<Cmd>Ddu -name=grep<CR>', opts)
       vim.keymap.set("n", "sD", "<Cmd>Ddu anyjump_definition<CR>", opts)
       vim.keymap.set("n", "sR", "<Cmd>Ddu anyjump_reference<CR>", opts)
       vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu command_history<CR>]], opts)
+      vim.keymap.set("n", "sF", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
     end,
     config = function()
@@ -74,6 +76,7 @@ return {
               previewHeight = win_height - 2,
               previewCol = math.floor(width / 2) - 2,
               previewRow = top + 1,
+              startFilter = true,
             },
             filer = {
               winWidth = 30,
@@ -192,13 +195,13 @@ return {
           },
         },
         actionOptions = {
-          _ = {
-            quit = false,
-          },
+          -- _ = {
+          --   quit = false,
+          -- },
         },
         actionParams = {
           open = {
-            command = 'open',
+            command = 'edit',
           },
         },
       })
@@ -210,8 +213,10 @@ return {
       local common_keymaps = function()
         vim.wo.cursorline = true
         vim.keymap.set("n", "<CR>", '<Cmd>call ddu#ui#do_action("itemAction")<CR>', opts)
-        vim.keymap.set("n", "os", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "split"}})<CR>', opts)
-        vim.keymap.set("n", "ov", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "vsplit"}})<CR>', opts)
+        vim.keymap.set("n", "os",
+          '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "split"}})<CR>', opts)
+        vim.keymap.set("n", "ov",
+          '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "vsplit"}})<CR>', opts)
         vim.keymap.set("n", "<SPACE>", '<Cmd>call ddu#ui#do_action("toggleSelectItem")<CR>', opts)
         vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
@@ -236,9 +241,12 @@ return {
              \ ? "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>"
              \ : "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'open'})<CR>"]])
           vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
-          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#filer#do_action"]('expandItem', {mode = 'toggle'}) end, opts)
-          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#filer#do_action"]('itemAction', {name = 'open'}) end, opts)
-          vim.keymap.set('n', 'h', function() vim.fn["ddu#ui#filer#do_action"]('itemAction', {name = 'narrow', params = {path = '..'}}) end, opts)
+          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#filer#do_action"]('expandItem', { mode = 'toggle' }) end,
+            opts)
+          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#filer#do_action"]('itemAction', { name = 'open' }) end, opts)
+          vim.keymap.set('n', 'h',
+            function() vim.fn["ddu#ui#filer#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
+            opts)
           vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("togglePreview")<CR>', opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
@@ -258,7 +266,7 @@ return {
             vim.fn["ddu#ui#ff#multi_actions"]({
               { "clearSelectAllItems" },
               { "toggleAllItems" },
-              { "itemAction", { name = "quickfix" } },
+              { "itemAction",         { name = "quickfix" } },
             })
           end, opts)
         end,
@@ -276,7 +284,7 @@ return {
             vim.fn["ddu#ui#ff#multi_actions"]({
               { "clearSelectAllItems" },
               { "toggleAllItems" },
-              { "itemAction", { name = "quickfix" } },
+              { "itemAction",         { name = "quickfix" } },
             })
           end, opts)
         end,

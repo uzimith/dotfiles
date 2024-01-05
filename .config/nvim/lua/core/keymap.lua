@@ -21,14 +21,25 @@ vim.keymap.set('n', 'K', '<C-b>', opts)
 
 -- 前回終了したカーソル行に移動
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-	pattern = { "*" },
-	callback = function()
-		vim.api.nvim_exec('silent! normal! g`"zv', false)
-	end,
+  pattern = { "*" },
+  callback = function()
+    vim.api.nvim_exec('silent! normal! g`"zv', false)
+  end,
 })
 
 -- タブ
-vim.keymap.set('n', 'tC', ':tabnew<CR>', opts)
+vim.keymap.set('n', 'tc', ':tabnew<CR>', opts)
+vim.keymap.set('n', 'tn', ':tabNext<CR>', opts)
+vim.keymap.set('n', 'tp', ':tabPrevious<CR>', opts)
+vim.keymap.set('n', 't1', ':tabn 1<CR>', opts)
+vim.keymap.set('n', 't2', ':tabn 2<CR>', opts)
+vim.keymap.set('n', 't3', ':tabn 3<CR>', opts)
+vim.keymap.set('n', 't4', ':tabn 4<CR>', opts)
+vim.keymap.set('n', 't5', ':tabn 5<CR>', opts)
+vim.keymap.set('n', 't6', ':tabn 6<CR>', opts)
+vim.keymap.set('n', 't7', ':tabn 7<CR>', opts)
+vim.keymap.set('n', 't8', ':tabn 8<CR>', opts)
+vim.keymap.set('n', 't9', ':tabn 9<CR>', opts)
 
 -- 検索
 vim.keymap.set('n', '<Leader>cd', ':lcd %:h<CR>', opts)

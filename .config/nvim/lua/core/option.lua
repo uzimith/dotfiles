@@ -30,6 +30,7 @@ vim.opt.pumblend = 20
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand('~/.cache/nvim/undo')
 vim.opt.shell = "/bin/bash"
+vim.opt.cmdheight = 0
 
 -- 常にタブラインを表示
 vim.opt.showtabline = 2
