@@ -14,6 +14,7 @@ return {
       "Shougo/ddc-source-cmdline-history",
       "LumaKernel/ddc-source-file",
       "Shougo/ddc-source-line",
+      "octaltree/cmp-look",
       -- Filter
       "Shougo/ddc-filter-matcher_head",
       "Shougo/ddc-filter-sorter_rank",
@@ -39,6 +40,7 @@ return {
         "lsp",
         "file",
         "around",
+        "look",
       })
 
       patch_global("cmdlineSources", {
@@ -79,6 +81,12 @@ return {
           isVolatile = true,
           forceCompletionPattern = [[\S/\S*]],
         },
+        look = {
+          converters = { "loud", "matcher_head" },
+          matchers = {},
+          mark = "[LOOK]",
+          isVolatile = true,
+        },
         line = {
           mark = "[LINE]",
         },
@@ -96,13 +104,27 @@ return {
           enableAdditionalTextEdit = true,
           confirmBehavior = "replace",
         },
+        look = {
+          convertCase = true,
+          dict = nil,
+        },
         line = {
           maxSize = 1000,
         },
       })
 
-      require("ddc_previewer_floating").enable()
+      vim.keymap.set('n', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
+      vim.keymap.set('i', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
+      vim.keymap.set('x', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
+      vim.keymap.set('n', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
+      vim.keymap.set('i', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
+      vim.keymap.set('x', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
+      vim.keymap.set('n', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
+      vim.keymap.set('i', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
+      vim.keymap.set('x', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
+
       vim.fn["ddc#enable"]()
+      require("ddc_previewer_floating").enable()
     end,
   },
   {
@@ -130,12 +152,22 @@ return {
         end
       end, { remap = true, expr = true })
       vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
-      -- vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      -- vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      -- vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      -- vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      -- vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
-      -- vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
+
+      vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
+      vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
+      vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      vim.keymap.set('c', '<Down>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
+      vim.keymap.set('c', '<Up>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
+      vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
+      vim.keymap.set('c', '<CR>', function()
+        if vim.fn["pum#visible"]() then
+          return '<C-y>'
+        else
+          return '<CR>'
+        end
+      end, { remap = true, expr = true })
     end,
   },
   {
