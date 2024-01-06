@@ -11,11 +11,11 @@ return {
       float_diff = true,
       layout = "left_bottom",
       position = "left",
-      ignore_filetype = { 'undotree', 'undotreeDiff'},
+      ignore_filetype = { 'undotree', 'undotreeDiff' },
       window = {
         winblend = 0,
       },
-      })
-      vim.keymap.set('n', '<leader>u', undotree.toggle, { noremap = true, silent = true })
+    })
+    vim.keymap.set('n', '<leader>u', undotree.toggle, { noremap = true, silent = true })
   end,
 }

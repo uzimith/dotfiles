@@ -29,8 +29,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
 -- タブ
 vim.keymap.set('n', 'tc', ':tabnew<CR>', opts)
-vim.keymap.set('n', 'tn', ':tabNext<CR>', opts)
-vim.keymap.set('n', 'tp', ':tabPrevious<CR>', opts)
+vim.keymap.set('n', 'tn', ':tabnext<CR>', opts)
+vim.keymap.set('n', 'tp', ':tabprevious<CR>', opts)
 vim.keymap.set('n', 't1', ':tabn 1<CR>', opts)
 vim.keymap.set('n', 't2', ':tabn 2<CR>', opts)
 vim.keymap.set('n', 't3', ':tabn 3<CR>', opts)
@@ -49,3 +49,6 @@ vim.keymap.set('n', '<Leader>ep', ':lprevious<CR>', opts)
 
 vim.keymap.set('n', 'c.', ':q:k<CR>', opts)
 vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %<CR> :e!<CR>', opts)
+
+-- ビジュアルモード時vで行末まで選択
+vim.keymap.set('v', 'v', '$h', opts)

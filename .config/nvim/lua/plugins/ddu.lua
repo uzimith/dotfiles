@@ -230,8 +230,8 @@ return {
           vim.keymap.set("n", "d", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "delete"})<CR>', opts)
           vim.keymap.set("n", "r", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "rename"})<CR>', opts)
           vim.keymap.set("n", "m", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "move"})<CR>', opts)
-          vim.keymap.set("n", "n", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newFile"})<CR>', opts)
-          vim.keymap.set("n", "N", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newDirectory"})<CR>', opts)
+          vim.keymap.set("n", "N", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newFile"})<CR>', opts)
+          vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newDirectory"})<CR>', opts)
           vim.keymap.set("n", "x", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "executeSystem"})<CR>', opts)
           -- -- ディレクトリなら展開、ファイルなら開く
           vim.cmd([[nnoremap <buffer><expr> <CR>
@@ -245,7 +245,6 @@ return {
           vim.keymap.set('n', 'h',
             function() vim.fn["ddu#ui#filer#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
             opts)
-          vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("togglePreview")<CR>', opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
 

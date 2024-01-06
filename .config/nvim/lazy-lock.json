@@ -23,7 +23,6 @@
   "ddu-kind-file": { "branch": "main", "commit": "bae279bfe222b2d02f55004042b7c938d8fa7bc0" },
   "ddu-kind-word": { "branch": "main", "commit": "3deba5a16494509cfa120b39699032fe67f8cfa9" },
   "ddu-source-action": { "branch": "main", "commit": "2f417a55a0382bc26e5d307778f43d9d87dacbb8" },
-  "ddu-source-anyjump": { "branch": "main", "commit": "c69124490f01a9224bdc60742532a72a4bd9d026" },
   "ddu-source-buffer": { "branch": "main", "commit": "e28610ff6b388aa3dd2706678372f976903e3d74" },
   "ddu-source-command_history": { "branch": "main", "commit": "63840ec2d0e5678881f3473bb4649219b11a4232" },
   "ddu-source-file": { "branch": "main", "commit": "24f71668279674c5b16190f895312bdfef55b4ce" },
@@ -62,5 +61,6 @@
   "solarized.nvim": { "branch": "main", "commit": "b66b6dcc7fc983bd1846d6557fe7cce0d8a36f49" },
   "undotree": { "branch": "main", "commit": "80552a0180b49e5ba072c89ae91ce5d4e3aed36b" },
   "vim-qfreplace": { "branch": "master", "commit": "db1c4b0161931c9a63942f4f562a0d0f4271ac14" },
-  "vim-quickrun": { "branch": "master", "commit": "50f9ced186cf2651f4356aa3548c2306e181ec3b" }
+  "vim-quickrun": { "branch": "master", "commit": "50f9ced186cf2651f4356aa3548c2306e181ec3b" },
+  "vim-submode": { "branch": "master", "commit": "d29de4f55c40a7a03af1d8134453a703d6affbd2" }
 }

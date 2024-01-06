@@ -32,6 +32,16 @@ vim.opt.undodir = vim.fn.expand('~/.cache/nvim/undo')
 vim.opt.shell = "/bin/bash"
 vim.opt.cmdheight = 0
 
+-- 不可視文字可視化
+vim.opt.list = true
+vim.opt.listchars = { tab = "▸ ", trail = "⋅", nbsp = "␣", extends = "❯", precedes = "❮" }
+
+-- タブ, インデント
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.smartindent = true
+
 -- 常にタブラインを表示
 vim.opt.showtabline = 2
 
