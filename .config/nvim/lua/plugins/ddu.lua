@@ -18,10 +18,11 @@ return {
       "uga-rosa/ddu-source-lsp",
       "kyoh86/ddu-source-quickfix_history",
       "matsui54/ddu-source-command_history",
-      "Omochice/ddu-source-anyjump",
       -- Filter
       "Shougo/ddu-filter-sorter_alpha",
       "Shougo/ddu-filter-matcher_substring",
+      "Shougo/ddu-filter-matcher_relative",
+      "Shougo/ddu-filter-matcher_hidden",
       -- Kind
       "Shougo/ddu-kind-file",
       "Shougo/ddu-kind-word",
@@ -34,17 +35,15 @@ return {
     },
     init = function()
       local opts = { silent = true, noremap = true }
+      vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
+      vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
-      vim.keymap.set("n", "sq", "<Cmd>Ddu lsp_diagnostic<CR>", opts)
-      vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
+      vim.keymap.set("n", "sq", "<Cmd>Ddu quickfix_history<CR>", opts)
       vim.keymap.set('n', 'sg', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
       vim.keymap.set("n", "sG", '<Cmd>Ddu -name=grep<CR>', opts)
-      vim.keymap.set("n", "sD", "<Cmd>Ddu anyjump_definition<CR>", opts)
-      vim.keymap.set("n", "sR", "<Cmd>Ddu anyjump_reference<CR>", opts)
       vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu command_history<CR>]], opts)
-      vim.keymap.set("n", "sF", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
     end,
     config = function()
@@ -77,6 +76,10 @@ return {
               previewCol = math.floor(width / 2) - 2,
               previewRow = top + 1,
               startFilter = true,
+              startAutoAction = true,
+              autoAction = {
+                name = "preview",
+              },
             },
             filer = {
               winWidth = 30,
@@ -96,27 +99,14 @@ return {
         callback = reset_ui,
       })
 
+      vim.fn["ddu#custom#alias"]('source', 'ghq', 'file_external')
       vim.fn["ddu#custom#patch_global"]({
         sourceParams = {
-          anyjump_definition = {
-            highlights = {
-              path = "Normal",
-              lineNr = "Normal",
-              word = "Title",
-            },
-            removeCommentsFromResults = true,
-          },
-          anyjump_reference = {
-            highlights = {
-              path = "Normal",
-              lineNr = "Normal",
-              word = "Title",
-            },
-            removeCommentsFromResults = true,
-            onlyCurrentFiletype = false,
-          },
           file_external = {
             cmd = { "fd", ".", "-H", "-E", ".git", "-t", "f" },
+          },
+          ghq = {
+            cmd = { 'ghq', 'list', '-p' },
           },
           rg = {
             inputType = "regex",
@@ -127,6 +117,9 @@ return {
           _ = {
             ignoreCase = true,
             matchers = { "matcher_substring" },
+          },
+          file_old = {
+            matchers = { "matcher_substring", "matcher_relative" },
           },
         },
         filterParams = {
@@ -192,16 +185,21 @@ return {
           _ = {
             sorters = { "sorter_alpha" },
             columns = { "icon_filename" },
+            matchers = { "matcher_hidden" },
           },
-        },
-        actionOptions = {
-          -- _ = {
-          --   quit = false,
-          -- },
         },
         actionParams = {
           open = {
             command = 'edit',
+          },
+        },
+      })
+
+      -- LSP
+      vim.fn["ddu#custom#patch_local"]("lsp", {
+        uiParams = {
+          ff = {
+            startFilter = false,
           },
         },
       })
@@ -250,6 +248,40 @@ return {
           vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("togglePreview")<CR>', opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
+
+
+          -- toggle hidden files
+          local function toggle(array, needle)
+            local idx = -1
+            for k, v in ipairs(array) do
+              if v == needle then idx = k end
+            end
+            if idx ~= -1 then
+              table.remove(array, idx)
+            else
+              table.insert(array, needle)
+            end
+            return array
+          end
+
+          local function toggleHidden()
+            local cur = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
+            local source_opts = cur['sourceOptions'] or {}
+            local opts_all = source_opts['_'] or {}
+            local matchers = opts_all['matchers'] or {}
+            return toggle(matchers, 'matcher_hidden')
+          end
+
+          vim.keymap.set("n", ">", function()
+            vim.fn["ddu#ui#filer#do_action"]('updateOptions', {
+              sourceOptions = {
+                _ = {
+                  matchers = toggleHidden(),
+                },
+              },
+            })
+            vim.fn['ddu#ui#do_action']('checkItems')
+          end, { buffer = true, noremap = true })
         end,
       })
 

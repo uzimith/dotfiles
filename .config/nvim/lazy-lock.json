@@ -16,6 +16,8 @@
   "ddc.vim": { "branch": "main", "commit": "abe8c86aaa17e40f0fd4074a0e77b51047a7cdc2" },
   "ddu-column-icon_filename": { "branch": "main", "commit": "e299aba82be22a65e2da1047ddba26ac6b1b44b8" },
   "ddu-commands.vim": { "branch": "main", "commit": "1564296c51de28d3cf6a93bec221267e441686e2" },
+  "ddu-filter-matcher_hidden": { "branch": "main", "commit": "c1161a85b13974338a8dcf7034052c747ccd3df1" },
+  "ddu-filter-matcher_relative": { "branch": "main", "commit": "122a26aae0992e4c4690f5e255c202510f5e386d" },
   "ddu-filter-matcher_substring": { "branch": "main", "commit": "3704a0b12affd8d3114c81c90e6b4cd7f7ef5115" },
   "ddu-filter-sorter_alpha": { "branch": "main", "commit": "728f0b4e54be1617e5ace548d4d28175026792fc" },
   "ddu-kind-file": { "branch": "main", "commit": "bae279bfe222b2d02f55004042b7c938d8fa7bc0" },

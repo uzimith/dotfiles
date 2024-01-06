@@ -21,19 +21,15 @@ return {
       local lspconfig = require("lspconfig")
       local ddc_source_lsp = require("ddc_source_lsp")
 
-
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       local on_attach = function(client, bufnr)
-        if client.name == "tsserver" then
-          client.server_capabilities.documentFormattingProvider = false
-        end
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
             buffer = bufnr,
             callback = function()
-              vim.lsp.buf.format { async = false }
+              vim.lsp.buf.format({ async = false, bufnr = bufnr, })
             end,
           })
         end
@@ -49,6 +45,9 @@ return {
 
           local opts = {
             capabilities = ddc_source_lsp.make_client_capabilities(),
+            init_options = {
+              documentFormatting = true,
+            },
             on_attach = on_attach,
           }
 
@@ -74,6 +73,10 @@ return {
               return
             end
             opts.root_dir = node_root_dir
+
+            -- eslint
+          elseif server == "eslint" then
+            return
 
             -- css
           elseif server == "cssls" then
@@ -102,26 +105,47 @@ return {
           local opts = { buffer = ev.buf }
 
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "gd", "<Cmd>Ddu lsp_definition<CR>", opts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          -- vim.keymap.set("n", "gd", "<Cmd>Ddu lsp_definition<CR>", opts)
           vim.keymap.set('n', 'gk', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
           vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
           vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gc', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "gq", "<Cmd>Ddu -name=lsp lsp_diagnostic<CR>", opts)
+          vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
           vim.keymap.set('n', ']g', '<CMD>lua vim.diagnostic.goto_next()<CR>', opts)
           vim.keymap.set('n', '[g', '<CMD>lua vim.diagnostic.goto_prev()<CR>', opts)
+          vim.keymap.set('n', 'ge', vim.diagnostic.open_float, opts)
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
         end,
       })
     end,
   },
   {
-    "nvimtools/none-ls.nvim",
-    config = function()
-    end,
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+    },
+    config = {
+      ensure_installed = {
+        "astro",
+        "efm",
+        "denols",
+        "gopls",
+        "tsserver",
+        "lua_ls",
+        "yamlls",
+        "jsonls",
+        "rust_analyzer",
+        "cssls",
+        "eslint",
+        "emmet_language_server",
+      },
+      automatic_installation = true,
+    },
   },
   {
     "jay-babu/mason-null-ls.nvim",
@@ -147,9 +171,22 @@ return {
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.goimports,
         },
+        diagnostics_format = "#{m} (#{s}: #{c})",
         debug = false,
       })
     end,
   },
-
+  {
+    "williamboman/mason.nvim",
+    config = {
+      ui = {
+        border = "single",
+        icons = {
+          package_installed = " ",
+          package_pending = "↻ ",
+          package_uninstalled = " ",
+        },
+      },
+    },
+  },
 }

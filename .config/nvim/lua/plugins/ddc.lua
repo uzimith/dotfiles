@@ -116,7 +116,6 @@ return {
         scrollbar_char = "▋",
         highlight_normal_menu = "Normal",
       })
-      -- local opts = { silent = true, noremap = true}
       local opts = { noremap = true }
       vim.keymap.set('i', '<C-n>', function() vim.fn["pum#map#select_relative"](1) end, opts)
       vim.keymap.set('i', '<Down>', function() vim.fn["pum#map#select_relative"](1) end, opts)
@@ -124,8 +123,12 @@ return {
       vim.keymap.set('i', '<Up>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
       vim.keymap.set('i', '<C-y>', function() vim.fn["pum#map#confirm"]() end, opts)
       vim.keymap.set('i', '<CR>', function()
-        return vim.fn["pum#visible"]() and vim.fn["pum#map#confirm"]() or '\r'
-      end, { noremap = true, expr = true })
+        if vim.fn["pum#visible"]() then
+          return '<C-y>'
+        else
+          return '<CR>'
+        end
+      end, { remap = true, expr = true })
       vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
       -- vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
       -- vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
