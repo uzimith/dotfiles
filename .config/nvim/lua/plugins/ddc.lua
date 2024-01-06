@@ -29,6 +29,7 @@ return {
 
       patch_global("ui", "pum")
 
+
       patch_global("autoCompleteEvents", {
         "InsertEnter",
         "TextChangedI",
@@ -163,7 +164,7 @@ return {
       vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
       vim.keymap.set('c', '<CR>', function()
         if vim.fn["pum#visible"]() then
-          return '<C-y>'
+          return '<C-y><CR>'
         else
           return '<CR>'
         end
