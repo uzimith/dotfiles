@@ -11,6 +11,9 @@ vim.keymap.set('n', 'k', 'gk', opts)
 vim.keymap.set('n', '<Space>h', '^', opts)
 vim.keymap.set('n', '<Space>l', '$', opts)
 vim.keymap.set('n', 'Y', 'y$', opts)
+vim.keymap.set('v', '<Space>h', '^', opts)
+vim.keymap.set('v', '<Space>l', '$', opts)
+vim.keymap.set('v', 'Y', 'y$', opts)
 
 
 -- <space>j, <space>kで画面送り
