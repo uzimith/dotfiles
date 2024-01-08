@@ -21,8 +21,8 @@ return {
       local lspconfig = require("lspconfig")
       local ddc_source_lsp = require("ddc_source_lsp")
 
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      local on_attach = function(client, bufnr)
+      local common_on_attach = function(client, bufnr)
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         if client.supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
@@ -35,21 +35,28 @@ return {
         end
       end
 
+      local enable_fmt_on_attach = function(client, bufnr)
+        common_on_attach(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = true
+      end
+      local disable_fmt_on_attach = function(client, bufnr)
+        common_on_attach(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+      end
+
       require("null-ls").setup({
-        on_attach = on_attach,
+        on_attach = enable_fmt_on_attach
       })
 
       require("mason-lspconfig").setup_handlers({
         function(server)
-          local buf_full_filename = vim.api.nvim_buf_get_name(0)
-
           local opts = {
             capabilities = ddc_source_lsp.make_client_capabilities(),
-            init_options = {
-              documentFormatting = true,
-            },
-            on_attach = on_attach,
+            on_attach = enable_fmt_on_attach,
           }
+
+
+          local buf_full_filename = vim.api.nvim_buf_get_name(0)
 
           local node_root_dir = lspconfig.util.root_pattern("package.json")
           local is_node_dir = node_root_dir(buf_full_filename) ~= nil
@@ -66,6 +73,7 @@ return {
             opts.root_dir = deno_root_dir
             opts.cmd = { "deno", "lsp", "--unstable" }
             opts.init_options = { lint = true, unstable = true }
+            opts.on_attach = disable_fmt_on_attach
 
             -- Node.js
           elseif server == "tsserver" then
@@ -73,10 +81,7 @@ return {
               return
             end
             opts.root_dir = node_root_dir
-
-            -- eslint
-          elseif server == "eslint" then
-            return
+            opts.on_attach = disable_fmt_on_attach
 
             -- css
           elseif server == "cssls" then
@@ -133,15 +138,14 @@ return {
       ensure_installed = {
         "astro",
         "efm",
-        "denols",
         "gopls",
         "tsserver",
+        -- "denols",
         "lua_ls",
         "yamlls",
         "jsonls",
         "rust_analyzer",
         "cssls",
-        "eslint",
         "emmet_language_server",
       },
       automatic_installation = true,
@@ -155,7 +159,7 @@ return {
     },
     config = function()
       require('mason-null-ls').setup({
-        ensure_installed = { 'prettierd', 'eslint', 'rubocop', 'black', 'goimports' },
+        ensure_installed = { 'prettierd', 'rubocop', 'black', 'goimports' },
         handlers = {},
       })
 
@@ -165,7 +169,9 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.diagnostics.eslint,
+          null_ls.builtins.diagnostics.eslint.with({
+            prefer_local = "node_modules/.bin",
+          }),
           null_ls.builtins.diagnostics.rubocop,
           null_ls.builtins.formatting.rubocop,
           null_ls.builtins.formatting.black,

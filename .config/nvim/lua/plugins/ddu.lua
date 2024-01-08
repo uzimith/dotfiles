@@ -17,6 +17,7 @@ return {
       "matsui54/ddu-source-help",
       "uga-rosa/ddu-source-lsp",
       "kyoh86/ddu-source-quickfix_history",
+      "flow6852/ddu-source-qf",
       "matsui54/ddu-source-command_history",
       -- Filter
       "Shougo/ddu-filter-sorter_alpha",
@@ -35,16 +36,19 @@ return {
     },
     init = function()
       local opts = { silent = true, noremap = true }
+      vim.keymap.set('n', 'ss', function() vim.fn["ddu#start"]({ resume = true }) end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
       vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
-      vim.keymap.set("n", "sq", "<Cmd>Ddu quickfix_history<CR>", opts)
-      vim.keymap.set('n', 'sg', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
+      vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
+      vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
+      vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
-      vim.keymap.set("n", "sG", '<Cmd>Ddu -name=grep<CR>', opts)
-      vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu command_history<CR>]], opts)
+      vim.keymap.set("n", "sg", '<Cmd>Ddu -name=grep<CR>', opts)
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
+
+      vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>]], opts)
     end,
     config = function()
       local reset_ui = function()
@@ -197,6 +201,14 @@ return {
 
       -- LSP
       vim.fn["ddu#custom#patch_local"]("lsp", {
+        uiParams = {
+          ff = {
+            startFilter = false,
+          },
+        },
+      })
+
+      vim.fn["ddu#custom#patch_local"]("command_history", {
         uiParams = {
           ff = {
             startFilter = false,

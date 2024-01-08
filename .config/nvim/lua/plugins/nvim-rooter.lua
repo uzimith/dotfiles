@@ -8,7 +8,7 @@ return {
         enable = true,
         update_cwd = true
       },
-      rooter_patterns = { 'go.mod', 'build.gradle', 'Rakefile', 'tsconfig.json', '.git', '_darcs', '.hg', '.bzr', '.svn' },
+      rooter_patterns = { 'go.mod', 'build.gradle', 'Rakefile', '.git', '_darcs', '.hg', '.bzr', '.svn' },
       trigger_patterns = { '*' },
       exclude_filetypes = { 'ddu-ff' },
       manual = false,
