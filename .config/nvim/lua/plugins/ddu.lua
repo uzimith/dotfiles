@@ -81,9 +81,9 @@ return {
               previewRow = top + 1,
               startFilter = true,
               startAutoAction = true,
-              autoAction = {
-                name = "preview",
-              },
+              -- autoAction = {
+              --   name = "preview",
+              -- },
             },
             filer = {
               winWidth = 30,
