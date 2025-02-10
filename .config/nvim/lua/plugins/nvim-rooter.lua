@@ -1,6 +1,9 @@
 return {
   'notjedi/nvim-rooter.lua',
   lazy = false,
+  cond = function()
+    return not vim.g.vscode
+  end,
   config = function()
     require('nvim-rooter').setup {
       update_cwd = true,

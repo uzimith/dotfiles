@@ -3,7 +3,6 @@ return {
   config = true,
   ft = {
     'csv',
-    'tsv',
     'csv_semicolon',
     'csv_whitespace',
     'csv_pipe',

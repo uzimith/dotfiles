@@ -125,6 +125,12 @@ switch (uname)
 end
 source $HOME/.config/fish/secret.fish
 
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-source /opt/homebrew/opt/asdf/share/fish/vendor_completions.d/asdf.fish
+/opt/homebrew/bin/mise activate fish | source
 source "$HOME/.rye/env.fish"
+
+# pnpm
+set -gx PNPM_HOME "/Users/uzimith/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end

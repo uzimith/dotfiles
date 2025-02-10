@@ -34,9 +34,21 @@ return {
       -- Command
       "Shougo/ddu-commands.vim",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     init = function()
       local opts = { silent = true, noremap = true }
-      vim.keymap.set('n', 'ss', function() vim.fn["ddu#start"]({ resume = true }) end, opts)
+      vim.keymap.set('n', 'ss', function()
+        vim.fn["ddu#start"]({
+          resume = true,
+          uiParams = {
+            ff = {
+              startFilter = false,
+            },
+          },
+        })
+      end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
       vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)

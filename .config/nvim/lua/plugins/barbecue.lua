@@ -5,6 +5,9 @@ return {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     lazy = false,
     after = "nvim-web-devicons",
     config = function()

@@ -24,6 +24,9 @@ return {
       "uga-rosa/ddc-previewer-floating",
       "matsui54/denops-signature_help",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       local patch_global = vim.fn["ddc#custom#patch_global"]
 
@@ -130,6 +133,9 @@ return {
   },
   {
     "Shougo/pum.vim",
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       vim.fn["pum#set_option"]({
         auto_select = true,
@@ -173,6 +179,9 @@ return {
   },
   {
     "uga-rosa/ddc-previewer-floating",
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       require("ddc_previewer_floating").setup({
         ui = "pum",
@@ -190,6 +199,9 @@ return {
   {
     "matsui54/denops-signature_help",
     dependencies = { "vim-denops/denops.vim" },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       vim.g.signature_help_config = {
         contentsStyle = "currentLabel",

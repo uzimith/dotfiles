@@ -9,6 +9,9 @@ return {
       "jay-babu/mason-null-ls.nvim",
       "nvimtools/none-ls.nvim",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       -- ポップアップウィンドウのボーダースタイルを設定
       require("lspconfig.ui.windows").default_options.border = "single"
@@ -56,31 +59,8 @@ return {
           }
 
 
-          local buf_full_filename = vim.api.nvim_buf_get_name(0)
-
-          local node_root_dir = lspconfig.util.root_pattern("package.json")
-          local is_node_dir = node_root_dir(buf_full_filename) ~= nil
-
-          local deno_root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
-          local is_deno_dir = deno_root_dir(buf_full_filename) ~= nil
-
-          -- denols と tsserver を出し分ける
-          -- ref: https://zenn.dev/kawarimidoll/articles/2b57745045b225
-          if server == "denols" then
-            if not is_deno_dir then
-              return
-            end
-            opts.root_dir = deno_root_dir
-            opts.cmd = { "deno", "lsp", "--unstable" }
-            opts.init_options = { lint = true, unstable = true }
-            opts.on_attach = disable_fmt_on_attach
-
-            -- Node.js
-          elseif server == "tsserver" then
-            if is_deno_dir or not is_node_dir then
-              return
-            end
-            opts.root_dir = node_root_dir
+          -- Node.js
+          if server == "tsserver" then
             opts.on_attach = disable_fmt_on_attach
 
             local function organize_imports()
@@ -192,12 +172,16 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = {
       ensure_installed = {
         "astro",
         "efm",
         "gopls",
         "tsserver",
+        "volar",
         -- "denols",
         "lua_ls",
         "yamlls",
@@ -215,6 +199,9 @@ return {
       "williamboman/mason.nvim",
       "nvimtools/none-ls.nvim",
     },
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = function()
       require('mason-null-ls').setup({
         ensure_installed = { 'prettierd', 'rubocop', 'black', 'goimports' },
@@ -242,6 +229,9 @@ return {
   },
   {
     "williamboman/mason.nvim",
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = {
       ui = {
         border = "single",
