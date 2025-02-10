@@ -3,6 +3,9 @@ return {
   dependancies = {
     "vim-denops/denops.vim",
   },
+  cond = function()
+    return not vim.g.vscode
+  end,
   lazy = false,
   config = function()
     vim.g["dps_dial#augends"] = {
