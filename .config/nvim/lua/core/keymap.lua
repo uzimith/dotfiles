@@ -55,7 +55,13 @@ vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %<CR> :e!<CR>', opts)
 
 -- ビジュアルモード時vで行末まで選択
 vim.keymap.set('v', 'v', '$h', opts)
-vim.keymap.set('v', 'y', 'y', { noremap = true, silent = true })
 
 vim.keymap.set('n', 'sn', ':cnext<CR><CR>', { noremap = true, silent = true })
 vim.keymap.set('n', 'sp', ':cprevious<CR><CR>', { noremap = true, silent = true })
+
+-- if vim.g.vscode then
+--   vim.keymap.set('n', 'u', 'u', { noremap = true, silent = true })
+--   vim.keymap.set('n', 'p', 'p', { noremap = true, silent = true })
+--   vim.keymap.set('n', '<C-r>', '<C-r>', { noremap = true, silent = true })
+--   vim.keymap.set('v', 'y', 'y', { noremap = true, silent = true })
+-- end

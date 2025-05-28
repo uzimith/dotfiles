@@ -214,9 +214,9 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.diagnostics.eslint.with({
-            prefer_local = "node_modules/.bin",
-          }),
+          -- null_ls.builtins.diagnostics.eslint.with({
+          --   prefer_local = "node_modules/.bin",
+          -- }),
           null_ls.builtins.diagnostics.rubocop,
           null_ls.builtins.formatting.rubocop,
           null_ls.builtins.formatting.black,

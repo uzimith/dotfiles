@@ -56,6 +56,7 @@ alias vim='nvim'
 alias l='ll -a'
 alias rgf='ripgrep_glob'
 alias prg='peco_ripgrep_vim'
+alias code='code -r'
 
 # docker
 alias d='docker'
@@ -105,11 +106,6 @@ alias seq2='seq -f "%02g"'
 alias seq3='seq -f "%03g"'
 alias seq4='seq -f "%04g"'
 
-# aws
-alias x-ebt='aws elasticbeanstalk describe-environments | jq -r ".Environments[] | [.EnvironmentName, .CNAME] | @tsv" | peco | cut -f 1 | xargs -I"{}" aws ec2 describe-instances --filters "Name=tag:elasticbeanstalk:environment-name,Values={}" | jq -r "[.Reservations[].Instances[].PrivateIpAddress] | map(select(.)) | .[]" | xpanes -c "ssh {}"'
-alias open-ebt='aws elasticbeanstalk describe-environments | jq -r ".Environments[] | [.EnvironmentName, .ApplicationName, .EnvironmentId, .CNAME] | @tsv" | peco | awk \'{print sprintf("https://ap-northeast-1.console.aws.amazon.com/elasticbeanstalk/home?region=ap-northeast-1#/environment/dashboard?applicationName=%s&environmentId=%s", $2, $3)}\' | xargs open'
-alias ebt='aws elasticbeanstalk describe-environments | jq -r ".Environments[] | [.EnvironmentName, .CNAME] | @tsv" | peco | cut -f 1 | xargs -I"{}" aws ec2 describe-instances --filters "Name=tag:elasticbeanstalk:environment-name,Values={}" | jq -r "[.Reservations[].Instances[].PrivateIpAddress] | map(select(.)) | .[]" | peco | read line; and ssh $line'
-
 # powerline
 powerline-daemon -q
 set fish_function_path $fish_function_path $HOME/dotfiles/powerline/powerline/bindings/fish
@@ -134,3 +130,7 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :

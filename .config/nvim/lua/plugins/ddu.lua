@@ -115,7 +115,7 @@ return {
         callback = reset_ui,
       })
 
-      vim.fn["ddu#custom#alias"]('source', 'ghq', 'file_external')
+      vim.fn["ddu#custom#alias"]('_', 'source', 'ghq', 'file_external')
       vim.fn["ddu#custom#patch_global"]({
         sourceParams = {
           file_external = {

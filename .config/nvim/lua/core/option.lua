@@ -30,7 +30,12 @@ vim.opt.pumblend = 20
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand('~/.cache/nvim/undo')
 vim.opt.shell = "/bin/bash"
-vim.opt.cmdheight = 0
+if vim.g.vscode then
+  vim.opt.cmdheight = 10
+else
+  vim.opt.cmdheight = 0
+end
+
 
 -- 不可視文字可視化
 vim.opt.list = true
