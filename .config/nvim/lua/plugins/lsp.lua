@@ -19,7 +19,24 @@ return {
       vim.diagnostic.config({ float = { border = "single" } })
 
       require("mason").setup()
-      require("mason-lspconfig").setup()
+      require("mason-lspconfig").setup(
+        {
+          ensure_installed = {
+            "astro",
+            "efm",
+            "gopls",
+            "tsserver",
+            -- "denols",
+            "lua_ls",
+            "yamlls",
+            "jsonls",
+            "rust_analyzer",
+            "cssls",
+            "emmet_language_server",
+          },
+          automatic_enable = true,
+        }
+      )
 
       local lspconfig = require("lspconfig")
       local ddc_source_lsp = require("ddc_source_lsp")
@@ -51,96 +68,97 @@ return {
         on_attach = enable_fmt_on_attach
       })
 
-      require("mason-lspconfig").setup_handlers({
-        function(server)
-          local opts = {
-            capabilities = ddc_source_lsp.make_client_capabilities(),
-            on_attach = enable_fmt_on_attach,
-          }
-
-
-          -- Node.js
-          if server == "tsserver" then
-            opts.on_attach = disable_fmt_on_attach
-
-            local function organize_imports()
-              local params = {
-                command = "_typescript.organizeImports",
-                arguments = { vim.api.nvim_buf_get_name(0) },
-                title = ""
-              }
-              vim.lsp.buf.execute_command(params)
-            end
-
-            local function rename_file()
-              local source_file, target_file
-
-              vim.ui.input({
-                  prompt = "Source : ",
-                  completion = "file",
-                  default = vim.api.nvim_buf_get_name(0)
-                },
-                function(input)
-                  source_file = input
-                end
-              )
-              vim.ui.input({
-                  prompt = "Target : ",
-                  completion = "file",
-                  default = source_file
-                },
-                function(input)
-                  target_file = input
-                end
-              )
-
-              local params = {
-                command = "_typescript.applyRenameFile",
-                arguments = {
-                  {
-                    sourceUri = source_file,
-                    targetUri = target_file,
-                  },
-                },
-                title = ""
-              }
-
-              vim.lsp.util.rename(source_file, target_file)
-              vim.lsp.buf.execute_command(params)
-            end
-
-
-            opts.commands = {
-              OrganizeImports = {
-                organize_imports,
-                description = "Organize Imports"
-              },
-              RenameFile = {
-                rename_file,
-                description = "Rename File"
-              },
-            }
-
-            -- css
-          elseif server == "cssls" then
-            opts.filetypes = { "css", "scss", "sass", "less" }
-
-            -- yaml
-          elseif server == "yamlls" then
-            opts.settings = {
-              yaml = {
-                keyOrdering = false,
-              },
-            }
-
-            -- emmet
-          elseif server == "emmet_language_server" then
-            opts.filetypes = { "html", "css", "scss", "sass", "less" }
-          end
-
-          lspconfig[server].setup(opts)
-        end,
-      })
+      -- BUG: attempt to call field 'setup_handlers' (a nil value)
+      -- require("mason-lspconfig").setup_handlers({
+      --   function(server)
+      --     local opts = {
+      --       capabilities = ddc_source_lsp.make_client_capabilities(),
+      --       on_attach = enable_fmt_on_attach,
+      --     }
+      --
+      --
+      --     -- Node.js
+      --     if server == "tsserver" then
+      --       opts.on_attach = disable_fmt_on_attach
+      --
+      --       local function organize_imports()
+      --         local params = {
+      --           command = "_typescript.organizeImports",
+      --           arguments = { vim.api.nvim_buf_get_name(0) },
+      --           title = ""
+      --         }
+      --         vim.lsp.buf.execute_command(params)
+      --       end
+      --
+      --       local function rename_file()
+      --         local source_file, target_file
+      --
+      --         vim.ui.input({
+      --             prompt = "Source : ",
+      --             completion = "file",
+      --             default = vim.api.nvim_buf_get_name(0)
+      --           },
+      --           function(input)
+      --             source_file = input
+      --           end
+      --         )
+      --         vim.ui.input({
+      --             prompt = "Target : ",
+      --             completion = "file",
+      --             default = source_file
+      --           },
+      --           function(input)
+      --             target_file = input
+      --           end
+      --         )
+      --
+      --         local params = {
+      --           command = "_typescript.applyRenameFile",
+      --           arguments = {
+      --             {
+      --               sourceUri = source_file,
+      --               targetUri = target_file,
+      --             },
+      --           },
+      --           title = ""
+      --         }
+      --
+      --         vim.lsp.util.rename(source_file, target_file)
+      --         vim.lsp.buf.execute_command(params)
+      --       end
+      --
+      --
+      --       opts.commands = {
+      --         OrganizeImports = {
+      --           organize_imports,
+      --           description = "Organize Imports"
+      --         },
+      --         RenameFile = {
+      --           rename_file,
+      --           description = "Rename File"
+      --         },
+      --       }
+      --
+      --       -- css
+      --     elseif server == "cssls" then
+      --       opts.filetypes = { "css", "scss", "sass", "less" }
+      --
+      --       -- yaml
+      --     elseif server == "yamlls" then
+      --       opts.settings = {
+      --         yaml = {
+      --           keyOrdering = false,
+      --         },
+      --       }
+      --
+      --       -- emmet
+      --     elseif server == "emmet_language_server" then
+      --       opts.filetypes = { "html", "css", "scss", "sass", "less" }
+      --     end
+      --
+      --     lspconfig[server].setup(opts)
+      --   end,
+      -- })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -175,23 +193,6 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    config = {
-      ensure_installed = {
-        "astro",
-        "efm",
-        "gopls",
-        "tsserver",
-        "volar",
-        -- "denols",
-        "lua_ls",
-        "yamlls",
-        "jsonls",
-        "rust_analyzer",
-        "cssls",
-        "emmet_language_server",
-      },
-      automatic_installation = true,
-    },
   },
   {
     "jay-babu/mason-null-ls.nvim",
@@ -204,7 +205,7 @@ return {
     end,
     config = function()
       require('mason-null-ls').setup({
-        ensure_installed = { 'prettierd', 'rubocop', 'black', 'goimports' },
+        ensure_installed = { 'prettierd', 'black', 'goimports' },
         handlers = {},
       })
 
@@ -217,8 +218,6 @@ return {
           -- null_ls.builtins.diagnostics.eslint.with({
           --   prefer_local = "node_modules/.bin",
           -- }),
-          null_ls.builtins.diagnostics.rubocop,
-          null_ls.builtins.formatting.rubocop,
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.goimports,
         },
@@ -232,7 +231,7 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    config = {
+    opts = {
       ui = {
         border = "single",
         icons = {

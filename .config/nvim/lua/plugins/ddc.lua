@@ -21,7 +21,6 @@ return {
       "Shougo/ddc-filter-converter_truncate_abbr",
       "Shougo/ddc-filter-converter_remove_overlap",
       -- Preview
-      "uga-rosa/ddc-previewer-floating",
       "matsui54/denops-signature_help",
     },
     cond = function()
@@ -49,7 +48,7 @@ return {
 
       patch_global("cmdlineSources", {
         [":"] = {
-          "cmdline-history",
+          "cmdline_history",
           "cmdline",
           "around",
         },
@@ -97,7 +96,7 @@ return {
         cmdline = {
           mark = "[CMD]",
         },
-        ["cmdline-history"] = {
+        ["cmdline_history"] = {
           mark = "[HIST]",
         },
       })
@@ -128,7 +127,6 @@ return {
       vim.keymap.set('x', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
 
       vim.fn["ddc#enable"]()
-      require("ddc_previewer_floating").enable()
     end,
   },
   {
@@ -138,12 +136,12 @@ return {
     end,
     config = function()
       vim.fn["pum#set_option"]({
-        auto_select = true,
-        padding = true,
-        border = "none",
-        preview = false,
-        scrollbar_char = "▋",
-        highlight_normal_menu = "Normal",
+      auto_select = true,
+      padding = true,
+      border = "none",
+      preview = false,
+      scrollbar_char = "▋",
+      highlight_normal_menu = "Normal",
       })
       local opts = { noremap = true }
       vim.keymap.set('i', '<C-n>', function() vim.fn["pum#map#select_relative"](1) end, opts)
@@ -152,11 +150,11 @@ return {
       vim.keymap.set('i', '<Up>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
       vim.keymap.set('i', '<C-y>', function() vim.fn["pum#map#confirm"]() end, opts)
       vim.keymap.set('i', '<CR>', function()
-        if vim.fn["pum#visible"]() then
-          return '<C-y>'
-        else
-          return '<CR>'
-        end
+      if vim.fn["pum#visible"]() then
+        return '<C-y>'
+      else
+        return '<CR>'
+      end
       end, { remap = true, expr = true })
       vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
 
@@ -169,31 +167,12 @@ return {
       vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
       vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
       vim.keymap.set('c', '<CR>', function()
-        if vim.fn["pum#visible"]() then
-          return '<C-y><CR>'
-        else
-          return '<CR>'
-        end
+      if vim.fn["pum#visible"]() then
+        return '<C-y><CR>'
+      else
+        return '<CR>'
+      end
       end, { remap = true, expr = true })
-    end,
-  },
-  {
-    "uga-rosa/ddc-previewer-floating",
-    cond = function()
-      return not vim.g.vscode
-    end,
-    config = function()
-      require("ddc_previewer_floating").setup({
-        ui = "pum",
-        border = "single",
-        window_options = {
-          wrap = false,
-          number = false,
-          signcolumn = "no",
-          cursorline = false,
-          foldenable = false,
-        },
-      })
     end,
   },
   {

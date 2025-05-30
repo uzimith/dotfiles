@@ -1,20 +1,21 @@
 return {
   {
-    "github/copilot.vim",
-    event = "InsertEnter",
+    "zbirenbaum/copilot.lua",
+    -- "github/copilot.vim",
+    lazy = false,
     cmd = "Copilot",
+    event = "InsertEnter",
     cond = function()
       return not vim.g.vscode
     end,
-    ft = {
-      "markdown",
-      "help",
-    },
+    config = function()
+      require("copilot").setup({})
+    end,
   },
   {
     'gptlang/CopilotChat.nvim',
-    dependencies = 'github/copilot.vim',
-    cmd = "CopilotChat",
+    lazy = false,
+    dependencies = 'zbirenbaum/copilot.lua',
     cond = function()
       return not vim.g.vscode
     end,

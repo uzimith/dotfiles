@@ -60,7 +60,10 @@ return {
       vim.keymap.set("n", "sg", '<Cmd>Ddu -name=grep<CR>', opts)
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
+      vim.keymap.set("n", "<UP>", [[<Cmd>Ddu -name=command_history command_history<CR>]], opts)
       vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>]], opts)
+      vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
+      vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#insert_relative(-1)<CR>', opts)
     end,
     config = function()
       local reset_ui = function()
@@ -263,11 +266,11 @@ return {
              \ ? "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>"
              \ : "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'open'})<CR>"]])
           vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
-          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#filer#do_action"]('expandItem', { mode = 'toggle' }) end,
+          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
             opts)
-          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#filer#do_action"]('itemAction', { name = 'open' }) end, opts)
+          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
           vim.keymap.set('n', 'h',
-            function() vim.fn["ddu#ui#filer#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
+            function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
             opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
@@ -296,7 +299,7 @@ return {
           end
 
           vim.keymap.set("n", ">", function()
-            vim.fn["ddu#ui#filer#do_action"]('updateOptions', {
+            vim.fn["ddu#ui#do_action"]('updateOptions', {
               sourceOptions = {
                 _ = {
                   matchers = toggleHidden(),
