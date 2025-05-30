@@ -6,7 +6,6 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "Shougo/ddc-source-lsp",
-      "jay-babu/mason-null-ls.nvim",
       "nvimtools/none-ls.nvim",
     },
     cond = function()
@@ -26,129 +25,6 @@ return {
       require("lspconfig.ui.windows").default_options.border = "single"
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
       vim.diagnostic.config({ float = { border = "single" } })
-
-      local lspconfig = require("lspconfig")
-      local ddc_source_lsp = require("ddc_source_lsp")
-
-      local common_on_attach = function(client, bufnr)
-        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-        if client.supports_method("textDocument/formatting") then
-          vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            group = augroup,
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format({ async = false, bufnr = bufnr, })
-            end,
-          })
-        end
-      end
-
-      local enable_fmt_on_attach = function(client, bufnr)
-        common_on_attach(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = true
-      end
-
-      local disable_fmt_on_attach = function(client, bufnr)
-        common_on_attach(client, bufnr)
-        client.server_capabilities.documentFormattingProvider = false
-      end
-
-      require("null-ls").setup({
-        on_attach = enable_fmt_on_attach
-      })
-
-      -- BUG: attempt to call field 'setup_handlers' (a nil value)
-      -- require("mason-lspconfig").setup_handlers({
-      --   function(server)
-      --     local opts = {
-      --       capabilities = ddc_source_lsp.make_client_capabilities(),
-      --       on_attach = enable_fmt_on_attach,
-      --     }
-      --
-      --
-      --     -- Node.js
-      --     if server == "tsserver" then
-      --       opts.on_attach = disable_fmt_on_attach
-      --
-      --       local function organize_imports()
-      --         local params = {
-      --           command = "_typescript.organizeImports",
-      --           arguments = { vim.api.nvim_buf_get_name(0) },
-      --           title = ""
-      --         }
-      --         vim.lsp.buf.execute_command(params)
-      --       end
-      --
-      --       local function rename_file()
-      --         local source_file, target_file
-      --
-      --         vim.ui.input({
-      --             prompt = "Source : ",
-      --             completion = "file",
-      --             default = vim.api.nvim_buf_get_name(0)
-      --           },
-      --           function(input)
-      --             source_file = input
-      --           end
-      --         )
-      --         vim.ui.input({
-      --             prompt = "Target : ",
-      --             completion = "file",
-      --             default = source_file
-      --           },
-      --           function(input)
-      --             target_file = input
-      --           end
-      --         )
-      --
-      --         local params = {
-      --           command = "_typescript.applyRenameFile",
-      --           arguments = {
-      --             {
-      --               sourceUri = source_file,
-      --               targetUri = target_file,
-      --             },
-      --           },
-      --           title = ""
-      --         }
-      --
-      --         vim.lsp.util.rename(source_file, target_file)
-      --         vim.lsp.buf.execute_command(params)
-      --       end
-      --
-      --
-      --       opts.commands = {
-      --         OrganizeImports = {
-      --           organize_imports,
-      --           description = "Organize Imports"
-      --         },
-      --         RenameFile = {
-      --           rename_file,
-      --           description = "Rename File"
-      --         },
-      --       }
-      --
-      --       -- css
-      --     elseif server == "cssls" then
-      --       opts.filetypes = { "css", "scss", "sass", "less" }
-      --
-      --       -- yaml
-      --     elseif server == "yamlls" then
-      --       opts.settings = {
-      --         yaml = {
-      --           keyOrdering = false,
-      --         },
-      --       }
-      --
-      --       -- emmet
-      --     elseif server == "emmet_language_server" then
-      --       opts.filetypes = { "html", "css", "scss", "sass", "less" }
-      --     end
-      --
-      --     lspconfig[server].setup(opts)
-      --   end,
-      -- })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -200,35 +76,6 @@ return {
       },
       automatic_installation = true,
     },
-  },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
-    },
-    cond = function()
-      return not vim.g.vscode
-    end,
-    config = function()
-      require('mason-null-ls').setup({
-        ensure_installed = { 'prettierd', 'black', 'goimports' },
-        handlers = {},
-      })
-
-      local status, null_ls = pcall(require, 'null-ls')
-      if (not status) then return end
-
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.goimports,
-        },
-        diagnostics_format = "#{m} (#{s}: #{c})",
-        debug = true,
-      })
-    end,
   },
   {
     "williamboman/mason.nvim",

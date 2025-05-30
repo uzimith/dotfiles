@@ -204,7 +204,9 @@ return {
           _ = {
             sorters = { "sorter_alpha" },
             columns = { "icon_filename" },
-            matchers = { "matcher_hidden" },
+            -- 隠しファイルのtoggleがうまく動かないので全部出す
+            -- matchers = { "matcher_hidden" },
+            matchers = {},
           },
         },
         actionParams = {
