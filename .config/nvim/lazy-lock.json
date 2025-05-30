@@ -38,6 +38,7 @@
   "ddu-ui-filer": { "branch": "main", "commit": "1dd4dfd52d7b6e554af02f33c47cbfa4bcd2e2bb" },
   "ddu-vim-ui-select": { "branch": "main", "commit": "c5b48f77d0e58981137181c86862eb8d19a9449e" },
   "ddu.vim": { "branch": "main", "commit": "44ec3d5b801c3b93eb36b2dd602905f4f397d0e0" },
+  "denops-helloworld.vim": { "branch": "main", "commit": "f975281571191cfd4e3f9e5ba77103932f7dd6e5" },
   "denops-signature_help": { "branch": "main", "commit": "4a539c62988012ad9300568f0d0b4b2efe49008a" },
   "denops.vim": { "branch": "main", "commit": "387fe5771a51b613e21212719414570b96ea8c8e" },
   "dps-dial.vim": { "branch": "master", "commit": "7fc3a02a7e425a40dbe6164bf15f4bc45218166d" },

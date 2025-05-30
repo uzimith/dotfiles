@@ -13,30 +13,19 @@ return {
       return not vim.g.vscode
     end,
     config = function()
+      -- diagnostic
+      vim.diagnostic.config({
+        virtual_text = {
+          format = function(diagnostic)
+            return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
+          end,
+        },
+      })
+
       -- ポップアップウィンドウのボーダースタイルを設定
       require("lspconfig.ui.windows").default_options.border = "single"
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
       vim.diagnostic.config({ float = { border = "single" } })
-
-      require("mason").setup()
-      require("mason-lspconfig").setup(
-        {
-          ensure_installed = {
-            "astro",
-            "efm",
-            "gopls",
-            "tsserver",
-            -- "denols",
-            "lua_ls",
-            "yamlls",
-            "jsonls",
-            "rust_analyzer",
-            "cssls",
-            "emmet_language_server",
-          },
-          automatic_enable = true,
-        }
-      )
 
       local lspconfig = require("lspconfig")
       local ddc_source_lsp = require("ddc_source_lsp")
@@ -59,6 +48,7 @@ return {
         common_on_attach(client, bufnr)
         client.server_capabilities.documentFormattingProvider = true
       end
+
       local disable_fmt_on_attach = function(client, bufnr)
         common_on_attach(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
@@ -193,6 +183,23 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
+    opts = {
+      ensure_installed = {
+        "astro",
+        "efm",
+        "gopls",
+        "ts_ls",
+        "eslint",
+        -- "denols",
+        "lua_ls",
+        "yamlls",
+        "jsonls",
+        "rust_analyzer",
+        "cssls",
+        "emmet_language_server",
+      },
+      automatic_installation = true,
+    },
   },
   {
     "jay-babu/mason-null-ls.nvim",
@@ -215,14 +222,11 @@ return {
       null_ls.setup({
         sources = {
           null_ls.builtins.formatting.prettierd,
-          -- null_ls.builtins.diagnostics.eslint.with({
-          --   prefer_local = "node_modules/.bin",
-          -- }),
           null_ls.builtins.formatting.black,
           null_ls.builtins.formatting.goimports,
         },
         diagnostics_format = "#{m} (#{s}: #{c})",
-        debug = false,
+        debug = true,
       })
     end,
   },
