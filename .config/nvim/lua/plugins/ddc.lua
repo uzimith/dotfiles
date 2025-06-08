@@ -48,7 +48,7 @@ return {
 
       patch_global("cmdlineSources", {
         [":"] = {
-          "cmdline_history",
+          -- "cmdline_history",
           "cmdline",
           "around",
         },
@@ -97,7 +97,7 @@ return {
           mark = "[CMD]",
         },
         ["cmdline_history"] = {
-          mark = "[HIST]",
+          mark = "[HISTORY]",
         },
       })
 
@@ -136,42 +136,37 @@ return {
     end,
     config = function()
       vim.fn["pum#set_option"]({
-      auto_select = true,
-      padding = true,
-      border = "none",
-      preview = false,
-      scrollbar_char = "▋",
-      highlight_normal_menu = "Normal",
+        auto_select = true,
+        padding = true,
+        border = "none",
+        preview = false,
+        scrollbar_char = "▋",
+        highlight_normal_menu = "Normal",
       })
       local opts = { noremap = true }
       vim.keymap.set('i', '<C-n>', function() vim.fn["pum#map#select_relative"](1) end, opts)
-      vim.keymap.set('i', '<Down>', function() vim.fn["pum#map#select_relative"](1) end, opts)
       vim.keymap.set('i', '<C-p>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
+      vim.keymap.set('i', '<Down>', function() vim.fn["pum#map#select_relative"](1) end, opts)
       vim.keymap.set('i', '<Up>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
       vim.keymap.set('i', '<C-y>', function() vim.fn["pum#map#confirm"]() end, opts)
       vim.keymap.set('i', '<CR>', function()
-      if vim.fn["pum#visible"]() then
-        return '<C-y>'
-      else
-        return '<CR>'
-      end
+        if vim.fn["pum#visible"]() then
+          return '<C-y>'
+        else
+          return '<CR>'
+        end
       end, { remap = true, expr = true })
       vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
 
-      vim.keymap.set('c', '<Tab>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<S-Tab>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
-      vim.keymap.set('c', '<Down>', '<cmd>call pum#map#select_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<Up>', '<cmd>call pum#map#select_relative(-1)<CR>', opts)
+      -- cmdline mappings
       vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
       vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
       vim.keymap.set('c', '<CR>', function()
-      if vim.fn["pum#visible"]() then
-        return '<C-y><CR>'
-      else
-        return '<CR>'
-      end
+        if vim.fn["pum#visible"]() then
+          return '<C-y><CR>'
+        else
+          return '<CR>'
+        end
       end, { remap = true, expr = true })
     end,
   },
