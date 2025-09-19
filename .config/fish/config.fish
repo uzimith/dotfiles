@@ -54,9 +54,11 @@ set -gx PATH $PATH $HOME/flutter/bin
 
 alias vim='nvim'
 alias l='ll -a'
+alias gcd='cd "$(git rev-parse --show-toplevel)"'
 alias rgf='ripgrep_glob'
 alias prg='peco_ripgrep_vim'
-alias code='code -r'
+alias c='claude'
+alias yolo='claude --dangerously-skip-permissions'
 
 # docker
 alias d='docker'
