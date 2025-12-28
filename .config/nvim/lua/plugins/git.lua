@@ -1,36 +1,110 @@
 return {
-  "dinhhuy258/git.nvim",
+  "lewis6991/gitsigns.nvim",
   lazy = false,
-  config = function()
-    require('git').setup({
-      default_mappings = true,
-
-      keymaps = {
-        -- Open blame window
-        blame = "<Leader>gb",
-        -- Close blame window
-        quit_blame = "q",
-        -- Open blame commit
-        blame_commit = "<CR>",
-        -- Open file/folder in git repository
-        browse = "<Leader>go",
-        -- Open pull request of the current branch
-        open_pull_request = "<Leader>gp",
-        -- Create a pull request with the target branch is set in the `target_branch` option
-        create_pull_request = "<Leader>gn",
-        -- Opens a new diff that compares against the current index
-        diff = "<Leader>gd",
-        -- Close git diff
-        diff_close = "<Leader>gD",
-        -- Revert to the specific commit
-        revert = "<Leader>gr",
-        -- Revert the current file to the specific commit
-        revert_file = "<Leader>gR",
-      },
-      -- Default target branch when create a pull request
-      target_branch = "main",
-      -- Enable winbar in all windows created by this plugin
-      winbar = false,
-    })
+  cond = function()
+    return not vim.g.vscode
   end,
+  config = function()
+    require('gitsigns').setup {
+      signs                        = {
+        add          = { text = '│' },
+        change       = { text = '│' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '┆' },
+      },
+      signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
+      numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      watch_gitdir                 = {
+        follow_files = true
+      },
+      attach_to_untracked          = true,
+      current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame_opts      = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 0,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+      },
+      current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+      sign_priority                = 6,
+      update_debounce              = 100,
+      status_formatter             = nil,   -- Use default
+      max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+      preview_config               = {
+        -- Options passed to nvim_open_win
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
+      },
+      on_attach                    = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(function() gs.next_hunk() end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        map('n', '[c', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(function() gs.prev_hunk() end)
+          return '<Ignore>'
+        end, { expr = true })
+
+        -- Actions
+        map('n', '<leader>hs', gs.stage_hunk)
+        map('n', '<leader>hr', gs.reset_hunk)
+        map('v', '<leader>hs', function() gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+        map('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
+        map('n', '<leader>hS', gs.stage_buffer)
+        map('n', '<leader>hu', gs.undo_stage_hunk)
+        map('n', '<leader>hR', gs.reset_buffer)
+        map('n', '<leader>hp', gs.preview_hunk)
+        map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+        map('n', '<leader>tb', gs.toggle_current_line_blame)
+        map('n', '<leader>hd', gs.diffthis)
+        map('n', '<leader>hD', function() gs.diffthis('~') end)
+        map('n', '<leader>td', gs.toggle_deleted)
+
+        -- Text object
+        map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      end
+    }
+  end,
+  {
+    "tpope/vim-fugitive",
+    cond = function()
+      return not vim.g.vscode
+    end,
+    lazy = false,
+    config = function()
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        vim.keymap.set(mode, l, r, opts)
+      end
+      map('n', '<leader>go', ':<C-U>GBrowse<CR>')
+      map('n', '<leader>gb', ':<C-U>Git blame<CR>')
+    end,
+  },
+  {
+    "tpope/vim-rhubarb",
+    cond = function()
+      return not vim.g.vscode
+    end,
+    lazy = false,
+  },
 }

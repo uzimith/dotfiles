@@ -53,9 +53,7 @@ set -gx PATH $PATH $HOME/flutter/bin
 ##
 
 alias vim='nvim'
-alias l='ll -a'
 alias gcd='cd "$(git rev-parse --show-toplevel)"'
-alias rgf='ripgrep_glob'
 alias prg='peco_ripgrep_vim'
 alias c='claude'
 alias yolo='claude --dangerously-skip-permissions'
@@ -71,7 +69,7 @@ alias pk='pkill -f'
 # du/df
 alias du="du -h"
 alias df="df -h"
-alias duh="du -h ./ --max-depth=1"
+alias duh="du -h ./ --max-depth=1"  
 
 #finder
 alias fo='open .'
@@ -94,6 +92,11 @@ alias kn='kubens | peco | xargs kubens'
 
 # util
 alias cat='bat --paging=never'
+alias ls="eza --icons --git"
+alias la="eza -la --icons --git"
+alias ll="eza -aahl --icons --git"
+alias rgf='ripgrep_glob'
+zoxide init fish --cmd cd | source
 
 # application
 alias firefox="open -a Firefox"
@@ -136,3 +139,10 @@ end
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# Added by Antigravity
+fish_add_path /Users/uzimith/.antigravity/antigravity/bin
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH

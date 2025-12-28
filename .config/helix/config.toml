@@ -1,0 +1,60 @@
+theme = 'solarized_light'
+
+[editor]
+true-color = true
+cursorline = true
+color-modes = true
+auto-completion = true
+auto-save = false
+default-yank-register = "+"
+
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│" # 正直わかっていない
+mode.normal = "NOR"
+mode.insert = "INS"
+mode.select = "SEL"
+
+[editor.file-picker]
+max-depth = 6
+hidden = false
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "↲"
+
+[editor.indent-guides]
+render = true
+character = "|"
+
+[editor.soft-wrap]
+enable = true # ソフトラップによる改行を追加
+# よくわかっていない
+max-wrap = 20 # increase value to reduce forced mid-word wrapping
+max-indent-retain = 20 # 改行ごのインデントの数
+wrap-indicator = ""  # ソフトラップ改行したところの改行を表示
+
+[editor.lsp]
+display-inlay-hints = true # 型を表示
+
+[editor.inline-diagnostics]
+cursor-line = "hint" # エラーメッセージなどをインラインにする
+
+[keys.insert]
+j = { j = "normal_mode" } # jjでノーマルモード
+C-space = "completion" # Ctrl + spaceで補完

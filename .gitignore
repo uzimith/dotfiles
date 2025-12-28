@@ -2,7 +2,7 @@
 tags
 .sync
 fishd.*
-__*.fish
+*.fish
 .config/coc
 .config/github-copilot
 .config/iTerm2
@@ -12,6 +12,7 @@ __*.fish
 .config/gcloud
 .config/yarn
 .config/configstore
+.config/raycast
 .config/gh
 .netrwhist
 .gitconfig

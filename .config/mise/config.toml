@@ -1,0 +1,13 @@
+[tools]
+bun = "latest"
+node = "22"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:@openai/codex" = "latest"
+pipx = "latest"
+pnpm = "latest"
+python = "3.14.1"
+terraform = "1.14.1"
+zellij = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node"]

@@ -36,10 +36,6 @@
 	pf = push --force-with-lease
 [web]
 	browser = open
-[include]
-  path = ~/.config/git/config-secret
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -47,3 +43,8 @@
 	required = true
 [rebase]
 	autostash = true
+[merge]
+	tool = /opt/homebrew/bin/nvim
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
