@@ -5,12 +5,10 @@
   user = uzimith
 [core]
   editor = nvim
+  pager = delta
   excludesFile = ~/.config/git/gitignore_global
 [push]
   default = current
-[pager]
-  diff =
-[mergetool]
   keepBackup = true
 [hub]
   protocol = https
@@ -48,3 +46,10 @@
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 	pushInsteadOf = https://github.com/
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  syntax-theme = Solarized (light)
+  navigate = true
+  side-by-side = true
+
