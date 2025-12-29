@@ -89,7 +89,7 @@ return {
       end, opts)
       vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
-      vim.keymap.set('v', 's*', function()
+      vim.keymap.set('x', 's*', function()
         vim.cmd.normal({ '"vy', bang = true, mods = { noautocmd = true } })
         local text = vim.fn.getreg('v')
         vim.fn["ddu#start"]({ name = 'grep', input = text })

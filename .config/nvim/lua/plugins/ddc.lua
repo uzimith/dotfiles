@@ -119,12 +119,12 @@ return {
       vim.keymap.set('n', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
       vim.keymap.set('i', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
       vim.keymap.set('x', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
-      vim.keymap.set('n', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
-      vim.keymap.set('i', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
-      vim.keymap.set('x', '/', '<Cmd>call ddc#enable_cmdline_completion()<CR>/', { noremap = true })
-      vim.keymap.set('n', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
-      vim.keymap.set('i', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
-      vim.keymap.set('x', '?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
+      vim.keymap.set('n', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
+      vim.keymap.set('i', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
+      vim.keymap.set('x', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
+      vim.keymap.set('n', 's?', '<cmd>call ddc#enable_cmdline_completion()<cr>?', { noremap = true })
+      vim.keymap.set('i', 's?', '<cmd>call ddc#enable_cmdline_completion()<cr>?', { noremap = true })
+      vim.keymap.set('x', 's?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
 
       vim.fn["ddc#enable"]()
     end,
