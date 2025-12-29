@@ -80,7 +80,7 @@ return {
       vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
       vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
       vim.keymap.set("n", "sc", "<Cmd>Ddu -name=command_history command_history<CR>", opts)
-      vim.keymap.set("n", "sl", '<Cmd>Ddu link<CR>', opts)
+      vim.keymap.set("n", "sl", '<Cmd>Ddu line<CR>', opts)
       vim.keymap.set("n", "sg", function()
         vim.fn["ddu#start"]({
           name = 'grep',
@@ -91,7 +91,8 @@ return {
       vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
 
-      vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
+      -- oilをテストする
+      -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
       vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
       vim.keymap.set('c', '<C-j>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
@@ -170,6 +171,11 @@ return {
           },
           file = {
             sorters = { "sorter_alpha" },
+            columns = { "icon_filename", "file_git_status", "file_buf_modified" }
+          },
+          file_external = {
+            sorters = { "sorter_alpha" },
+            columns = { "icon_filename", "file_git_status", "file_buf_modified" }
           },
           file_old = {
             matchers = { "matcher_substring", "matcher_relative" },
