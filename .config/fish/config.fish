@@ -96,7 +96,8 @@ alias ls="eza --icons --git"
 alias la="eza -la --icons --git"
 alias ll="eza -aahl --icons --git"
 alias rgf='ripgrep_glob'
-zoxide init fish --cmd cd | source
+zoxide init fish | source
+alias cd='z'
 
 # application
 alias firefox="open -a Firefox"
@@ -146,3 +147,5 @@ fish_add_path /Users/uzimith/.antigravity/antigravity/bin
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+git wt --init fish | source
