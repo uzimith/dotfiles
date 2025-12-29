@@ -46,7 +46,6 @@ return {
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
       vim.keymap.set("n", "sd", function()
         vim.fn["ddu#start"]({
-          name = "file",
           sources = {
             { name = "file" },
           },
@@ -57,7 +56,25 @@ return {
           },
         })
       end, opts)
-      vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
+      vim.keymap.set("n", "sf", function()
+        vim.fn["ddu#start"]({
+          sources = {
+            { name = "file_external" },
+          },
+          sourceOptions = {
+            file_external = {
+              path = vim.fn.expand('%:p:h'),
+            },
+          },
+        })
+      end, opts)
+      vim.keymap.set("n", "sF", function()
+        vim.fn["ddu#start"]({
+          sources = {
+            { name = "file_external" },
+          },
+        })
+      end, opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
@@ -150,6 +167,9 @@ return {
           _ = {
             ignoreCase = true,
             matchers = { "matcher_substring" },
+          },
+          file = {
+            sorters = { "sorter_alpha" },
           },
           file_old = {
             matchers = { "matcher_substring", "matcher_relative" },
@@ -304,6 +324,8 @@ return {
         callback = function()
           common_keymaps()
 
+          -- 新規ファイル作成
+          vim.keymap.set("n", "N", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newFile"})<CR>', opts)
           -- -- フィルターを開く
           vim.keymap.set("n", "i", '<Cmd>call ddu#ui#do_action("openFilterWindow")<CR>', opts)
           -- -- プレビュー
