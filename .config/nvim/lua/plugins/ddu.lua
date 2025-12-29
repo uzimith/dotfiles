@@ -87,7 +87,6 @@ return {
           input = '',
         })
       end, opts)
-      vim.keymap.set("n", "si", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
       vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
       vim.keymap.set('v', 's*', function()
@@ -95,6 +94,9 @@ return {
         local text = vim.fn.getreg('v')
         vim.fn["ddu#start"]({ name = 'grep', input = text })
       end, opts)
+
+      vim.keymap.set("n", "si", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
+      vim.keymap.set("n", "sk", '<Cmd>Ddu lsp_documentSymbol<CR>', opts)
 
       -- oilをテストする
       -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
