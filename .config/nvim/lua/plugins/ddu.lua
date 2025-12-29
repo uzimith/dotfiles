@@ -97,6 +97,8 @@ return {
 
       vim.keymap.set("n", "si", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
       vim.keymap.set("n", "sk", '<Cmd>Ddu lsp_documentSymbol<CR>', opts)
+      vim.keymap.set("n", "sw", '<Cmd>Ddu lsp_workspaceSymbol<CR>', opts)
+      vim.keymap.set("n", "sa", '<Cmd>Ddu lsp_codeAction<CR>', opts)
 
       -- oilをテストする
       -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
@@ -186,6 +188,15 @@ return {
           },
           file_old = {
             matchers = { "matcher_substring", "matcher_relative" },
+          },
+          lsp_documentSymbol = {
+            converters = { "converter_lsp_symbol" },
+          },
+          lsp_workspaceSymbol = {
+            converters = { "converter_lsp_symbol" },
+          },
+          lsp_diagnostic = {
+            converters = { "converter_lsp_diagnostic" },
           },
         },
         filterParams = {

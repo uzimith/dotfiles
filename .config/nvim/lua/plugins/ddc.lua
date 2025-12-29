@@ -94,6 +94,7 @@ return {
         },
         cmdline = {
           mark = "[CMD]",
+          minAutoCompleteLength = 2,
         },
         ["cmdline_history"] = {
           mark = "[HISTORY]",
