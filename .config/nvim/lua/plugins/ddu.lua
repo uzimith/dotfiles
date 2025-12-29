@@ -44,13 +44,14 @@ return {
         vim.fn["ddu#start"]({ resume = true })
       end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
+      vim.keymap.set("n", "sd", "<Cmd>Ddu file<CR>", opts)
       vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
       vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
       vim.keymap.set("n", "sc", "<Cmd>Ddu -name=command_history command_history<CR>", opts)
-      vim.keymap.set("n", "sl", '<Cmd>Ddu <CR>', opts)
+      vim.keymap.set("n", "sl", '<Cmd>Ddu link<CR>', opts)
       vim.keymap.set("n", "sg", function()
         vim.fn["ddu#start"]({
           name = 'grep',
@@ -96,10 +97,10 @@ return {
               previewHeight = win_height - 2,
               previewCol = math.floor(width / 2) - 2,
               previewRow = top + 1,
-              -- startAutoAction = true,
-              -- autoAction = {
-              --   name = "preview",
-              -- },
+              startAutoAction = true,
+              autoAction = {
+                name = "preview",
+              },
             },
             filer = {
               winWidth = 30,
@@ -222,7 +223,14 @@ return {
 
       local common_keymaps = function()
         vim.wo.cursorline = true
-        vim.keymap.set("n", "<CR>", '<Cmd>call ddu#ui#do_action("itemAction")<CR>', opts)
+        vim.keymap.set("n", "<CR>", function()
+          local item = vim.fn["ddu#ui#get_item"]()
+          if item.isTree then
+            vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
+          else
+            vim.fn["ddu#ui#do_action"]("itemAction")
+          end
+        end, opts)
         vim.keymap.set("n", "os",
           '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "split"}})<CR>', opts)
         vim.keymap.set("n", "ov",
@@ -245,11 +253,13 @@ return {
           vim.keymap.set("n", "N", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newFile"})<CR>', opts)
           vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "newDirectory"})<CR>', opts)
           vim.keymap.set("n", "x", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "executeSystem"})<CR>', opts)
+
           -- -- ディレクトリなら展開、ファイルなら開く
           vim.cmd([[nnoremap <buffer><expr> <CR>
              \ ddu#ui#get_item()->get('isTree', v:false)
              \ ? "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>"
              \ : "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'open'})<CR>"]])
+
           vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
           vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
             opts)
@@ -259,7 +269,6 @@ return {
             opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
-
 
           -- toggle hidden files
           vim.keymap.set("n", ">", function()
@@ -282,6 +291,7 @@ return {
         pattern = "ddu-ff",
         callback = function()
           common_keymaps()
+
           -- -- フィルターを開く
           vim.keymap.set("n", "i", '<Cmd>call ddu#ui#do_action("openFilterWindow")<CR>', opts)
           -- -- プレビュー
