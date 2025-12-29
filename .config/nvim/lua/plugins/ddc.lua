@@ -31,7 +31,6 @@ return {
 
       patch_global("ui", "pum")
 
-
       patch_global("autoCompleteEvents", {
         "InsertEnter",
         "TextChangedI",

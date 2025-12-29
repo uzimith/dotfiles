@@ -11,6 +11,7 @@ return {
       "Shougo/ddu-source-action",
       "Shougo/ddu-source-file",
       "Shougo/ddu-source-file_old",
+      "Shougo/ddu-source-line",
       "matsui54/ddu-source-file_external",
       "shun/ddu-source-rg",
       "shun/ddu-source-buffer",
@@ -55,13 +56,16 @@ return {
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
       vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
+      vim.keymap.set("n", "sc", "<Cmd>Ddu -name=command_history command_history<CR>", opts)
+      vim.keymap.set("n", "sl", '<Cmd>Ddu <CR>', opts)
+      vim.keymap.set("n", "sg", '<Cmd>Ddu -name=grep<CR>', opts)
+      vim.keymap.set("n", "si", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
       vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
-      vim.keymap.set("n", "sg", '<Cmd>Ddu -name=grep<CR>', opts)
+
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
-      vim.keymap.set("n", "<UP>", [[<Cmd>Ddu -name=command_history command_history<CR>]], opts)
-      vim.keymap.set("c", "<C-h>", [[<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>]], opts)
+      vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
       vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
       vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#insert_relative(-1)<CR>', opts)
     end,
@@ -96,9 +100,9 @@ return {
               previewRow = top + 1,
               startFilter = true,
               startAutoAction = true,
-              -- autoAction = {
-              --   name = "preview",
-              -- },
+              autoAction = {
+                name = "preview",
+              },
             },
             filer = {
               winWidth = 30,

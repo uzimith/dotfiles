@@ -52,22 +52,18 @@ vim.keymap.set('n', 'ty', ':tabn 6<CR>', opts)
 vim.keymap.set('n', 'tu', ':tabn 7<CR>', opts)
 vim.keymap.set('n', 'ti', ':tabn 8<CR>', opts)
 vim.keymap.set('n', 'to', ':tabn 9<CR>', opts)
-vim.keymap.set('n', 'tr', ':tabn 0<CR>', opts)
 
--- 検索
 vim.keymap.set('n', '<Leader>cd', ':lcd %:h<CR>', opts)
-
-vim.keymap.set('n', '<Leader>en', ':lnext<CR>', opts)
-vim.keymap.set('n', '<Leader>ep', ':lprevious<CR>', opts)
-
-vim.keymap.set('n', 'c.', ':q:k<CR>', opts)
 vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %<CR> :e!<CR>', opts)
 
 -- ビジュアルモード時vで行末まで選択
 vim.keymap.set('v', 'v', '$h', opts)
 
-vim.keymap.set('n', 'sn', ':cnext<CR><CR>', { noremap = true, silent = true })
-vim.keymap.set('n', 'sp', ':cprevious<CR><CR>', { noremap = true, silent = true })
+-- 移動
+vim.keymap.set('n', ']c', ':cnext<CR>', opts)
+vim.keymap.set('n', '[c', ':cprevious<CR>', opts)
+vim.keymap.set('n', '[l', ':lnext<CR>', opts)
+vim.keymap.set('n', ']l', ':lprevious<CR>', opts)
 
 -- if vim.g.vscode then
 --   vim.keymap.set('n', 'u', 'u', { noremap = true, silent = true })
