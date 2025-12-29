@@ -302,7 +302,7 @@ return {
           vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
             opts)
           vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
-          vim.keymap.set('n', 'h',
+          vim.keymap.set('n', '<C-h>',
             function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
             opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
@@ -344,6 +344,10 @@ return {
               { "itemAction",         { name = "quickfix" } },
             })
           end, opts)
+          -- 親ディレクトリに移動
+          vim.keymap.set("n", "<C-h>",
+            function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } }) end,
+            opts)
         end,
       })
 

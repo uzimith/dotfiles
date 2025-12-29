@@ -52,6 +52,7 @@ vim.opt.showtabline = 2
 
 -- ターミナルでマウスを使用できるようにする
 vim.opt.mouse = "a"
+vim.opt.mousemoveevent = true
 
 -- クリップボードを共有
 vim.opt.clipboard = "unnamedplus"
