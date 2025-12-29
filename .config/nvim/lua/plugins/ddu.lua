@@ -44,7 +44,19 @@ return {
         vim.fn["ddu#start"]({ resume = true })
       end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
-      vim.keymap.set("n", "sd", "<Cmd>Ddu file<CR>", opts)
+      vim.keymap.set("n", "sd", function()
+        vim.fn["ddu#start"]({
+          name = "file",
+          sources = {
+            { name = "file" },
+          },
+          sourceOptions = {
+            file = {
+              path = vim.fn.expand('%:p:h'),
+            },
+          },
+        })
+      end, opts)
       vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
