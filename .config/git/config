@@ -32,6 +32,7 @@
   now = n
   empty = commit --allow-empty 
 	pf = push --force-with-lease
+	d = diff
 [web]
 	browser = open
 [filter "lfs"]
