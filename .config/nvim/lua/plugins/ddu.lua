@@ -208,8 +208,6 @@ return {
           _ = {
             sorters = { "sorter_alpha" },
             columns = { "icon_filename" },
-            -- 隠しファイルのtoggleがうまく動かないので全部出す
-            -- matchers = { "matcher_hidden" },
             matchers = {},
           },
         },
@@ -283,37 +281,19 @@ return {
 
 
           -- toggle hidden files
-          local function toggle(array, needle)
-            local idx = -1
-            for k, v in ipairs(array) do
-              if v == needle then idx = k end
-            end
-            if idx ~= -1 then
-              table.remove(array, idx)
-            else
-              table.insert(array, needle)
-            end
-            return array
-          end
-
-          local function toggleHidden()
-            local cur = vim.fn['ddu#custom#get_current'](vim.b.ddu_ui_name)
-            local source_opts = cur['sourceOptions'] or {}
-            local opts_all = source_opts['_'] or {}
-            local matchers = opts_all['matchers'] or {}
-            return toggle(matchers, 'matcher_hidden')
-          end
-
           vim.keymap.set("n", ">", function()
+            local show_hidden = vim.b.ddu_filer_show_hidden or false
+            vim.b.ddu_filer_show_hidden = not show_hidden
+            local matchers = show_hidden and { "matcher_hidden" } or {}
             vim.fn["ddu#ui#do_action"]('updateOptions', {
               sourceOptions = {
                 _ = {
-                  matchers = toggleHidden(),
+                  matchers = matchers,
                 },
               },
             })
-            vim.fn['ddu#ui#do_action']('checkItems')
-          end, { buffer = true, noremap = true })
+            vim.fn['ddu#ui#do_action']('redraw', { method = 'refreshItems' })
+          end, opts)
         end,
       })
 
