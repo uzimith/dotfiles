@@ -10,6 +10,7 @@ local formatters_by_ft = {
   typescript = { "prettier" },
   typescriptreact = { "prettier" },
   vue = { "prettier" },
+  yaml = { "prettier" },
 }
 return {
   {
