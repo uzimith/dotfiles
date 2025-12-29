@@ -1,0 +1,5 @@
+tmux send-keys "vim" C-m \; \
+  split-window -h -l 35% \; \
+  send-keys "c --ide" C-m \; \
+  select-pane -L \; \
+  resize-pane -Z
