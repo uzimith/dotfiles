@@ -19,6 +19,8 @@ bind status <Ctrl-a> !@git add -A
 bind status C !@git commit -m %(prompt)
 bind status A !@git commit --amend --no-edit
 bind status <Ctrl-!> !@?rm %(file)
+bind status R !@?git restore --source=%(commit) -- %(file)
+
 bind stage n :next
 bind stage p :previous
 
