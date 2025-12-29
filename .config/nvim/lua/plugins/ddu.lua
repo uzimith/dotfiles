@@ -41,14 +41,7 @@ return {
     init = function()
       local opts = { silent = true, noremap = true }
       vim.keymap.set('n', 'ss', function()
-        vim.fn["ddu#start"]({
-          resume = true,
-          uiParams = {
-            ff = {
-              startFilter = false,
-            },
-          },
-        })
+        vim.fn["ddu#start"]({ resume = true })
       end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
       vim.keymap.set("n", "sf", "<Cmd>Ddu file_external<CR>", opts)
@@ -58,7 +51,12 @@ return {
       vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
       vim.keymap.set("n", "sc", "<Cmd>Ddu -name=command_history command_history<CR>", opts)
       vim.keymap.set("n", "sl", '<Cmd>Ddu <CR>', opts)
-      vim.keymap.set("n", "sg", '<Cmd>Ddu -name=grep<CR>', opts)
+      vim.keymap.set("n", "sg", function()
+        vim.fn["ddu#start"]({
+          name = 'grep',
+          input = '',
+        })
+      end, opts)
       vim.keymap.set("n", "si", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
       vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
         opts)
@@ -98,11 +96,10 @@ return {
               previewHeight = win_height - 2,
               previewCol = math.floor(width / 2) - 2,
               previewRow = top + 1,
-              startFilter = true,
-              startAutoAction = true,
-              autoAction = {
-                name = "preview",
-              },
+              -- startAutoAction = true,
+              -- autoAction = {
+              --   name = "preview",
+              -- },
             },
             filer = {
               winWidth = 30,
@@ -218,22 +215,6 @@ return {
         },
       })
 
-      -- LSP
-      vim.fn["ddu#custom#patch_local"]("lsp", {
-        uiParams = {
-          ff = {
-            startFilter = false,
-          },
-        },
-      })
-
-      vim.fn["ddu#custom#patch_local"]("command_history", {
-        uiParams = {
-          ff = {
-            startFilter = false,
-          },
-        },
-      })
 
       -- keymaps
       local opts = { buffer = true, silent = true, noremap = true }
