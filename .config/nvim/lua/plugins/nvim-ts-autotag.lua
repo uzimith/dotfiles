@@ -1,9 +1,10 @@
 return {
-  -- BUG:
-  -- "windwp/nvim-ts-autotag",
-  -- event = "InsertEnter",
-  -- config = true,
-  -- cond = function()
-  --   return not vim.g.vscode
-  -- end,
+  "windwp/nvim-ts-autotag",
+  lazy = false,
+  cond = function()
+    return not vim.g.vscode
+  end,
+  config = function()
+    require("nvim-ts-autotag").setup({})
+  end,
 }
