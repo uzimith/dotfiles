@@ -49,7 +49,7 @@ return {
         [":"] = {
           -- "cmdline_history",
           "cmdline",
-          "around",
+          -- "around",
         },
         ["/"] = {
           "around",
@@ -69,7 +69,7 @@ return {
           minAutoCompleteLength = 1,
         },
         around = {
-          mark = "[A]",
+          mark = "[AROUND]",
         },
         lsp = {
           mark = "[LSP]",
