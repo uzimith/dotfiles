@@ -64,8 +64,8 @@ return {
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
       vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
-      vim.keymap.set('c', '<C-n>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<C-p>', '<cmd>call pum#map#insert_relative(-1)<CR>', opts)
+      vim.keymap.set('c', '<C-j>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
+      vim.keymap.set('c', '<C-k>', '<cmd>call pum#map#insert_relative(-1)<CR>', opts)
     end,
     config = function()
       local reset_ui = function()
