@@ -32,8 +32,11 @@ return {
   },
   {
     "coder/claudecode.nvim",
-    lazy = false,
     dependencies = { "folke/snacks.nvim" },
+    lazy = false,
+    cond = function()
+      return not vim.g.vscode
+    end,
     config = true,
     keys = {
       { "<leader>a", function() vim.fn.setreg('+', '@' .. vim.fn.expand('%:.')) end, desc = "Copy buffer path" },
