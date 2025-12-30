@@ -13,8 +13,10 @@ return {
           auto_trigger = true,
           keymap = {
             accept = false,
-            next = "<C-]>",
-            prev = "<C-[>",
+            next = "<M-]>",
+            prev = "<M-[>",
+            accept_word = "<M-Right>",
+            accept_line = "<M-Down>",
           },
         },
       })
