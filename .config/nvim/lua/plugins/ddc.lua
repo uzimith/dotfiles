@@ -170,8 +170,10 @@ return {
       end, { remap = true, expr = true })
 
       vim.cmd([[
-        cnoremap <expr> <Down> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Down>'
-        cnoremap <expr> <Up> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+        cnoremap <expr> <Down> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Cmd>call ddc#disable()<CR><Down><Cmd>call ddc#enable_cmdline_completion()<CR>'
+        cnoremap <expr> <Up> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>call ddc#disable()<CR><Up><Cmd>call ddc#enable_cmdline_completion()<CR>'
+        cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Cmd>call ddc#disable()<CR><C-n><Cmd>call ddc#enable_cmdline_completion()<CR>'
+        cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>call ddc#disable()<CR><C-p><Cmd>call ddc#enable_cmdline_completion()<CR>'
       ]])
     end,
   },
