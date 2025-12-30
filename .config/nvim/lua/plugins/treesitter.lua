@@ -43,5 +43,11 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-  }
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = 'main',
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
 }
