@@ -32,8 +32,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
 -- タブ
 vim.keymap.set('n', 'tc', ':tabnew<CR>', opts)
-vim.keymap.set('n', 'tn', ':tabnext<CR>', opts)
-vim.keymap.set('n', 'tp', ':tabprevious<CR>', opts)
+vim.keymap.set('n', 'tj', ':tabnext<CR>', opts)
+vim.keymap.set('n', 'tk', ':tabprevious<CR>', opts)
 vim.keymap.set('n', 't1', ':tabn 1<CR>', opts)
 vim.keymap.set('n', 't2', ':tabn 2<CR>', opts)
 vim.keymap.set('n', 't3', ':tabn 3<CR>', opts)
