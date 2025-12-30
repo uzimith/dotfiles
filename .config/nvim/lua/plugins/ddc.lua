@@ -168,6 +168,11 @@ return {
           return '<CR>'
         end
       end, { remap = true, expr = true })
+
+      vim.cmd([[
+        cnoremap <expr> <Down> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Down>'
+        cnoremap <expr> <Up> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Up>'
+      ]])
     end,
   },
   {
