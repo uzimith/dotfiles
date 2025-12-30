@@ -1,7 +1,6 @@
 return {
   {
-    "github/copilot.vim",
-    lazy = false,
+    "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     event = "InsertEnter",
     cond = function()
@@ -9,7 +8,25 @@ return {
     end,
     config = function()
       vim.g.copilot_node_command = '~/.local/share/mise/installs/node/22.13.1/bin/node'
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = false,
+            next = "<C-]>",
+            prev = "<C-[>",
+          },
+        },
+      })
+      vim.keymap.set('i', '<Tab>', function()
+        if require("copilot.suggestion").is_visible() then
+          require("copilot.suggestion").accept()
+        else
+          return '<Tab>'
+        end
+      end, { expr = true })
     end,
+
   },
   {
     "coder/claudecode.nvim",

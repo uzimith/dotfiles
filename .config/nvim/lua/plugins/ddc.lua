@@ -47,7 +47,7 @@ return {
 
       patch_global("cmdlineSources", {
         [":"] = {
-          "cmdline_history",
+          -- "cmdline_history",
           "cmdline",
           "around",
         },
