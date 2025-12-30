@@ -47,9 +47,9 @@ return {
 
       patch_global("cmdlineSources", {
         [":"] = {
-          -- "cmdline_history",
+          "cmdline_history",
           "cmdline",
-          -- "around",
+          "around",
         },
         ["/"] = {
           "around",
@@ -70,6 +70,7 @@ return {
         },
         around = {
           mark = "[AROUND]",
+          minAutoCompleteLength = 2,
         },
         lsp = {
           mark = "[LSP]",
@@ -98,6 +99,7 @@ return {
         },
         ["cmdline_history"] = {
           mark = "[HISTORY]",
+          minAutoCompleteLength = 2,
         },
       })
 
@@ -163,17 +165,27 @@ return {
       vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
       vim.keymap.set('c', '<CR>', function()
         if vim.fn["pum#visible"]() then
-          return '<C-y><CR>'
+          return '<C-y>'
         else
           return '<CR>'
         end
       end, { remap = true, expr = true })
 
       vim.cmd([[
-        cnoremap <expr> <Down> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Cmd>call ddc#disable()<CR><Down><Cmd>call ddc#enable_cmdline_completion()<CR>'
-        cnoremap <expr> <Up> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>call ddc#disable()<CR><Up><Cmd>call ddc#enable_cmdline_completion()<CR>'
-        cnoremap <expr> <C-n> pum#visible() ? '<Cmd>call pum#map#select_relative(1)<CR>' : '<Cmd>call ddc#disable()<CR><C-n><Cmd>call ddc#enable_cmdline_completion()<CR>'
-        cnoremap <expr> <C-p> pum#visible() ? '<Cmd>call pum#map#select_relative(-1)<CR>' : '<Cmd>call ddc#disable()<CR><C-p><Cmd>call ddc#enable_cmdline_completion()<CR>'
+        function! s:cmdline_select(num, fallback) abort
+          if pum#visible()
+            call pum#map#select_relative(a:num)
+            return ''
+          else
+            call ddc#disable()
+            call timer_start(0, {-> ddc#enable_cmdline_completion()})
+            return a:fallback
+          endif
+        endfunction
+        cnoremap <expr> <Down> <SID>cmdline_select(1, "\<Down>")
+        cnoremap <expr> <Up> <SID>cmdline_select(-1, "\<Up>")
+        cnoremap <expr> <C-n> <SID>cmdline_select(1, "\<C-n>")
+        cnoremap <expr> <C-p> <SID>cmdline_select(-1, "\<C-p>")
       ]])
     end,
   },
