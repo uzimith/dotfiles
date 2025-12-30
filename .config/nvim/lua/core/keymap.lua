@@ -60,8 +60,8 @@ vim.keymap.set('c', 'w!!', 'w !sudo tee > /dev/null %<CR> :e!<CR>', opts)
 vim.keymap.set('v', 'v', '$h', opts)
 
 -- 移動
-vim.keymap.set('n', ']c', ':cnext<CR>', opts)
-vim.keymap.set('n', '[c', ':cprevious<CR>', opts)
+vim.keymap.set('n', ']q', ':cnext<CR>', opts)
+vim.keymap.set('n', '[q', ':cprevious<CR>', opts)
 vim.keymap.set('n', '[l', ':lnext<CR>', opts)
 vim.keymap.set('n', ']l', ':lprevious<CR>', opts)
 

@@ -50,7 +50,7 @@ return {
           vim.keymap.set('n', 'gk', function() vim.lsp.buf.hover({ border = "single" }) end, opts)
           vim.keymap.set('n', 'ge', vim.diagnostic.open_float, opts)
 
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+          vim.keymap.set('n', 'gh', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 

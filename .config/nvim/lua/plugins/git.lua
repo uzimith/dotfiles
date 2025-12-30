@@ -95,8 +95,8 @@ return {
             gitsigns.diffthis('~')
           end)
 
-          map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
-          map('n', '<leader>hq', gitsigns.setqflist)
+          map('n', '<leader>gq', gitsigns.setqflist)
+          map('n', '<leader>gQ', function() gitsigns.setqflist('all') end)
 
           -- Toggles
           map('n', '<leader>gt', gitsigns.toggle_current_line_blame)
