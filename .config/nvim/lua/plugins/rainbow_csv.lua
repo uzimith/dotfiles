@@ -1,6 +1,5 @@
 return {
   'mechatroner/rainbow_csv',
-  config = true,
   ft = {
     'csv',
     'csv_semicolon',
