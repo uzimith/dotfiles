@@ -81,10 +81,11 @@ return {
             end
           end)
 
-          map('n', '<leader>hp', gitsigns.preview_hunk)
-          map('n', '<leader>hi', gitsigns.preview_hunk_inline)
+          map('n', '<leader>gp', gitsigns.preview_hunk_inline)
 
-          map('n', '<leader>hb', function()
+          map('n', '<leader>gb', gitsigns.blame)
+          map('n', '<leader>gi', gitsigns.blame_line)
+          map('n', '<leader>gI', function()
             gitsigns.blame_line({ full = true })
           end)
 
@@ -96,9 +97,6 @@ return {
 
           map('n', '<leader>hQ', function() gitsigns.setqflist('all') end)
           map('n', '<leader>hq', gitsigns.setqflist)
-
-          map('n', '<leader>gb', gitsigns.blame)
-          map('n', '<leader>gi', gitsigns.blame_line)
 
           -- Toggles
           map('n', '<leader>gt', gitsigns.toggle_current_line_blame)
