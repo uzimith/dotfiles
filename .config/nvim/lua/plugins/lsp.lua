@@ -40,6 +40,11 @@ return {
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
+          -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          -- if client then
+          --   require("workspace-diagnostics").populate_workspace_diagnostics(client, ev.buf)
+          -- end
+
           local opts = { buffer = ev.buf }
 
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -54,10 +59,6 @@ return {
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 
           vim.keymap.set("n", "gq", function()
-            vim.notify("set diagnostic quickfix")
-            for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
-              require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
-            end
             vim.diagnostic.setqflist({ open = false })
             vim.diagnostic.setloclist({ open = false })
           end, opts)
@@ -70,6 +71,14 @@ return {
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
             group = vim.api.nvim_create_augroup('UserDiagnosticConfig', { clear = true }),
             callback = function()
+              vim.diagnostic.setqflist({ open = false })
+              vim.diagnostic.setloclist({ open = false })
+            end,
+          })
+
+          vim.api.nvim_create_autocmd("BufEnter", {
+            group = vim.api.nvim_create_augroup('UserWorkspaceDiagnostics', { clear = true }),
+            callback = function(e)
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
             end,

@@ -28,7 +28,7 @@ return {
       options = {
         icons_enabled = true,
         theme = 'solarized_light',
-        component_separators = { left = '', right = '' },
+        component_separators = { left = '｜', right = '｜' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
           'NvimTree',
@@ -46,8 +46,8 @@ return {
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'diff', 'diagnostics', 'filename' },
         lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
         lualine_y = { 'searchcount', loclistcount, quickfixcount, 'progress' },
         lualine_z = { 'location', '%L' }
@@ -88,3 +88,4 @@ return {
     }
   end
 }
+
