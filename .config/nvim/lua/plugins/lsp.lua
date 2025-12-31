@@ -76,9 +76,14 @@ return {
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
 
-              -- quickfixを切り替えるためのワークアラウンド
-              local qflist = vim.fn.getqflist({ all = 0 })
-              vim.fn.setqflist({}, " ", qflist)
+              -- quickfixが開いていたらDiagnosticsリストに切り替える
+              for i = 1, vim.fn.getqflist({ nr = "$" }).nr do
+                local list = vim.fn.getqflist({ nr = i, title = 0 })
+                if list.title == "Diagnostics" then
+                  vim.cmd(i .. "chistory")
+                  break
+                end
+              end
 
               updating_diagnostics = false
             end,
