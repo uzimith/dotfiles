@@ -82,6 +82,9 @@ return {
           vim.api.nvim_create_autocmd("BufEnter", {
             group = vim.api.nvim_create_augroup('user.diagnostic.buffer', { clear = true }),
             callback = function()
+              if vim.bo.filetype == "qf" then
+                return
+              end
               vim.diagnostic.setloclist({ open = false })
             end,
           })
