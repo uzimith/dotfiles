@@ -21,6 +21,21 @@ return {
         augend.constant.alias.bool, -- true <-> false
         augend.constant.alias.Bool, -- true <-> false
         augend.semver.alias.semver,
+        augend.constant.new({
+          elements = { "&&", "||" },
+          word = false,
+          cyclic = true,
+        }),
+        augend.constant.new({
+          elements = { "==", "!=" },
+          word = false,
+          cyclic = true,
+        }),
+        augend.constant.new({
+          elements = { "dev", "stage", "prod" },
+          word = true,
+          cyclic = true,
+        }),
       },
     })
 
