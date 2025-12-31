@@ -69,7 +69,6 @@ return {
           vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
-            group = vim.api.nvim_create_augroup('UserDiagnosticConfig', { clear = true }),
             callback = function()
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
@@ -77,9 +76,7 @@ return {
           })
 
           vim.api.nvim_create_autocmd("BufEnter", {
-            group = vim.api.nvim_create_augroup('UserWorkspaceDiagnostics', { clear = true }),
-            callback = function(e)
-              vim.diagnostic.setqflist({ open = false })
+            callback = function()
               vim.diagnostic.setloclist({ open = false })
             end,
           })
