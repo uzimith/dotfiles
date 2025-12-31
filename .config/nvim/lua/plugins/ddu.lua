@@ -18,7 +18,6 @@ return {
       "matsui54/ddu-source-help",
       "uga-rosa/ddu-source-lsp",
       "kyoh86/ddu-source-quickfix_history",
-      "flow6852/ddu-source-qf",
       "matsui54/ddu-source-command_history",
       -- Filter
       "Shougo/ddu-filter-sorter_alpha",
@@ -77,8 +76,7 @@ return {
       end, opts)
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
-      vim.keymap.set("n", "sq", "<Cmd>Ddu qf<CR>", opts)
-      vim.keymap.set("n", "sQ", "<Cmd>Ddu quickfix_history<CR>", opts)
+      vim.keymap.set("n", "sq", "<Cmd>Ddu quickfix_history<CR>", opts)
       vim.keymap.set("n", "sl", '<Cmd>Ddu line<CR>', opts)
       vim.keymap.set("n", "sg", function()
         vim.fn["ddu#start"]({
@@ -94,10 +92,8 @@ return {
         vim.fn["ddu#start"]({ name = 'grep', input = text })
       end, opts)
 
-      vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
-      vim.keymap.set("n", "gq", '<Cmd>Ddu lsp_diagnostic<CR>', opts)
-      vim.keymap.set("n", "gs", '<Cmd>Ddu lsp_documentSymbol<CR>', opts)
-      vim.keymap.set("n", "gw", '<Cmd>Ddu lsp_workspaceSymbol<CR>', opts)
+      vim.keymap.set("n", "sr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
+      vim.keymap.set("n", "sw", '<Cmd>Ddu lsp_workspaceSymbol<CR>', opts)
       vim.keymap.set("n", "gc", '<Cmd>Ddu lsp_codeAction<CR>', opts)
 
       -- oilをテストする
