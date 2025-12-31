@@ -38,9 +38,29 @@ return {
 
       local updating_diagnostics = false
 
+      local function update_diagnostic_lists()
+        if updating_diagnostics then
+          return
+        end
+        updating_diagnostics = true
+        vim.diagnostic.setqflist({ open = false })
+        vim.diagnostic.setloclist({ open = false })
+
+        for i = 1, vim.fn.getqflist({ nr = "$" }).nr do
+          local list = vim.fn.getqflist({ nr = i, title = 0 })
+          if list.title == "Diagnostics" then
+            vim.cmd(i .. "chistory")
+            break
+          end
+        end
+        updating_diagnostics = false
+      end
+
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('user.lsp.config', {}),
         callback = function(ev)
+          vim.lsp.buf.workspace_diagnostics()
+
           local opts = { buffer = ev.buf }
 
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -54,39 +74,15 @@ return {
           vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 
-          vim.keymap.set("n", "gq", function()
-            vim.diagnostic.setqflist({ open = false })
-            vim.diagnostic.setloclist({ open = false })
-          end, opts)
-
           vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
 
           vim.keymap.set('', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
           vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
 
-          vim.lsp.buf.workspace_diagnostics()
-
+          vim.keymap.set("n", "gq", update_diagnostic_lists, opts)
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
             group = vim.api.nvim_create_augroup('user.diagnostic.changed', { clear = true }),
-            callback = function()
-              if updating_diagnostics then
-                return
-              end
-              updating_diagnostics = true
-              vim.diagnostic.setqflist({ open = false })
-              vim.diagnostic.setloclist({ open = false })
-
-              -- quickfixが開いていたらDiagnosticsリストに切り替える
-              for i = 1, vim.fn.getqflist({ nr = "$" }).nr do
-                local list = vim.fn.getqflist({ nr = i, title = 0 })
-                if list.title == "Diagnostics" then
-                  vim.cmd(i .. "chistory")
-                  break
-                end
-              end
-
-              updating_diagnostics = false
-            end,
+            callback = update_diagnostic_lists,
           })
         end,
       })
