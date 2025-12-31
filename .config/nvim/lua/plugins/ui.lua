@@ -105,13 +105,18 @@ return {
     dependencies = {
       "kevinhwang91/nvim-hlslens",
       "lewis6991/gitsigns.nvim",
+      "maxmx03/solarized.nvim",
     },
     config = function()
+      local colors = require("solarized.utils").get_colors()
       require("scrollbar").setup({
+        handle = {
+          color = colors.base2,
+        },
         handlers = {
-          cursor = true,
+          cursor = false,
           diagnostic = true,
-          gitsigns = true,
+          gitsigns = false,
           handle = true,
           search = true,
           ale = false,
