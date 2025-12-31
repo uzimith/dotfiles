@@ -43,17 +43,19 @@ return {
           return
         end
         updating_diagnostics = true
-        vim.diagnostic.setqflist({ open = false })
-        vim.diagnostic.setloclist({ open = false })
+        vim.schedule(function()
+          vim.diagnostic.setqflist({ open = false })
+          vim.diagnostic.setloclist({ open = false })
 
-        for i = 1, vim.fn.getqflist({ nr = "$" }).nr do
-          local list = vim.fn.getqflist({ nr = i, title = 0 })
-          if list.title == "Diagnostics" then
-            vim.cmd(i .. "chistory")
-            break
+          for i = 1, vim.fn.getqflist({ nr = "$" }).nr do
+            local list = vim.fn.getqflist({ nr = i, title = 0 })
+            if list.title == "Diagnostics" then
+              vim.cmd(i .. "chistory")
+              break
+            end
           end
-        end
-        updating_diagnostics = false
+          updating_diagnostics = false
+        end)
       end
 
       vim.api.nvim_create_autocmd("LspAttach", {
