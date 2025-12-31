@@ -154,16 +154,6 @@ return {
         callback = reset_ui,
       })
 
-      vim.fn["ddu#custom#action"]("kind", "file", "narrow_open", function(args)
-        local item = args.items[1]
-        if item.isTree then
-          return vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
-        else
-          return vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
-        end
-      end)
-
-
       vim.fn["ddu#custom#alias"]('_', 'source', 'ghq', 'file_external')
       vim.fn["ddu#custom#patch_global"]({
         sourceParams = {
@@ -340,23 +330,6 @@ return {
       end
 
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = "ddu-filer",
-        callback = function()
-          common_keymaps()
-
-          vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
-          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
-            opts)
-          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
-          vim.keymap.set('n', '<C-h>',
-            function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
-            opts)
-          vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
-          vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
-        end,
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
         pattern = "ddu-ff",
         callback = function()
           common_keymaps()
@@ -373,6 +346,23 @@ return {
               { "itemAction",         { name = "quickfix" } },
             })
           end, opts)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "ddu-filer",
+        callback = function()
+          common_keymaps()
+
+          vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
+          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
+            opts)
+          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
+          vim.keymap.set('n', '<C-h>',
+            function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
+            opts)
+          vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
+          vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         end,
       })
     end,
