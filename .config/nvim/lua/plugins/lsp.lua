@@ -75,6 +75,11 @@ return {
               updating_diagnostics = true
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
+
+              -- quickfixを切り替えるためのワークアラウンド
+              local qflist = vim.fn.getqflist({ all = 0 })
+              vim.fn.setqflist({}, " ", qflist)
+
               updating_diagnostics = false
             end,
           })
