@@ -40,6 +40,13 @@ return {
             end,
             desc = "Collapse quickfix context",
           },
+          {
+            "r",
+            function()
+              quicker.refresh()
+            end,
+            desc = "Refresh quickfix list",
+          },
         },
       })
     end,

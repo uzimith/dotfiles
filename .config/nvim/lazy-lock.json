@@ -15,8 +15,10 @@
   "ddc-source-lsp": { "branch": "main", "commit": "012b42673faaf65c55327d4bd6e38378fcf29030" },
   "ddc-ui-pum": { "branch": "main", "commit": "f7f334380e18af42297468b3cf696794bbfa2652" },
   "ddc.vim": { "branch": "main", "commit": "ef527ad60b199b11d022a648a24ab6d424227943" },
+  "ddu-column-file_buf_modified": { "branch": "main", "commit": "20595131861fa333eb6b6e96fafcff47ae3915d2" },
   "ddu-column-icon_filename": { "branch": "main", "commit": "8c5e17e7eef61146f6ec51980b2afbae0c60116c" },
   "ddu-commands.vim": { "branch": "main", "commit": "67c998408291afb4b5a0c5e626430a53ef802a75" },
+  "ddu-filter-converter_file_git_status": { "branch": "main", "commit": "f38acc21ab43f8373628902c5886c6c5255dccf9" },
   "ddu-filter-matcher_hidden": { "branch": "main", "commit": "82e108c703267cc78ab8a176f4be1e18b73a0b9a" },
   "ddu-filter-matcher_relative": { "branch": "main", "commit": "f0b00d2e35be2afba0b0644c593de7098b431f5f" },
   "ddu-filter-matcher_substring": { "branch": "main", "commit": "48d865c7396762284dbe3e72accf41599b5e4d7c" },
@@ -77,6 +79,5 @@
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
   "vim-niceblock": { "branch": "master", "commit": "9302f527eefc0fde8df983cbb9710ad52c4213b5" },
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
-  "vim-submode": { "branch": "master", "commit": "d29de4f55c40a7a03af1d8134453a703d6affbd2" },
-  "workspace-diagnostics.nvim": { "branch": "main", "commit": "60f9175b2501ae3f8b1aba9719c0df8827610c8e" }
+  "vim-submode": { "branch": "master", "commit": "d29de4f55c40a7a03af1d8134453a703d6affbd2" }
 }

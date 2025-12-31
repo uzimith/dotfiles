@@ -29,6 +29,8 @@ return {
       "Shougo/ddu-kind-word",
       -- Column
       "ryota2357/ddu-column-icon_filename",
+      "kamecha/ddu-filter-converter_file_git_status",
+      "kamecha/ddu-column-file_buf_modified",
       -- ui-select
       "matsui54/ddu-vim-ui-select",
       -- Command
