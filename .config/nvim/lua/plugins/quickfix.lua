@@ -6,13 +6,19 @@ return {
       local quicker = require("quicker")
 
       vim.keymap.set("n", "<leader>q", function()
-        quicker.toggle()
+        quicker.toggle({
+          height = 10,
+        })
         quicker.close({ loclist = true })
       end, {
         desc = "Toggle quickfix",
       })
       vim.keymap.set("n", "<leader>l", function()
-        quicker.toggle({ loclist = true })
+        quicker.toggle({
+          height = 10,
+          loclist = true,
+        })
+
         quicker.close()
       end, {
         desc = "Toggle loclist",
