@@ -36,7 +36,6 @@ return {
           }
         }
       }
-      vim.lsp.enable("lua_ls")
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -55,15 +54,26 @@ return {
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 
           vim.keymap.set("n", "gq", function()
+            vim.notify("set diagnostic quickfix")
             for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
               require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
             end
-            vim.diagnostic.setqflist()
+            vim.diagnostic.setqflist({ open = false })
+            vim.diagnostic.setloclist({ open = false })
           end, opts)
+
           vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
 
-          vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
+          vim.keymap.set('', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
           vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+
+          vim.api.nvim_create_autocmd("DiagnosticChanged", {
+            group = vim.api.nvim_create_augroup('UserDiagnosticConfig', { clear = true }),
+            callback = function()
+              vim.diagnostic.setqflist({ open = false })
+              vim.diagnostic.setloclist({ open = false })
+            end,
+          })
         end,
       })
     end,

@@ -1,32 +1,36 @@
 return {
   {
     'stevearc/quicker.nvim',
-    ft = "qf",
+    lazy = false,
     config = function()
+      local quicker = require("quicker")
+
       vim.keymap.set("n", "<leader>q", function()
-        require("quicker").toggle()
+        quicker.toggle()
+        quicker.close({ loclist = true })
       end, {
         desc = "Toggle quickfix",
       })
       vim.keymap.set("n", "<leader>l", function()
-        require("quicker").toggle({ loclist = true })
+        quicker.toggle({ loclist = true })
+        quicker.close()
       end, {
         desc = "Toggle loclist",
       })
 
-      require("quicker").setup({
+      quicker.setup({
         keys = {
           {
             ">",
             function()
-              require("quicker").expand({ before = 2, after = 2, add_to_existing = true })
+              quicker.expand({ before = 2, after = 2, add_to_existing = true })
             end,
             desc = "Expand quickfix context",
           },
           {
             "<",
             function()
-              require("quicker").collapse()
+              quicker.collapse()
             end,
             desc = "Collapse quickfix context",
           },

@@ -106,12 +106,10 @@ return {
             gitsigns.diffthis('~')
           end)
 
-          map('n', '<leader>gq', gitsigns.setqflist)
-          map('n', '<leader>gQ', function() gitsigns.setqflist('all') end)
-
-          -- Toggles
-          map('n', '<leader>gt', gitsigns.toggle_current_line_blame)
-          map('n', '<leader>tw', gitsigns.toggle_word_diff)
+          map('n', '<leader>gq', function()
+            gitsigns.setqflist('all', { open = false })
+            gitsigns.setqflist('attached', { open = false, use_location_list = true })
+          end)
 
           -- Text object
           map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
