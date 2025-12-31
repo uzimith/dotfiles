@@ -54,7 +54,8 @@ return {
           vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 
-          vim.keymap.set("n", "gq", "<Cmd>Ddu -name=lsp lsp_diagnostic<CR>", opts)
+          vim.keymap.set("n", "gq", function() vim.diagnostic.setqflist({ bufnr = 0 }) end, opts)
+          vim.keymap.set("n", "gQ", vim.diagnostic.setqflist, opts)
           vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
 
           vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)

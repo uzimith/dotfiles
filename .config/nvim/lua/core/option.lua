@@ -36,7 +36,6 @@ else
   vim.opt.cmdheight = 0
 end
 
-
 -- 不可視文字可視化
 vim.opt.list = true
 vim.opt.listchars = { tab = "▸ ", trail = "⋅", nbsp = "␣", extends = "❯", precedes = "❮" }
