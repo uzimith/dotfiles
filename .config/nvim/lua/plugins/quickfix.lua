@@ -6,29 +6,27 @@ return {
       local quicker = require("quicker")
 
       vim.keymap.set("n", "<leader>q", function()
-        local ok = pcall(function()
-          quicker.toggle({ height = 10 })
-        end)
-        if not ok then
-          vim.notify("quickfix is empty or invalid", vim.log.levels.WARN)
+        local qflist = vim.fn.getqflist()
+        if #qflist == 0 then
+          vim.notify("quickfix is empty", vim.log.levels.WARN)
+          return
         end
-        pcall(function()
-          quicker.close({ loclist = true })
-        end)
+        quicker.toggle({ height = 10 })
+        quicker.close({ loclist = true })
       end, {
         desc = "Toggle quickfix",
       })
       vim.keymap.set("n", "<leader>l", function()
-        local ok = pcall(function()
-          quicker.toggle({
-            height = 10,
-            loclist = true,
-          })
-        end)
-        if not ok then
-          vim.notify("loclist is empty or invalid", vim.log.levels.WARN)
+        local loclist = vim.fn.getloclist(0)
+        if #loclist == 0 then
+          vim.notify("loclist is empty", vim.log.levels.WARN)
+          return
         end
-        pcall(quicker.close)
+        quicker.toggle({
+          height = 10,
+          loclist = true,
+        })
+        quicker.close()
       end, {
         desc = "Toggle loclist",
       })
