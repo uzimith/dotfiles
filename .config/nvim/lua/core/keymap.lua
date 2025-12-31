@@ -62,8 +62,8 @@ vim.keymap.set('v', 'v', '$h', opts)
 -- 移動
 vim.keymap.set('n', ']q', ':cnext<CR>', opts)
 vim.keymap.set('n', '[q', ':cprevious<CR>', opts)
-vim.keymap.set('n', '[l', ':lnext<CR>', opts)
-vim.keymap.set('n', ']l', ':lprevious<CR>', opts)
+vim.keymap.set('n', ']l', ':lnext<CR>', opts)
+vim.keymap.set('n', '[l', ':lprevious<CR>', opts)
 
 -- if vim.g.vscode then
 --   vim.keymap.set('n', 'u', 'u', { noremap = true, silent = true })
