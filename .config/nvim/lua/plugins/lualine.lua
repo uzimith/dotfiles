@@ -13,7 +13,7 @@ return {
       if qflist.size == 0 then
         return ''
       end
-      return '{' .. qflist.idx .. '/' .. qflist.size .. '}'
+      return 'Q:[' .. qflist.idx .. '/' .. qflist.size .. ']'
     end
 
     local function loclistcount()
@@ -21,7 +21,7 @@ return {
       if loclist.size == 0 then
         return ''
       end
-      return '(' .. loclist.idx .. '/' .. loclist.size .. ')'
+      return 'L:[' .. loclist.idx .. '/' .. loclist.size .. ']'
     end
 
     require('lualine').setup {
@@ -49,7 +49,7 @@ return {
         lualine_b = { 'branch' },
         lualine_c = { 'diff', 'diagnostics', 'filename' },
         lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
-        lualine_y = { 'searchcount', loclistcount, quickfixcount, 'progress' },
+        lualine_y = { quickfixcount, loclistcount, 'searchcount', 'progress' },
         lualine_z = { 'location', '%L' }
       },
       inactive_sections = {
@@ -88,4 +88,3 @@ return {
     }
   end
 }
-

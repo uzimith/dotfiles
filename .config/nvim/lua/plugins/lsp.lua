@@ -7,7 +7,6 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "Shougo/ddc-source-lsp",
       "nvimtools/none-ls.nvim",
-      "artemave/workspace-diagnostics.nvim",
     },
     cond = function()
       return not vim.g.vscode
@@ -57,16 +56,13 @@ return {
             vim.diagnostic.setqflist({ open = false })
             vim.diagnostic.setloclist({ open = false })
           end, opts)
-          vim.keymap.set("n", "gQ", function()
-            for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
-              require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
-            end
-          end, opts)
 
           vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
 
           vim.keymap.set('', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
           vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, opts)
+
+          vim.lsp.buf.workspace_diagnostics()
 
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
             callback = function()
