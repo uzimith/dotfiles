@@ -98,7 +98,7 @@ return {
       vim.keymap.set("n", "sw", '<Cmd>Ddu lsp_workspaceSymbol<CR>', opts)
       vim.keymap.set("n", "gc", '<Cmd>Ddu lsp_codeAction<CR>', opts)
 
-      vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
+      -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
       vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
       vim.keymap.set('c', '<C-j>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
