@@ -11,6 +11,7 @@ return {
     config = function()
       require("nvim-treesitter").setup({})
       vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup('user.treesitter', {}),
         callback = function()
           pcall(function() vim.treesitter.start() end)
         end,

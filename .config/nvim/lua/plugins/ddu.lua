@@ -152,6 +152,7 @@ return {
 
       -- 幅を再計算するために画面がリサイズされたら再設定する
       vim.api.nvim_create_autocmd("VimResized", {
+        group = vim.api.nvim_create_augroup('user.ddu.resize', {}),
         pattern = "*",
         callback = reset_ui,
       })
@@ -319,6 +320,7 @@ return {
       end
 
       vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup('user.ddu.ff', {}),
         pattern = "ddu-ff",
         callback = function()
           common_keymaps()
@@ -339,6 +341,7 @@ return {
       })
 
       vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup('user.ddu.filer', {}),
         pattern = "ddu-filer",
         callback = function()
           common_keymaps()

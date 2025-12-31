@@ -24,6 +24,7 @@ vim.keymap.set('n', 'K', '<C-b>', opts)
 
 -- 前回終了したカーソル行に移動
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
+  group = vim.api.nvim_create_augroup('user.restore_cursor', {}),
   pattern = { "*" },
   callback = function()
     vim.api.nvim_exec('silent! normal! g`"zv', false)
