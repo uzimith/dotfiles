@@ -38,11 +38,11 @@ return {
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = { 'filename' },
-        lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
-        lualine_y = { 'searchcount', 'progress' },
-        lualine_z = { 'location', '%L' }
+        lualine_b = {},
+        lualine_c = { 'mode', 'branch', 'diff', 'diagnostics', 'filename' },
+        lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', 'progress', 'location' },
+        lualine_y = { '%L' },
+        lualine_z = {}
       },
       tabline = {
         lualine_a = {
