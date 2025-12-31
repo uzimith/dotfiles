@@ -268,15 +268,6 @@ return {
       })
 
 
-      vim.fn["ddu#custom#action"]("kind", "file", "narrow_open", function(args)
-        local item = args.items[1]
-        if item.isTree then
-          return vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow" })
-        else
-          return vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
-        end
-      end)
-
       -- keymaps
       local opts = { buffer = true, silent = true, noremap = true }
       local nowait = { buffer = true, silent = true, noremap = true, nowait = true }
