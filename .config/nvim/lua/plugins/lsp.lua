@@ -68,6 +68,7 @@ return {
             callback = function()
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
+              require("quicker").refresh()
             end,
           })
 

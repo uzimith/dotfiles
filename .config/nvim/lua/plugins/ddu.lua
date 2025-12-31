@@ -282,10 +282,6 @@ return {
             vim.fn["ddu#ui#do_action"]("itemAction")
           end
         end, opts)
-        vim.keymap.set("n", "os",
-          '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "split"}})<CR>', opts)
-        vim.keymap.set("n", "ov",
-          '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "vsplit"}})<CR>', opts)
         vim.keymap.set("n", "<SPACE><SPACE>", '<Cmd>call ddu#ui#do_action("toggleSelectItem")<CR>', opts)
         vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
@@ -345,13 +341,8 @@ return {
         callback = function()
           common_keymaps()
 
-          vim.cmd([[nnoremap <buffer><expr> o "<Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>"]])
-          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end,
-            opts)
+          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end, opts)
           vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
-          vim.keymap.set('n', '<C-h>',
-            function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'narrow', params = { path = '..' } }) end,
-            opts)
           vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
           vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         end,
