@@ -343,8 +343,8 @@ return {
 
           vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end, opts)
           vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
-          vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
-          vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
+          vim.keymap.set("n", "q", function() vim.fn["ddu#ui#do_action"]("quit") end, nowait)
+          vim.keymap.set("n", "<ESC>", function() vim.fn["ddu#ui#do_action"]("quit") end, nowait)
         end,
       })
     end,
