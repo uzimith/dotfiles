@@ -56,10 +56,3 @@ nmap gt :xccmd selectNextTab<CR>
 nmap gT :xccmd selectPreviousTab<CR>
 nmap ,t :xccmd newTab<CR>
 nmap <C-w>q :xccmd closeCurrentTab<CR>
-
-inoremap ( ()<Left>
-inoremap " ""<Left>
-inoremap ' ''<Left>
-" inoremap { {}<Left>
-inoremap [ []<Left>
-
