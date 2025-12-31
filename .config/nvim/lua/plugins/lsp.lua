@@ -7,6 +7,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "Shougo/ddc-source-lsp",
       "nvimtools/none-ls.nvim",
+      "artemave/workspace-diagnostics.nvim",
     },
     cond = function()
       return not vim.g.vscode
@@ -19,12 +20,14 @@ return {
             return string.format("%s (%s: %s)", diagnostic.message, diagnostic.source, diagnostic.code)
           end,
         },
+        float = { border = "single" },
         loclist = {
           open = true,
         },
       })
 
-      require("lspconfig").lua_ls.setup({
+      -- lua_ls の設定
+      vim.lsp.config.lua_ls = {
         settings = {
           Lua = {
             diagnostics = {
@@ -32,11 +35,8 @@ return {
             }
           }
         }
-      })
-
-      -- ポップアップウィンドウのボーダースタイルを設定
-      require("lspconfig.ui.windows").default_options.border = "single"
-      vim.diagnostic.config({ float = { border = "single" } })
+      }
+      vim.lsp.enable("lua_ls")
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -54,8 +54,12 @@ return {
           vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
           vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
 
-          vim.keymap.set("n", "gq", function() vim.diagnostic.setqflist({ bufnr = 0 }) end, opts)
-          vim.keymap.set("n", "gQ", vim.diagnostic.setqflist, opts)
+          vim.keymap.set("n", "gq", function()
+            for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
+              require("workspace-diagnostics").populate_workspace_diagnostics(client, 0)
+            end
+            vim.diagnostic.setqflist()
+          end, opts)
           vim.keymap.set("n", "gr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
 
           vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, opts)
