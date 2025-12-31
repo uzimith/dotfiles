@@ -6,22 +6,12 @@ return {
       local quicker = require("quicker")
 
       vim.keymap.set("n", "<leader>q", function()
-        local qflist = vim.fn.getqflist()
-        if #qflist == 0 then
-          vim.notify("quickfix is empty", vim.log.levels.WARN)
-          return
-        end
         quicker.toggle({ height = 10 })
         quicker.close({ loclist = true })
       end, {
         desc = "Toggle quickfix",
       })
       vim.keymap.set("n", "<leader>l", function()
-        local loclist = vim.fn.getloclist(0)
-        if #loclist == 0 then
-          vim.notify("loclist is empty", vim.log.levels.WARN)
-          return
-        end
         quicker.toggle({
           height = 10,
           loclist = true,
