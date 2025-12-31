@@ -286,7 +286,7 @@ return {
           '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "split"}})<CR>', opts)
         vim.keymap.set("n", "ov",
           '<Cmd>call ddu#ui#do_action("itemAction", {"name": "open", "params": {"command": "vsplit"}})<CR>', opts)
-        vim.keymap.set("n", "<SPACE>", '<Cmd>call ddu#ui#do_action("toggleSelectItem")<CR>', opts)
+        vim.keymap.set("n", "<SPACE><SPACE>", '<Cmd>call ddu#ui#do_action("toggleSelectItem")<CR>', opts)
         vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "a", '<Cmd>call ddu#ui#do_action("chooseAction")<CR>', opts)
@@ -331,7 +331,7 @@ return {
           vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("togglePreview")<CR>', opts)
           -- -- 一括でQuickfixに流しこむ
           vim.keymap.set("n", "<C-q>", function()
-            vim.fn["ddu#ui#ff#multi_actions"]({
+            vim.fn["ddu#ui#multi_actions"]({
               { "clearSelectAllItems" },
               { "toggleAllItems" },
               { "itemAction",         { name = "quickfix" } },
