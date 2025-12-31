@@ -36,8 +36,10 @@ return {
         }
       }
 
+      local updating_diagnostics = false
+
       vim.api.nvim_create_autocmd('LspAttach', {
-        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+        group = vim.api.nvim_create_augroup('user.lsp.config', {}),
         callback = function(ev)
           local opts = { buffer = ev.buf }
 
@@ -64,8 +66,8 @@ return {
 
           vim.lsp.buf.workspace_diagnostics()
 
-          local updating_diagnostics = false
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
+            group = vim.api.nvim_create_augroup('user.diagnostic.changed', { clear = true }),
             callback = function()
               if updating_diagnostics then
                 return
@@ -78,6 +80,7 @@ return {
           })
 
           vim.api.nvim_create_autocmd("BufEnter", {
+            group = vim.api.nvim_create_augroup('user.diagnostic.buffer', { clear = true }),
             callback = function()
               vim.diagnostic.setloclist({ open = false })
             end,
