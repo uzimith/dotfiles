@@ -25,4 +25,4 @@ local lazyOpts = {
   },
 }
 
-require('lazy').setup('plugins', lazyOpts)
+require("lazy").setup("plugins", lazyOpts)

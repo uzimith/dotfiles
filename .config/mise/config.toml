@@ -6,6 +6,7 @@ node = "22"
 pipx = "latest"
 pnpm = "latest"
 python = "3.14.1"
+stylua = "latest"
 terraform = "1.14.1"
 zellij = "latest"
 

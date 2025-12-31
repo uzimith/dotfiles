@@ -1,3 +1,3 @@
-require('core/option')
-require('core/keymap')
-require('core/lazyvim')
+require("core/option")
+require("core/keymap")
+require("core/lazyvim")

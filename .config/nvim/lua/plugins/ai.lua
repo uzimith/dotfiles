@@ -7,7 +7,7 @@ return {
       return not vim.g.vscode
     end,
     config = function()
-      vim.g.copilot_node_command = '~/.local/share/mise/installs/node/22.13.1/bin/node'
+      vim.g.copilot_node_command = "~/.local/share/mise/installs/node/22.13.1/bin/node"
       require("copilot").setup({
         suggestion = {
           auto_trigger = true,
@@ -20,16 +20,15 @@ return {
           },
         },
       })
-      vim.keymap.set('i', '<Tab>', function()
+      vim.keymap.set("i", "<Tab>", function()
         if require("copilot.suggestion").is_visible() then
           require("copilot.suggestion").accept()
-          return ''
+          return ""
         else
-          return '<Tab>'
+          return "<Tab>"
         end
       end, { expr = true })
     end,
-
   },
   {
     "coder/claudecode.nvim",
@@ -40,8 +39,13 @@ return {
     end,
     config = true,
     keys = {
-      { "<leader>a", function() vim.fn.setreg('+', '@' .. vim.fn.expand('%:.')) end, desc = "Copy buffer path" },
+      {
+        "<leader>a",
+        function()
+          vim.fn.setreg("+", "@" .. vim.fn.expand("%:."))
+        end,
+        desc = "Copy buffer path",
+      },
     },
-  }
-
+  },
 }

@@ -41,7 +41,7 @@ return {
     end,
     init = function()
       local opts = { silent = true, noremap = true }
-      vim.keymap.set('n', 'ss', function()
+      vim.keymap.set("n", "ss", function()
         vim.fn["ddu#start"]({ resume = true })
       end, opts)
       vim.keymap.set("n", "sr", "<Cmd>Ddu ghq<CR>", opts)
@@ -52,7 +52,7 @@ return {
           },
           sourceOptions = {
             file = {
-              path = vim.fn.expand('%:p:h'),
+              path = vim.fn.expand("%:p:h"),
             },
           },
         })
@@ -64,7 +64,7 @@ return {
           },
           sourceOptions = {
             file_external = {
-              path = vim.fn.expand('%:p:h'),
+              path = vim.fn.expand("%:p:h"),
             },
           },
         })
@@ -79,30 +79,31 @@ return {
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu quickfix_history<CR>", opts)
-      vim.keymap.set("n", "sl", '<Cmd>Ddu line<CR>', opts)
+      vim.keymap.set("n", "sl", "<Cmd>Ddu line<CR>", opts)
       vim.keymap.set("n", "sg", function()
         vim.fn["ddu#start"]({
-          name = 'grep',
-          input = '',
+          name = "grep",
+          input = "",
         })
       end, opts)
-      vim.keymap.set('n', 's*', function() vim.fn["ddu#start"]({ name = 'grep', input = vim.fn.expand('<cword>') }) end,
-        opts)
-      vim.keymap.set('x', 's*', function()
+      vim.keymap.set("n", "s*", function()
+        vim.fn["ddu#start"]({ name = "grep", input = vim.fn.expand("<cword>") })
+      end, opts)
+      vim.keymap.set("x", "s*", function()
         vim.cmd.normal({ '"vy', bang = true, mods = { noautocmd = true } })
-        local text = vim.fn.getreg('v')
-        vim.fn["ddu#start"]({ name = 'grep', input = text })
+        local text = vim.fn.getreg("v")
+        vim.fn["ddu#start"]({ name = "grep", input = text })
       end, opts)
 
       vim.keymap.set("n", "sr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
-      vim.keymap.set("n", "sw", '<Cmd>Ddu lsp_workspaceSymbol<CR>', opts)
-      vim.keymap.set("n", "gc", '<Cmd>Ddu lsp_codeAction<CR>', opts)
+      vim.keymap.set("n", "sw", "<Cmd>Ddu lsp_workspaceSymbol<CR>", opts)
+      vim.keymap.set("n", "gc", "<Cmd>Ddu lsp_codeAction<CR>", opts)
 
       -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
       vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
-      vim.keymap.set('c', '<C-j>', '<cmd>call pum#map#insert_relative(+1)<CR>', opts)
-      vim.keymap.set('c', '<C-k>', '<cmd>call pum#map#insert_relative(-1)<CR>', opts)
+      vim.keymap.set("c", "<C-j>", "<cmd>call pum#map#insert_relative(+1)<CR>", opts)
+      vim.keymap.set("c", "<C-k>", "<cmd>call pum#map#insert_relative(-1)<CR>", opts)
     end,
     config = function()
       local reset_ui = function()
@@ -115,10 +116,9 @@ return {
         vim.fn["ddu#custom#patch_global"]({
           ui = "ff",
           uiParams = {
-            _ = {
-            },
+            _ = {},
             ff = {
-              prompt = '> ',
+              prompt = "> ",
               winWidth = win_width,
               winHeight = win_height,
               winCol = math.floor((width - win_width) / 2),
@@ -152,23 +152,32 @@ return {
 
       -- 幅を再計算するために画面がリサイズされたら再設定する
       vim.api.nvim_create_autocmd("VimResized", {
-        group = vim.api.nvim_create_augroup('user.ddu.resize', {}),
+        group = vim.api.nvim_create_augroup("user.ddu.resize", {}),
         pattern = "*",
         callback = reset_ui,
       })
 
-      vim.fn["ddu#custom#alias"]('_', 'source', 'ghq', 'file_external')
+      vim.fn["ddu#custom#alias"]("_", "source", "ghq", "file_external")
       vim.fn["ddu#custom#patch_global"]({
         sourceParams = {
           file_external = {
             cmd = { "fd", ".", "-H", "-E", ".git", "-t", "f" },
           },
           ghq = {
-            cmd = { 'ghq', 'list', '-p' },
+            cmd = { "ghq", "list", "-p" },
           },
           rg = {
             inputType = "regex",
-            args = { "--json", "--column", "--no-heading", "--color", "never", "--hidden", "--glob", "!.git" },
+            args = {
+              "--json",
+              "--column",
+              "--no-heading",
+              "--color",
+              "never",
+              "--hidden",
+              "--glob",
+              "!.git",
+            },
           },
         },
         sourceOptions = {
@@ -178,11 +187,11 @@ return {
           },
           file = {
             sorters = { "sorter_alpha" },
-            columns = { "icon_filename", "file_git_status", "file_buf_modified" }
+            columns = { "icon_filename", "file_git_status", "file_buf_modified" },
           },
           file_external = {
             sorters = { "sorter_alpha" },
-            columns = { "icon_filename", "file_git_status", "file_buf_modified" }
+            columns = { "icon_filename", "file_git_status", "file_buf_modified" },
           },
           file_old = {
             matchers = { "matcher_substring", "matcher_relative" },
@@ -265,11 +274,10 @@ return {
         },
         actionParams = {
           open = {
-            command = 'edit',
+            command = "edit",
           },
         },
       })
-
 
       -- keymaps
       local opts = { buffer = true, silent = true, noremap = true }
@@ -289,9 +297,9 @@ return {
         vim.keymap.set("n", "<ESC>", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "q", '<Cmd>call ddu#ui#do_action("quit")<CR>', nowait)
         vim.keymap.set("n", "a", '<Cmd>call ddu#ui#do_action("chooseAction")<CR>', opts)
-        vim.keymap.set("n", "<C-h>",
-          function() vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } }) end,
-          opts)
+        vim.keymap.set("n", "<C-h>", function()
+          vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
+        end, opts)
 
         -- ファイル操作
         vim.keymap.set("n", "y", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "copy"})<CR>', opts)
@@ -308,19 +316,19 @@ return {
           local show_hidden = vim.b.ddu_filer_show_hidden or false
           vim.b.ddu_filer_show_hidden = not show_hidden
           local matchers = show_hidden and { "matcher_hidden" } or {}
-          vim.fn["ddu#ui#do_action"]('updateOptions', {
+          vim.fn["ddu#ui#do_action"]("updateOptions", {
             sourceOptions = {
               _ = {
                 matchers = matchers,
               },
             },
           })
-          vim.fn['ddu#ui#do_action']('redraw', { method = 'refreshItems' })
+          vim.fn["ddu#ui#do_action"]("redraw", { method = "refreshItems" })
         end, opts)
       end
 
       vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup('user.ddu.ff', {}),
+        group = vim.api.nvim_create_augroup("user.ddu.ff", {}),
         pattern = "ddu-ff",
         callback = function()
           common_keymaps()
@@ -334,22 +342,30 @@ return {
             vim.fn["ddu#ui#multi_actions"]({
               { "clearSelectAllItems" },
               { "toggleAllItems" },
-              { "itemAction",         { name = "quickfix" } },
+              { "itemAction", { name = "quickfix" } },
             })
           end, opts)
         end,
       })
 
       vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup('user.ddu.filer', {}),
+        group = vim.api.nvim_create_augroup("user.ddu.filer", {}),
         pattern = "ddu-filer",
         callback = function()
           common_keymaps()
 
-          vim.keymap.set('n', 'o', function() vim.fn["ddu#ui#do_action"]('expandItem', { mode = 'toggle' }) end, opts)
-          vim.keymap.set('n', 'e', function() vim.fn["ddu#ui#do_action"]('itemAction', { name = 'open' }) end, opts)
-          vim.keymap.set("n", "q", function() vim.fn["ddu#ui#do_action"]("quit") end, nowait)
-          vim.keymap.set("n", "<ESC>", function() vim.fn["ddu#ui#do_action"]("quit") end, nowait)
+          vim.keymap.set("n", "o", function()
+            vim.fn["ddu#ui#do_action"]("expandItem", { mode = "toggle" })
+          end, opts)
+          vim.keymap.set("n", "e", function()
+            vim.fn["ddu#ui#do_action"]("itemAction", { name = "open" })
+          end, opts)
+          vim.keymap.set("n", "q", function()
+            vim.fn["ddu#ui#do_action"]("quit")
+          end, nowait)
+          vim.keymap.set("n", "<ESC>", function()
+            vim.fn["ddu#ui#do_action"]("quit")
+          end, nowait)
         end,
       })
     end,

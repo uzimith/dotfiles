@@ -4,6 +4,6 @@ return {
     lazy = false,
     dependencies = {
       "vim-denops/denops.vim",
-    }
-  }
+    },
+  },
 }

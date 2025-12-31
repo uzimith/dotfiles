@@ -7,7 +7,7 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.showmatch = true
 vim.opt.cursorline = true
-vim.helplang = 'ja'
+vim.helplang = "ja"
 
 vim.opt.scrolloff = 5
 vim.opt.textwidth = 0
@@ -28,7 +28,7 @@ vim.opt.display = "lastline"
 vim.opt.pumheight = 10
 vim.opt.pumblend = 20
 vim.opt.undofile = true
-vim.opt.undodir = vim.fn.expand('~/.cache/nvim/undo')
+vim.opt.undodir = vim.fn.expand("~/.cache/nvim/undo")
 vim.opt.shell = "/bin/bash"
 if vim.g.vscode then
   vim.opt.cmdheight = 10

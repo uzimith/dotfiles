@@ -1,6 +1,6 @@
 return {
   {
-    'stevearc/quicker.nvim',
+    "stevearc/quicker.nvim",
     lazy = false,
     config = function()
       local quicker = require("quicker")

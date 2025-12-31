@@ -1,19 +1,21 @@
 return {
   {
     -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
     lazy = false,
-    branch = 'main',
-    build = ':TSUpdate',
+    branch = "main",
+    build = ":TSUpdate",
     cond = function()
       return not vim.g.vscode
     end,
     config = function()
       require("nvim-treesitter").setup({})
       vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup('user.treesitter', {}),
+        group = vim.api.nvim_create_augroup("user.treesitter", {}),
         callback = function()
-          pcall(function() vim.treesitter.start() end)
+          pcall(function()
+            vim.treesitter.start()
+          end)
         end,
       })
     end,
@@ -47,7 +49,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
-    branch = 'main',
+    branch = "main",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },

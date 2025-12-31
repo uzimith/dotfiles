@@ -118,15 +118,15 @@ return {
         },
       })
 
-      vim.keymap.set('n', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
-      vim.keymap.set('i', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
-      vim.keymap.set('x', ':', '<Cmd>call ddc#enable_cmdline_completion()<CR>:', { noremap = true })
-      vim.keymap.set('n', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
-      vim.keymap.set('i', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
-      vim.keymap.set('x', 's/', '<cmd>call ddc#enable_cmdline_completion()<cr>/', { noremap = true })
-      vim.keymap.set('n', 's?', '<cmd>call ddc#enable_cmdline_completion()<cr>?', { noremap = true })
-      vim.keymap.set('i', 's?', '<cmd>call ddc#enable_cmdline_completion()<cr>?', { noremap = true })
-      vim.keymap.set('x', 's?', '<Cmd>call ddc#enable_cmdline_completion()<CR>?', { noremap = true })
+      vim.keymap.set("n", ":", "<Cmd>call ddc#enable_cmdline_completion()<CR>:", { noremap = true })
+      vim.keymap.set("i", ":", "<Cmd>call ddc#enable_cmdline_completion()<CR>:", { noremap = true })
+      vim.keymap.set("x", ":", "<Cmd>call ddc#enable_cmdline_completion()<CR>:", { noremap = true })
+      vim.keymap.set("n", "s/", "<cmd>call ddc#enable_cmdline_completion()<cr>/", { noremap = true })
+      vim.keymap.set("i", "s/", "<cmd>call ddc#enable_cmdline_completion()<cr>/", { noremap = true })
+      vim.keymap.set("x", "s/", "<cmd>call ddc#enable_cmdline_completion()<cr>/", { noremap = true })
+      vim.keymap.set("n", "s?", "<cmd>call ddc#enable_cmdline_completion()<cr>?", { noremap = true })
+      vim.keymap.set("i", "s?", "<cmd>call ddc#enable_cmdline_completion()<cr>?", { noremap = true })
+      vim.keymap.set("x", "s?", "<Cmd>call ddc#enable_cmdline_completion()<CR>?", { noremap = true })
 
       vim.fn["ddc#enable"]()
     end,
@@ -146,28 +146,40 @@ return {
         highlight_normal_menu = "Normal",
       })
       local opts = { noremap = true }
-      vim.keymap.set('i', '<C-n>', function() vim.fn["pum#map#select_relative"](1) end, opts)
-      vim.keymap.set('i', '<C-p>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
-      vim.keymap.set('i', '<Down>', function() vim.fn["pum#map#select_relative"](1) end, opts)
-      vim.keymap.set('i', '<Up>', function() vim.fn["pum#map#select_relative"](-1) end, opts)
-      vim.keymap.set('i', '<C-y>', function() vim.fn["pum#map#confirm"]() end, opts)
-      vim.keymap.set('i', '<CR>', function()
+      vim.keymap.set("i", "<C-n>", function()
+        vim.fn["pum#map#select_relative"](1)
+      end, opts)
+      vim.keymap.set("i", "<C-p>", function()
+        vim.fn["pum#map#select_relative"](-1)
+      end, opts)
+      vim.keymap.set("i", "<Down>", function()
+        vim.fn["pum#map#select_relative"](1)
+      end, opts)
+      vim.keymap.set("i", "<Up>", function()
+        vim.fn["pum#map#select_relative"](-1)
+      end, opts)
+      vim.keymap.set("i", "<C-y>", function()
+        vim.fn["pum#map#confirm"]()
+      end, opts)
+      vim.keymap.set("i", "<CR>", function()
         if vim.fn["pum#visible"]() then
-          return '<C-y>'
+          return "<C-y>"
         else
-          return '<CR>'
+          return "<CR>"
         end
       end, { remap = true, expr = true })
-      vim.keymap.set('i', '<C-e>', function() vim.fn["pum#map#cancel"]() end, opts)
+      vim.keymap.set("i", "<C-e>", function()
+        vim.fn["pum#map#cancel"]()
+      end, opts)
 
       -- cmdline mappings
-      vim.keymap.set('c', '<C-y>', '<cmd>call pum#map#confirm()<CR>', opts)
-      vim.keymap.set('c', '<C-e>', '<cmd>call pum#map#cancel()<CR>', opts)
-      vim.keymap.set('c', '<CR>', function()
+      vim.keymap.set("c", "<C-y>", "<cmd>call pum#map#confirm()<CR>", opts)
+      vim.keymap.set("c", "<C-e>", "<cmd>call pum#map#cancel()<CR>", opts)
+      vim.keymap.set("c", "<CR>", function()
         if vim.fn["pum#visible"]() then
-          return '<C-y>'
+          return "<C-y>"
         else
-          return '<CR>'
+          return "<CR>"
         end
       end, { remap = true, expr = true })
 
