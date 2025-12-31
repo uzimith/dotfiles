@@ -8,10 +8,26 @@ return {
     return not vim.g.vscode
   end,
   config = function()
+    local function quickfixcount()
+      local qflist = vim.fn.getqflist({ idx = 0, size = 0 })
+      if qflist.size == 0 then
+        return ''
+      end
+      return '{' .. qflist.idx .. '/' .. qflist.size .. '}'
+    end
+
+    local function loclistcount()
+      local loclist = vim.fn.getloclist(0, { idx = 0, size = 0 })
+      if loclist.size == 0 then
+        return ''
+      end
+      return '(' .. loclist.idx .. '/' .. loclist.size .. ')'
+    end
+
     require('lualine').setup {
       options = {
         icons_enabled = true,
-        theme = 'solarized',
+        theme = 'solarized_light',
         component_separators = { left = '', right = '' },
         section_separators = { left = '', right = '' },
         disabled_filetypes = {
@@ -33,7 +49,7 @@ return {
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
         lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
-        lualine_y = { 'searchcount', 'progress' },
+        lualine_y = { 'searchcount', loclistcount, quickfixcount, 'progress' },
         lualine_z = { 'location', '%L' }
       },
       inactive_sections = {
