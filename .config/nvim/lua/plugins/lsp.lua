@@ -64,10 +64,16 @@ return {
 
           vim.lsp.buf.workspace_diagnostics()
 
+          local updating_diagnostics = false
           vim.api.nvim_create_autocmd("DiagnosticChanged", {
             callback = function()
+              if updating_diagnostics then
+                return
+              end
+              updating_diagnostics = true
               vim.diagnostic.setqflist({ open = false })
               vim.diagnostic.setloclist({ open = false })
+              updating_diagnostics = false
             end,
           })
 
