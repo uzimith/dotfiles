@@ -16,7 +16,7 @@ vim.keymap.set('v', '<Space>l', '$', opts)
 vim.keymap.set('v', 'Y', 'y$', opts)
 
 
--- <space>j, <space>kで画面送り
+-- J, Kで画面送り
 vim.keymap.set('n', '<Space>j', 'J', opts)
 vim.keymap.set('n', 'J', '<C-f>', opts)
 vim.keymap.set('n', '<Space>k', 'K', opts)
