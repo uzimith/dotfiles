@@ -34,15 +34,15 @@ return {
         lualine_c = { 'filename' },
         lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
         lualine_y = { 'searchcount', 'progress' },
-        lualine_z = { 'location' }
+        lualine_z = { 'location', '%L' }
       },
       inactive_sections = {
         lualine_a = {},
-        lualine_b = {},
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { 'location' },
-        lualine_y = {},
-        lualine_z = {}
+        lualine_x = { 'lsp_status', 'encoding', 'fileformat', 'filetype', },
+        lualine_y = { 'searchcount', 'progress' },
+        lualine_z = { 'location', '%L' }
       },
       tabline = {
         lualine_a = {
