@@ -95,13 +95,11 @@ return {
           map("n", "<leader>gp", gitsigns.preview_hunk_inline)
 
           map("n", "<leader>gb", gitsigns.blame)
-          map("n", "<leader>gi", gitsigns.blame_line)
-          map("n", "<leader>gI", function()
+          map("n", "<leader>gi", function()
             gitsigns.blame_line({ full = true })
           end)
 
           map("n", "<leader>gd", gitsigns.diffthis)
-
           map("n", "<leader>gD", function()
             gitsigns.diffthis("~")
           end)

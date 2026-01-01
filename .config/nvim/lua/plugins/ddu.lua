@@ -57,7 +57,20 @@ return {
           },
         })
       end, opts)
+
       vim.keymap.set("n", "sf", function()
+        vim.fn["ddu#start"]({
+          sources = {
+            { name = "file_external" },
+          },
+          sourceOptions = {
+            file_external = {
+              path = vim.fn.getcwd(),
+            },
+          },
+        })
+      end, opts)
+      vim.keymap.set("n", "sF", function()
         vim.fn["ddu#start"]({
           sources = {
             { name = "file_external" },
@@ -69,13 +82,7 @@ return {
           },
         })
       end, opts)
-      vim.keymap.set("n", "sF", function()
-        vim.fn["ddu#start"]({
-          sources = {
-            { name = "file_external" },
-          },
-        })
-      end, opts)
+
       vim.keymap.set("n", "sb", "<Cmd>Ddu buffer<CR>", opts)
       vim.keymap.set("n", "sm", "<Cmd>Ddu file_old<CR>", opts)
       vim.keymap.set("n", "sq", "<Cmd>Ddu quickfix_history<CR>", opts)
@@ -99,7 +106,7 @@ return {
       vim.keymap.set("n", "sw", "<Cmd>Ddu lsp_workspaceSymbol<CR>", opts)
       vim.keymap.set("n", "gc", "<Cmd>Ddu lsp_codeAction<CR>", opts)
 
-      -- vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
+      vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
       vim.keymap.set("c", "<C-h>", "<C-u><ESC><Cmd>Ddu -name=command_history command_history<CR>", opts)
       vim.keymap.set("c", "<C-j>", "<cmd>call pum#map#insert_relative(+1)<CR>", opts)
@@ -191,7 +198,6 @@ return {
           },
           file_external = {
             sorters = { "sorter_alpha" },
-            columns = { "icon_filename", "file_git_status", "file_buf_modified" },
           },
           file_old = {
             matchers = { "matcher_substring", "matcher_relative" },

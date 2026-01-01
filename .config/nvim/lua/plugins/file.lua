@@ -69,23 +69,49 @@ return {
         mappings = {
           {
             pattern = src("ts"),
-            target = "%1/tests/%2.test.ts",
-            context = "test",
+            target = {
+              {
+                target = "%1/tests/%2.test.ts",
+                context = "test",
+              },
+              {
+                target = "%1/src/%2.test.ts",
+                context = "test",
+              },
+            },
           },
           {
             pattern = "(.*)/tests/(.*).test.ts$",
             target = "%1/src/%2.ts",
             context = "src",
           },
-
-          {
-            pattern = src("ts"),
-            target = "%1/src/%2.test.ts",
-            context = "test",
-          },
           {
             pattern = "(.*)/src/(.*).test.ts$",
             target = "%1/src/%2.ts",
+            context = "src",
+          },
+
+          {
+            pattern = src("tsx"),
+            target = {
+              {
+                target = "%1/tests/%2.test.tsx",
+                context = "test",
+              },
+              {
+                target = "%1/src/%2.test.tsx",
+                context = "test",
+              },
+            },
+          },
+          {
+            pattern = "(.*)/tests/(.*).test.tsx$",
+            target = "%1/src/%2.tsx",
+            context = "src",
+          },
+          {
+            pattern = "(.*)/src/(.*).test.tsx$",
+            target = "%1/src/%2.tsx",
             context = "src",
           },
         },
