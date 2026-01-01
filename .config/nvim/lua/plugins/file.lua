@@ -73,8 +73,8 @@ return {
           { target = "%1/src/%2." .. ext, context = "src" },
         }
       end
-
-      require("other-nvim").setup({
+      local other = require("other-nvim")
+      other.setup({
         mappings = {
           { pattern = src("ts"), target = target("ts") },
           { pattern = "(.*)/tests/(.*).test.ts$", target = target("ts") },

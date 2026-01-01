@@ -104,7 +104,7 @@ return {
 
       vim.keymap.set("n", "sr", "<Cmd>Ddu -name=lsp lsp_references<CR>", opts)
       vim.keymap.set("n", "sw", "<Cmd>Ddu lsp_workspaceSymbol<CR>", opts)
-      vim.keymap.set("n", "gc", "<Cmd>Ddu lsp_codeAction<CR>", opts)
+      vim.keymap.set("n", "sc", "<Cmd>Ddu lsp_codeAction<CR>", opts)
 
       vim.keymap.set("n", "<Leader>fi", [[<Cmd>Ddu -name=filer -searchPath=`expand('%:p')`<CR>]], opts)
 
