@@ -6,6 +6,14 @@ return {
       return not vim.g.vscode
     end,
     config = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("user.gitsigns.blame.config", { clear = true }),
+        pattern = "gitsigns-blame",
+        callback = function()
+          vim.keymap.set("n", "q", "<cmd>bdelete<cr>", { buffer = true })
+        end,
+      })
+
       require("gitsigns").setup({
         signs = {
           add = { text = "┃" },
