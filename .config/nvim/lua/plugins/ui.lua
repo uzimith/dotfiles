@@ -106,7 +106,7 @@ return {
               local entry = menu.entries[cursor[1]]
               if entry and entry.components then
                 local component = entry.components[#entry.components]
-                if component and component.jump then
+                if component then
                   menu:root():close(false)
                   component:jump()
                 end
@@ -129,7 +129,7 @@ return {
               local entry = menu.entries[cursor[1]]
               if entry then
                 local component = entry:first_clickable(cursor[2])
-                if component then
+                if component and component.children and not vim.tbl_isempty(component.children) then
                   menu:click_on(component, nil, 1, "l")
                 end
               end
