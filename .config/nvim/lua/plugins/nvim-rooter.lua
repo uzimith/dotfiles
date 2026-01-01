@@ -32,8 +32,17 @@ return {
         "dropbar_preview",
         "oil",
       },
-      manual = false,
+      manual = true,
       fallback_to_parent = true,
+    })
+
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = vim.api.nvim_create_augroup("user.rooter.vimenter", { clear = true }),
+      callback = function()
+        if vim.fn.argc() > 0 then
+          vim.cmd("Rooter")
+        end
+      end,
     })
   end,
 }
