@@ -112,6 +112,28 @@ return {
                 end
               end
             end,
+            ["h"] = function()
+              local utils = require("dropbar.utils")
+              local menu = utils.menu.get_current()
+              if menu and menu.prev_menu then
+                menu:close()
+              end
+            end,
+            ["l"] = function()
+              local utils = require("dropbar.utils")
+              local menu = utils.menu.get_current()
+              if not menu then
+                return
+              end
+              local cursor = vim.api.nvim_win_get_cursor(menu.win)
+              local entry = menu.entries[cursor[1]]
+              if entry then
+                local component = entry:first_clickable(cursor[2])
+                if component then
+                  menu:click_on(component, nil, 1, "l")
+                end
+              end
+            end,
           },
         },
       })
