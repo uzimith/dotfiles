@@ -94,7 +94,11 @@ return {
       })
 
       local opts = { silent = true, noremap = true }
-      vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>:Other<CR>", opts)
+      vim.keymap.set("n", "<leader>l", other.open, opts)
+      vim.keymap.set("n", "<leader>L", function()
+        other.clear()
+        other.open()
+      end, opts)
     end,
   },
 }
