@@ -57,7 +57,10 @@ return {
           {
             pattern = "/src/(.*?).ts$",
             target = "/src/%1.test.ts",
-            context = "test",
+          },
+          {
+            pattern = "/src/(.*?).ts$",
+            target = "/tests/%1.test.ts",
           },
         },
         transformers = {},
@@ -70,11 +73,7 @@ return {
       })
 
       local opts = { silent = true, noremap = true }
-      vim.api.nvim_set_keymap("n", "<leader>ll", "<cmd>:Other<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>ltn", "<cmd>:OtherTabNew<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>lp", "<cmd>:OtherSplit<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>lv", "<cmd>:OtherVSplit<CR>", opts)
-      vim.api.nvim_set_keymap("n", "<leader>lc", "<cmd>:OtherClear<CR>", opts)
+      vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>:Other<CR>", opts)
     end,
   },
 }
