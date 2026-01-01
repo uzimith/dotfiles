@@ -1,3 +1,6 @@
+set refresh-mode = periodic
+set refresh-interval = 3
+
 ######
 #key
 ######
@@ -34,6 +37,7 @@ bind refs c !@git checkout %(branch)
 bind stash s !@git stash save %(prompt)
 
 bind generic ø @sh -c "printf '%s' %(commit) | pbcopy""'"
+bind generic <Ctrl-g> refresh
 
 # move
 bind main G none
