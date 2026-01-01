@@ -55,12 +55,21 @@ return {
       require("other-nvim").setup({
         mappings = {
           {
-            pattern = "/src/(.*?).ts$",
-            target = "/src/%1.test.ts",
+            pattern = function(file)
+              if file:match(".test.ts$") then
+                return nil
+              end
+              local base, name = file:match("(.*)/src/(.*).ts$")
+              if base and name then
+                return { base, name }
+              end
+              return nil
+            end,
+            target = "%1/tests/%2.test.ts",
           },
           {
-            pattern = "/src/(.*?).ts$",
-            target = "/tests/%1.test.ts",
+            pattern = "(.*)/tests/(.*).test.ts$",
+            target = "%1/src/%2.ts",
           },
         },
         transformers = {},
