@@ -52,24 +52,41 @@ return {
     "rgroli/other.nvim",
     lazy = false,
     config = function()
+      local function src(ext)
+        return function(file)
+          if file:match("%.test%.[^.]+$") then
+            return nil
+          end
+          local base, name = file:match("(.*)/src/(.*)%." .. ext .. "$")
+          if base and name then
+            return { base, name }
+          end
+          return nil
+        end
+      end
+
       require("other-nvim").setup({
         mappings = {
           {
-            pattern = function(file)
-              if file:match(".test.ts$") then
-                return nil
-              end
-              local base, name = file:match("(.*)/src/(.*).ts$")
-              if base and name then
-                return { base, name }
-              end
-              return nil
-            end,
+            pattern = src("ts"),
             target = "%1/tests/%2.test.ts",
+            context = "test",
           },
           {
             pattern = "(.*)/tests/(.*).test.ts$",
             target = "%1/src/%2.ts",
+            context = "src",
+          },
+
+          {
+            pattern = src("ts"),
+            target = "%1/src/%2.test.ts",
+            context = "test",
+          },
+          {
+            pattern = "(.*)/src/(.*).test.ts$",
+            target = "%1/src/%2.ts",
+            context = "src",
           },
         },
         transformers = {},
