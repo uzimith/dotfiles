@@ -61,6 +61,17 @@ vim.opt.virtualedit = "block"
 
 -- 他で書き換えられたら自動で読み直す
 vim.opt.autoread = true
+vim.opt.updatetime = 300
+
+-- 外部変更を自動検知
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  pattern = "*",
+  callback = function()
+    if vim.fn.mode() ~= "c" then
+      vim.cmd("checktime")
+    end
+  end,
+})
 
 vim.cmd([[
     let g:python3_host_prog = '/usr/bin/python3'
