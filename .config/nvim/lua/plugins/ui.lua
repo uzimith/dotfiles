@@ -66,8 +66,8 @@ return {
             {
               "tabs",
               tab_max_length = 40,
-              max_length = vim.o.columns / 3,
-              mode = 1,
+              max_length = vim.o.columns * 6 / 7,
+              mode = 4,
               path = 0,
               symbols = {
                 modified = " ●",
