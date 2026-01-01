@@ -53,6 +53,7 @@ vim.keymap.set("n", "tu", ":tabn 7<CR>", opts)
 vim.keymap.set("n", "ti", ":tabn 8<CR>", opts)
 vim.keymap.set("n", "to", ":tabn 9<CR>", opts)
 vim.keymap.set("n", "tQ", ":tabclose<CR>", opts)
+vim.api.nvim_create_user_command("Q", "tabclose", {})
 
 vim.keymap.set("n", "<Leader>cd", ":lcd %:h<CR>", opts)
 vim.keymap.set("c", "w!!", "w !sudo tee > /dev/null %<CR> :e!<CR>", opts)
