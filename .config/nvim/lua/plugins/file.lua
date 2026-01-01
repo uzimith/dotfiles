@@ -66,55 +66,23 @@ return {
         end
       end
 
+      local function target(ext)
+        return {
+          { target = "%1/src/%2.test." .. ext, context = "test" },
+          { target = "%1/tests/%2.test." .. ext, context = "test" },
+          { target = "%1/src/%2." .. ext, context = "src" },
+        }
+      end
+
       require("other-nvim").setup({
         mappings = {
-          {
-            pattern = src("ts"),
-            target = {
-              {
-                target = "%1/tests/%2.test.ts",
-                context = "test",
-              },
-              {
-                target = "%1/src/%2.test.ts",
-                context = "test",
-              },
-            },
-          },
-          {
-            pattern = "(.*)/tests/(.*).test.ts$",
-            target = "%1/src/%2.ts",
-            context = "src",
-          },
-          {
-            pattern = "(.*)/src/(.*).test.ts$",
-            target = "%1/src/%2.ts",
-            context = "src",
-          },
+          { pattern = src("ts"), target = target("ts") },
+          { pattern = "(.*)/tests/(.*).test.ts$", target = target("ts") },
+          { pattern = "(.*)/src/(.*).test.ts$", target = target("ts") },
 
-          {
-            pattern = src("tsx"),
-            target = {
-              {
-                target = "%1/tests/%2.test.tsx",
-                context = "test",
-              },
-              {
-                target = "%1/src/%2.test.tsx",
-                context = "test",
-              },
-            },
-          },
-          {
-            pattern = "(.*)/tests/(.*).test.tsx$",
-            target = "%1/src/%2.tsx",
-            context = "src",
-          },
-          {
-            pattern = "(.*)/src/(.*).test.tsx$",
-            target = "%1/src/%2.tsx",
-            context = "src",
-          },
+          { pattern = src("tsx"), target = target("tsx") },
+          { pattern = "(.*)/tests/(.*).test.tsx$", target = target("tsx") },
+          { pattern = "(.*)/src/(.*).test.tsx$", target = target("tsx") },
         },
         transformers = {},
         style = {
