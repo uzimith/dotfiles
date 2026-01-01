@@ -11,7 +11,7 @@ return {
       end, {
         desc = "Toggle quickfix",
       })
-      vim.keymap.set("n", "<leader>l", function()
+      vim.keymap.set("n", "<leader>w", function()
         quicker.toggle({
           height = 10,
           loclist = true,

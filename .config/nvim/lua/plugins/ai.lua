@@ -37,7 +37,11 @@ return {
     cond = function()
       return not vim.g.vscode
     end,
-    config = true,
+    opts = {
+      diff_opts = {
+        open_in_current_tab = false,
+      },
+    },
     keys = {
       {
         "<leader>a",
