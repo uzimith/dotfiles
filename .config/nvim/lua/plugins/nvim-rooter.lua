@@ -13,7 +13,7 @@ return {
       },
       rooter_patterns = { "go.mod", "build.gradle", "Rakefile", ".git", "_darcs", ".hg", ".bzr", ".svn" },
       trigger_patterns = { "*" },
-      exclude_filetypes = { "ddu-ff", "dropbar_menu", "dropbar_menu_fzf", "dropbar_preview", "oil" },
+      exclude_filetypes = { "ddu-ff", "ddu-ff-filter", "ddu-filer", "dropbar_menu", "dropbar_menu_fzf", "dropbar_preview", "oil" },
       manual = false,
       fallback_to_parent = true,
     })

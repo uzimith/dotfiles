@@ -306,6 +306,9 @@ return {
         vim.keymap.set("n", "<C-h>", function()
           vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
         end, opts)
+        vim.keymap.set("n", "h", function()
+          vim.fn["ddu#ui#do_action"]("itemAction", { name = "narrow", params = { path = ".." } })
+        end, opts)
 
         -- ファイル操作
         vim.keymap.set("n", "y", '<Cmd>call ddu#ui#do_action("itemAction", {"name": "copy"})<CR>', opts)
