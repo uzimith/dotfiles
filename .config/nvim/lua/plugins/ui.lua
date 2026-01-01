@@ -104,11 +104,11 @@ return {
               end
               local cursor = vim.api.nvim_win_get_cursor(menu.win)
               local entry = menu.entries[cursor[1]]
-              if entry then
-                local component = entry:first_clickable(cursor[2])
-                if component then
+              if entry and entry.components then
+                local component = entry.components[#entry.components]
+                if component and component.jump then
+                  menu:root():close(false)
                   component:jump()
-                  menu:close(true)
                 end
               end
             end,
