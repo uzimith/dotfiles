@@ -1,5 +1,12 @@
 set refresh-mode = periodic
 set refresh-interval = 3
+set vertical-split = no
+set split-view-height = 80%
+set ignore-space = at-eol
+set ignore-case = true
+set diff-highlight = true
+set focus-child = no
+set send-child-enter = no
 
 ######
 #key
@@ -36,7 +43,11 @@ bind refs c !@git checkout %(branch)
 
 bind stash s !@git stash save %(prompt)
 
-bind generic ø @sh -c "printf '%s' %(commit) | pbcopy""'"
+bind generic Y @sh -c "echo '%(commit)' | pbcopy"
+bind stage   Y @sh -c "echo '%(file)' | pbcopy"
+bind status  Y @sh -c "echo '%(file)' | pbcopy"
+bind tree    Y @sh -c "echo '%(file)' | pbcopy"
+bind blob    Y @sh -c "echo '%(file)' | pbcopy"
 bind generic <Ctrl-g> refresh
 
 # move
@@ -46,6 +57,19 @@ bind generic G move-last-line
 bind generic J move-page-down
 bind generic K move-page-up
 bind generic ; view-main
+
+bind main    ;      @gh browse -- commit/%(commit)
+bind blame   ;      @gh browse -- commit/%(commit)
+bind diff    ;      @gh browse -- commit/%(commit)
+bind tree    ;      @gh browse -- %(branch)/%(file)
+bind blob    ;      @gh browse -- %(branch)/%(file)
+bind grep    ;      @gh browse -- %(branch)/%(file)
+bind tree    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
+bind blob    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
+bind grep    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
+bind main    w      @gh browse -- compare/%(branch)?expand=1
+bind diff    w      @gh browse -- compare/%(branch)?expand=1
+bind refs    w      @gh browse -- compare/%(branch)?expand=1
 
 ######
 #display
