@@ -93,7 +93,28 @@ return {
     "Bekaboo/dropbar.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
-      require("dropbar").setup({})
+      require("dropbar").setup({
+        menu = {
+          keymaps = {
+            ["<CR>"] = function()
+              local utils = require("dropbar.utils")
+              local menu = utils.menu.get_current()
+              if not menu then
+                return
+              end
+              local cursor = vim.api.nvim_win_get_cursor(menu.win)
+              local entry = menu.entries[cursor[1]]
+              if entry then
+                local component = entry:first_clickable(cursor[2])
+                if component then
+                  component:jump()
+                  menu:close(true)
+                end
+              end
+            end,
+          },
+        },
+      })
       local dropbar_api = require("dropbar.api")
       vim.keymap.set("n", ";;", dropbar_api.pick, { desc = "Pick symbols in winbar" })
       vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
