@@ -94,7 +94,16 @@ return {
 
           map("n", "<leader>gp", gitsigns.preview_hunk_inline)
 
-          map("n", "<leader>gb", gitsigns.blame)
+          map("n", "<leader>gb", function()
+            -- ワークアラウンドで複数回実行するとバッファが増えるのを防ぐ
+            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+              local name = vim.api.nvim_buf_get_name(buf)
+              if name:match("gitsigns://.*:blame$") then
+                vim.api.nvim_buf_delete(buf, { force = true })
+              end
+            end
+            gitsigns.blame()
+          end)
           map("n", "<leader>gi", function()
             gitsigns.blame_line({ full = true })
           end)
