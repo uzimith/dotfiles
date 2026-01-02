@@ -87,8 +87,6 @@ return {
                 alternate_file = "#",
                 directory = "",
               },
-              component_separators = { left = "", right = "" },
-              section_separators = { left = "", right = "" },
               tabs_color = {
                 active = "lualine_a_normal",
                 inactive = "lualine_b_normal",
