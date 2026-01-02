@@ -9,7 +9,7 @@ return {
     config = function()
       require("solarized").setup({
         palette = "selenized",
-        variant = "winter",
+        variant = "spring",
       })
       vim.opt.background = "light"
       if vim.g.vscode then
