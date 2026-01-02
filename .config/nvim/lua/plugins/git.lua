@@ -144,6 +144,7 @@ return {
         vim.keymap.set(mode, l, r, opts)
       end
       map("n", "<leader>go", ":<C-U>GBrowse<CR>")
+      map("n", "<leader>gh", ":<C-U>Gclog<CR>")
     end,
   },
   {

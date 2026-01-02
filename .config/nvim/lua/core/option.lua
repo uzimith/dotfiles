@@ -86,6 +86,7 @@ vim.opt.diffopt = {
   "indent-heuristic",
   "inline:word",
   "iwhiteall",
+  "vertical",
 }
 vim.opt.fillchars = {
   diff = "╱",
