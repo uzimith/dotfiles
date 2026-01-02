@@ -90,10 +90,6 @@ return {
           end, opts)
 
           vim.keymap.set("n", "gq", update_diagnostic_lists, opts)
-          vim.api.nvim_create_autocmd("DiagnosticChanged", {
-            group = vim.api.nvim_create_augroup("user.diagnostic.changed", { clear = true }),
-            callback = update_diagnostic_lists,
-          })
         end,
       })
     end,
