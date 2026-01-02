@@ -13,8 +13,8 @@ return {
           return {
             DiffAdd = { bg = color.lighten(colors.git_add, 70), fg = colors.git_add },
             DiffChange = { bg = color.lighten(colors.git_modify, 70), fg = colors.git_modify },
-            DiffDelete = { bg = color.lighten(colors.git_delete, 70), fg = colors.git_delete, reverse = true },
-            DiffText = { bg = color.lighten(colors.cyan, 70), fg = colors.cyan, reverse = true },
+            DiffDelete = { bg = color.lighten(colors.git_delete, 70), fg = color.lighten(colors.git_delete, 70) },
+            DiffText = { fg = color.lighten(colors.cyan, 70), bg = colors.cyan, reverse = true },
           }
         end,
       })
