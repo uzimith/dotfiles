@@ -20,19 +20,18 @@ return {
           ["<C-l>"] = "actions.refresh",
           ["<C-h>"] = { "actions.parent", mode = "n" },
           ["h"] = { "actions.parent", mode = "n" },
-          ["Y"] = { "actions.copy_entry_path", mode = "n" },
-          ["gy"] = {
+          ["gy"] = { "actions.copy_entry_path", mode = "n" },
+          ["Y"] = {
             callback = function()
-              local entry = require("oil").get_cursor_entry()
-              local dir = require("oil").get_current_dir()
-              if entry and dir then
-                local full_path = dir .. entry.name
-                local relative_path = vim.fn.fnamemodify(full_path, ":.")
-                vim.fn.setreg("+", relative_path)
-                vim.notify(relative_path, vim.log.levels.INFO)
-              end
+              require("oil_copy_paths")("")
             end,
-            mode = "n",
+            mode = { "n", "v" },
+          },
+          ["<leader>a"] = {
+            callback = function()
+              require("oil_copy_paths")("@")
+            end,
+            mode = { "n", "v" },
           },
           ["_"] = { "actions.open_cwd", mode = "n" },
           ["`"] = { "actions.cd", mode = "n" },

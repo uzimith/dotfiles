@@ -76,3 +76,16 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 vim.cmd([[
     let g:python3_host_prog = '/usr/bin/python3'
 ]])
+
+vim.opt.diffopt = {
+  "internal",
+  "filler",
+  "closeoff",
+  "algorithm:histogram",
+  "indent-heuristic",
+  "inline:char",
+  "iwhiteall",
+}
+vim.opt.fillchars = {
+  diff = "╱",
+}
