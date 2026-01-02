@@ -17,7 +17,7 @@ fishd.*
 .netrwhist
 .gitconfig
 .home
-bin
+/bin
 powerline
 .config/karabiner/automatic_backups
 .config/git/config-*
