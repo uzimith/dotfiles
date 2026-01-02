@@ -1,3 +1,41 @@
+local function copy_entry_paths(prefix)
+  local oil = require("oil")
+  local dir = oil.get_current_dir()
+  if not dir then
+    return
+  end
+  local mode = vim.fn.mode()
+  if mode == "v" or mode == "V" then
+    local start_line = vim.fn.line("v")
+    local end_line = vim.fn.line(".")
+    if start_line > end_line then
+      start_line, end_line = end_line, start_line
+    end
+    local paths = {}
+    for lnum = start_line, end_line do
+      local entry = oil.get_entry_on_line(0, lnum)
+      if entry then
+        local full_path = dir .. entry.name
+        table.insert(paths, prefix .. vim.fn.fnamemodify(full_path, ":."))
+      end
+    end
+    if #paths > 0 then
+      local result = table.concat(paths, "\n")
+      vim.fn.setreg("+", result)
+      vim.notify(#paths .. " paths copied", vim.log.levels.INFO)
+    end
+    vim.api.nvim_input("<Esc>")
+  else
+    local entry = oil.get_cursor_entry()
+    if entry then
+      local full_path = dir .. entry.name
+      local relative_path = prefix .. vim.fn.fnamemodify(full_path, ":.")
+      vim.fn.setreg("+", relative_path)
+      vim.notify(relative_path, vim.log.levels.INFO)
+    end
+  end
+end
+
 return {
   {
     "lambdalisue/vim-file-protocol",
@@ -23,13 +61,13 @@ return {
           ["gy"] = { "actions.copy_entry_path", mode = "n" },
           ["Y"] = {
             callback = function()
-              require("oil_copy_paths")("")
+              copy_entry_paths("")
             end,
             mode = { "n", "v" },
           },
           ["<leader>a"] = {
             callback = function()
-              require("oil_copy_paths")("@")
+              copy_entry_paths("@")
             end,
             mode = { "n", "v" },
           },
