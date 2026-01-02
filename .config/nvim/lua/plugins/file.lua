@@ -55,7 +55,7 @@ return {
           ["<C-t>"] = { "actions.select", opts = { tab = true } },
           ["<C-p>"] = "actions.preview",
           ["<C-c>"] = { "actions.close", mode = "n" },
-          ["<C-l>"] = "actions.refresh",
+          ["<C-g>"] = "actions.refresh",
           ["<C-h>"] = { "actions.parent", mode = "n" },
           ["h"] = { "actions.parent", mode = "n" },
           ["gy"] = { "actions.copy_entry_path", mode = "n" },

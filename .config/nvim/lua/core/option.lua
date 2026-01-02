@@ -81,9 +81,10 @@ vim.opt.diffopt = {
   "internal",
   "filler",
   "closeoff",
+  "linematch:100",
   "algorithm:histogram",
   "indent-heuristic",
-  "inline:char",
+  "inline:word",
   "iwhiteall",
 }
 vim.opt.fillchars = {
