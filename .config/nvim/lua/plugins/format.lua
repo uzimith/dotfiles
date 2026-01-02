@@ -1,17 +1,26 @@
+local function biome_or_prettier()
+  local has_biome = vim.fs.find({ "biome.json", "biome.jsonc" }, {
+    upward = true,
+    path = vim.api.nvim_buf_get_name(0),
+  })[1]
+  return has_biome and { "biome-check" } or { "prettier" }
+end
+
 local formatters_by_ft = {
   lua = { "stylua" },
-  css = { "prettier" },
-  html = { "prettier" },
-  json = { "prettier" },
-  javascriptreact = { "prettier" },
-  javascript = { "prettier" },
-  markdown = { "prettier" },
-  scss = { "prettier" },
-  typescript = { "prettier" },
-  typescriptreact = { "prettier" },
-  vue = { "prettier" },
-  yaml = { "prettier" },
+  css = biome_or_prettier,
+  html = biome_or_prettier,
+  json = biome_or_prettier,
+  javascriptreact = biome_or_prettier,
+  javascript = biome_or_prettier,
+  markdown = biome_or_prettier,
+  scss = biome_or_prettier,
+  typescript = biome_or_prettier,
+  typescriptreact = biome_or_prettier,
+  vue = biome_or_prettier,
+  yaml = biome_or_prettier,
 }
+
 return {
   {
     "stevearc/conform.nvim",

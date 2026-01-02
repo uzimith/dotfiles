@@ -112,6 +112,9 @@ alias seq2='seq -f "%02g"'
 alias seq3='seq -f "%03g"'
 alias seq4='seq -f "%04g"'
 
+# ai
+alias ai="sed 's/^/@/'"
+
 # powerline
 powerline-daemon -q
 set fish_function_path $fish_function_path $HOME/dotfiles/powerline/powerline/bindings/fish
