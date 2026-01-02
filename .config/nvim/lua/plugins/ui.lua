@@ -28,7 +28,7 @@ return {
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          component_separators = { left = "｜", right = "｜" },
+          component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
             "NvimTree",
@@ -37,7 +37,7 @@ return {
           },
           ignore_focus = {},
           always_divide_middle = true,
-          globalstatus = false,
+          globalstatus = true,
           refresh = {
             statusline = 1000,
             tabline = 1000,
@@ -47,7 +47,21 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch" },
-          lualine_c = { "diff", "diagnostics", "filename" },
+          lualine_c = {
+            "diff",
+            "diagnostics",
+            {
+              "filename",
+              file_status = true,
+              path = 1,
+              shorting_target = 24,
+              symbols = {
+                modified = " ●",
+                readonly = " ",
+                unnamed = "[No Name]",
+              },
+            },
+          },
           lualine_x = { "lsp_status", "encoding", "fileformat", "filetype" },
           lualine_y = { quickfixcount, loclistcount, "searchcount", "progress" },
           lualine_z = { "location", "%L" },
@@ -73,7 +87,12 @@ return {
                 alternate_file = "#",
                 directory = "",
               },
-              tabs_color = {},
+              component_separators = { left = "", right = "" },
+              section_separators = { left = "", right = "" },
+              tabs_color = {
+                active = "lualine_a_normal",
+                inactive = "lualine_b_normal",
+              },
             },
           },
           lualine_b = {},
