@@ -1,5 +1,5 @@
 font-family = "HackGen35 Console NFJ"
-theme = "Builtin Solarized Light"
+theme = "Selenized Light"
 keybind = shift+enter=text:\x1b\r
 
 macos-option-as-alt = left
