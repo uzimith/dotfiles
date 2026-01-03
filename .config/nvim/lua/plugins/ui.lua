@@ -184,6 +184,13 @@ return {
     end,
   },
   {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      picker = {},
+    },
+  },
+  {
     "kevinhwang91/nvim-hlslens",
     config = function()
       require("hlslens").setup({

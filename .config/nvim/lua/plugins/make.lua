@@ -7,16 +7,6 @@ return {
       local overseer = require("overseer")
       overseer.setup(opts)
 
-      -- ddu-vim-ui-select は denops 経由のため Lua 関数がシリアライズできない
-      -- overseer のテンプレートには builder 関数が含まれるため、snacks.picker を使う
-      vim.api.nvim_create_user_command("OverseerRunNative", function()
-        local original_select = vim.ui.select
-        vim.ui.select = require("snacks.picker.select").select
-        overseer.run_task({}, function()
-          vim.ui.select = original_select
-        end)
-      end, {})
-
       vim.keymap.set("n", "<leader>e", overseer.toggle, { noremap = true })
     end,
   },
