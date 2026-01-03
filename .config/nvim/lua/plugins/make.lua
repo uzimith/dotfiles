@@ -60,9 +60,7 @@ return {
         end,
       })
 
-      -- pnpm run に --sequential を付ける（並列実行だと出力が混ざる）
       overseer.add_template_hook({ module = "npm" }, function(task_defn)
-        vim.notify("Adding --sequential to pnpm run command", vim.log.levels.DEBUG)
         local cmd = task_defn.cmd
         if cmd and cmd[1] == "pnpm" and cmd[2] == "run" then
           table.insert(cmd, 3, "--sequential")
