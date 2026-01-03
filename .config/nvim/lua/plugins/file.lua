@@ -57,7 +57,7 @@ return {
           ["<C-c>"] = { "actions.close", mode = "n" },
           ["<C-g>"] = "actions.refresh",
           ["<C-h>"] = { "actions.parent", mode = "n" },
-          ["h"] = { "actions.parent", mode = "n" },
+          ["-"] = { "actions.parent", mode = "n" },
           ["gy"] = { "actions.copy_entry_path", mode = "n" },
           ["Y"] = {
             callback = function()
