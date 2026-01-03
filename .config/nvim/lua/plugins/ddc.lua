@@ -182,7 +182,18 @@ return {
           return "<CR>"
         end
       end, { remap = true, expr = true })
-      vim.keymap.set("c", "<Tab>", "<cmd>call pum#map#confirm()<CR>", opts)
+      vim.cmd([[
+        function! s:cmdline_tab() abort
+          if pum#visible()
+            call pum#map#confirm()
+            return ''
+          else
+            call ddc#map#manual_complete()
+            return ''
+          endif
+        endfunction
+        cnoremap <expr> <Tab> <SID>cmdline_tab()
+      ]])
 
       vim.cmd([[
         function! s:cmdline_select(num, fallback) abort
