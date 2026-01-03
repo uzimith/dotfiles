@@ -8,7 +8,7 @@ return {
     },
     opts = {
       task_list = {
-        direction = "left",
+        direction = "right",
         keymaps = {
           ["<CR>"] = { "keymap.open", opts = { dir = "float" }, desc = "Open task output in float" },
           ["<C-w>"] = { "keymap.run_action", opts = { action = "watch" } },
