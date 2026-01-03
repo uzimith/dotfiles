@@ -113,7 +113,7 @@ alias seq3='seq -f "%03g"'
 alias seq4='seq -f "%04g"'
 
 # ai
-alias ai="sed 's/^/@/'"
+alias add@="sed 's/^/@/'"
 
 # powerline
 powerline-daemon -q

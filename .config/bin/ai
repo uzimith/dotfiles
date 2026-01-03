@@ -1,0 +1,2 @@
+#!/bin/bash
+cmd=$(claude -p "/cli $*") && echo "$cmd" && read -p "Execute? (y/n): " yn && [ "$yn" = "y" ] && eval "$cmd"
