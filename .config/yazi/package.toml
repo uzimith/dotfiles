@@ -1,0 +1,9 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "6047ce4"
+hash = "187cc58ba7ac3befd49c342129e6f1b6"
+
+[[flavor.deps]]
+use = "gosxrgxx/flexoki-light"
+rev = "45eb0a0"
+hash = "80ba3eec4bf0b9770b1558c26b5b4a72"
