@@ -8,6 +8,7 @@ end
 
 local formatters_by_ft = {
   lua = { "stylua" },
+  sql = { "sql_formatter" },
   css = biome_or_prettier,
   html = biome_or_prettier,
   json = biome_or_prettier,
@@ -45,6 +46,13 @@ return {
         return { timeout_ms = 500, lsp_format = "fallback" }
       end,
       formatters_by_ft = formatters_by_ft,
+      formatters = {
+        sql_formatter = {
+          command = "npx",
+          args = { "sql-formatter" },
+          stdin = true,
+        },
+      },
     },
   },
 }
