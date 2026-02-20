@@ -107,7 +107,7 @@ return {
         "astro",
         "efm",
         "gopls",
-        "ts_ls",
+        "tsgo",
         "eslint",
         -- "denols",
         "lua_ls",
