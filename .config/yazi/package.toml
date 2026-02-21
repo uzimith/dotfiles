@@ -8,6 +8,11 @@ use = "mikavilpas/easyjump.yazi:easyjump"
 rev = "587fd4d"
 hash = "dee6991cbf5f04f879be03218856d65"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "6047ce4"
+hash = "4c0260feb50ea2437380690ffc241da7"
+
 [[flavor.deps]]
 use = "gosxrgxx/flexoki-light"
 rev = "45eb0a0"
