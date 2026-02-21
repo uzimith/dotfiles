@@ -138,4 +138,21 @@ return {
       end, opts)
     end,
   },
+  {
+    "mikavilpas/yazi.nvim",
+    cmd = "Yazi",
+    opts = {},
+    keys = {
+      { "sd", "<cmd>Yazi<CR>", desc = "Open Yazi", mode = "n" },
+      {
+        "sf",
+        function()
+          local git_root = vim.fs.root(0, ".git")
+          require("yazi").yazi(nil, git_root or vim.fn.getcwd())
+        end,
+        desc = "Open Yazi at git root",
+        mode = "n",
+      },
+    },
+  },
 }
