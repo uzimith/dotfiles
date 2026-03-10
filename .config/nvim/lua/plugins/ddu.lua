@@ -53,10 +53,10 @@ return {
           input = "",
         })
       end, opts)
-      vim.keymap.set("n", "s*", function()
+      vim.keymap.set("n", "sG", function()
         vim.fn["ddu#start"]({ name = "grep", input = vim.fn.expand("<cword>") })
       end, opts)
-      vim.keymap.set("x", "s*", function()
+      vim.keymap.set("x", "sG", function()
         vim.cmd.normal({ '"vy', bang = true, mods = { noautocmd = true } })
         local text = vim.fn.getreg("v")
         vim.fn["ddu#start"]({ name = "grep", input = text })
@@ -222,7 +222,6 @@ return {
         },
       })
 
-      -- Live grep
       vim.fn["ddu#custom#patch_local"]("grep", {
         sources = {
           { name = "rg" },
@@ -319,11 +318,16 @@ return {
           vim.keymap.set("n", "K", '<Cmd>call ddu#ui#do_action("togglePreview")<CR>', opts)
           -- -- 一括でQuickfixに流しこむ
           vim.keymap.set("n", "<C-q>", function()
-            vim.fn["ddu#ui#multi_actions"]({
-              { "clearSelectAllItems" },
-              { "toggleAllItems" },
-              { "itemAction", { name = "quickfix" } },
-            })
+            local selected = vim.b.ddu_ui_selected_items or {}
+            if #selected > 0 then
+              vim.fn["ddu#ui#do_action"]("itemAction", { name = "quickfix" })
+            else
+              vim.fn["ddu#ui#multi_actions"]({
+                { "clearSelectAllItems" },
+                { "toggleAllItems" },
+                { "itemAction", { name = "quickfix" } },
+              })
+            end
           end, opts)
         end,
       })
