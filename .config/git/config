@@ -63,7 +63,7 @@
 [pull]
 	rebase = true
 [wt]
-	basedir = .worktrees/
+	basedir = .wt
 	copyignored = true
 	nocopy = .git
 	nocopy = localonly/

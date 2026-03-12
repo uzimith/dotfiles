@@ -16,6 +16,7 @@ function fish_user_key_bindings
     bind -M default -m insert sc telmapp_ca_id
     bind -M default -m default 's*' peco_ripgrep_vim
     bind -M default -m insert sd peco_ls
+    bind -M default -m insert sw peco_select_worktree
 
     bind -M insert -m default jj backward-char force-repaint
     bind -M default -m default \x20l end-of-line
