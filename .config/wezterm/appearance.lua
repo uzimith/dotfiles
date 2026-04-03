@@ -27,23 +27,22 @@ function M.apply(config)
     local date = wezterm.strftime("%Y/%m/%d %H:%M")
     local key_table = window:active_key_table() or ""
 
-    local left = {
+    window:set_left_status(wezterm.format({
       { Foreground = { Color = "#7aa2f7" } },
       { Background = { Color = "#1a1b26" } },
       { Text = "  " .. workspace .. " " },
-    }
-    if key_table ~= "" then
-      table.insert(left, { Foreground = { Color = "#e0af68" } })
-      table.insert(left, { Background = { Color = "#1a1b26" } })
-      table.insert(left, { Text = " [" .. key_table .. "]" })
-    end
+    }))
 
-    window:set_left_status(wezterm.format(left))
-
-    window:set_right_status(wezterm.format({
+    local right = {
       { Foreground = { Color = "#c6c6c6" } },
       { Text = " " .. date .. " " },
-    }))
+    }
+    if key_table ~= "" then
+      table.insert(right, 1, { Foreground = { Color = "#e0af68" } })
+      table.insert(right, 2, { Text = "[" .. key_table .. "] " })
+    end
+
+    window:set_right_status(wezterm.format(right))
   end)
 end
 
