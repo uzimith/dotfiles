@@ -40,14 +40,17 @@ config.keys = {
   { key = "s", mods = "LEADER|CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "v", mods = "LEADER|CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+
   { key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") },
   { key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") },
   { key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") },
   { key = "l", mods = "CTRL", action = act.ActivatePaneDirection("Right") },
+
   { key = "h", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Left", 6 }) },
   { key = "l", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Right", 6 }) },
   { key = "j", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Down", 6 }) },
   { key = "k", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Up", 6 }) },
+
   { key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
   { key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
   { key = "i", mods = "LEADER", action = act.PaneSelect({}) },
@@ -61,6 +64,7 @@ config.keys = {
   { key = "h", mods = "LEADER", action = act.MoveTabRelative(-1) },
   { key = "l", mods = "LEADER", action = act.MoveTabRelative(1) },
   { key = "x", mods = "LEADER|SHIFT", action = act.CloseCurrentTab({ confirm = true }) },
+
   { key = "1", mods = "LEADER", action = act.ActivateTab(0) },
   { key = "2", mods = "LEADER", action = act.ActivateTab(1) },
   { key = "3", mods = "LEADER", action = act.ActivateTab(2) },
