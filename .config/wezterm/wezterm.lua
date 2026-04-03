@@ -32,52 +32,35 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 config.keys = {
-  -- Send Ctrl+t when pressing Leader + t
+  -- Passthrough
   { key = "t", mods = "LEADER", action = act.SendKey({ key = "t", mods = "CTRL" }) },
 
-  -- Pane splitting (Leader+s: vertical, Leader+v: horizontal)
+  -- Pane
   { key = "s", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "s", mods = "LEADER|CTRL", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "v", mods = "LEADER|CTRL", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-
-  -- Pane navigation (Ctrl+h/j/k/l without leader, like vim-tmux-navigator)
   { key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") },
   { key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") },
   { key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") },
   { key = "l", mods = "CTRL", action = act.ActivatePaneDirection("Right") },
-
-  -- Pane resize (Leader + Ctrl+h/j/k/l)
   { key = "h", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Left", 6 }) },
   { key = "l", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Right", 6 }) },
   { key = "j", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Down", 6 }) },
   { key = "k", mods = "LEADER|CTRL", action = act.AdjustPaneSize({ "Up", 6 }) },
-
-  -- Zoom pane
   { key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
-
-  -- Close pane
   { key = "x", mods = "LEADER", action = act.CloseCurrentPane({ confirm = true }) },
+  { key = "i", mods = "LEADER", action = act.PaneSelect({}) },
 
-  -- Close tab
-  { key = "x", mods = "LEADER|SHIFT", action = act.CloseCurrentTab({ confirm = true }) },
-
-  -- New tab
+  -- Tab
   { key = "c", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
-
-  -- Tab navigation (Leader+j: next, Leader+k: previous)
   { key = "j", mods = "LEADER", action = act.ActivateTabRelative(1) },
   { key = "k", mods = "LEADER", action = act.ActivateTabRelative(-1) },
-
-  -- Tab navigation (Ctrl+Tab / Ctrl+Shift+Tab)
   { key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
   { key = "Tab", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
-
-  -- Swap window (Leader+h: left, Leader+l: right) — like tmux swap-window
   { key = "h", mods = "LEADER", action = act.MoveTabRelative(-1) },
   { key = "l", mods = "LEADER", action = act.MoveTabRelative(1) },
-
-  -- Tab by number (Leader + 1-9)
+  { key = "x", mods = "LEADER|SHIFT", action = act.CloseCurrentTab({ confirm = true }) },
   { key = "1", mods = "LEADER", action = act.ActivateTab(0) },
   { key = "2", mods = "LEADER", action = act.ActivateTab(1) },
   { key = "3", mods = "LEADER", action = act.ActivateTab(2) },
@@ -88,14 +71,9 @@ config.keys = {
   { key = "8", mods = "LEADER", action = act.ActivateTab(7) },
   { key = "9", mods = "LEADER", action = act.ActivateTab(8) },
 
-  -- Copy mode (Leader + Ctrl+y)
+  -- Copy/Paste
   { key = "y", mods = "LEADER|CTRL", action = act.ActivateCopyMode },
-
-  -- Paste (Leader + Ctrl+p)
   { key = "p", mods = "LEADER|CTRL", action = act.PasteFrom("Clipboard") },
-
-  -- Pane display (Leader+i)
-  { key = "i", mods = "LEADER", action = act.PaneSelect({}) },
 }
 
 -- Copy mode key table (vi mode)
