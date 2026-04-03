@@ -25,12 +25,20 @@ function M.apply(config)
   wezterm.on("update-status", function(window, pane)
     local workspace = window:active_workspace()
     local date = wezterm.strftime("%Y/%m/%d %H:%M")
+    local key_table = window:active_key_table() or ""
 
-    window:set_left_status(wezterm.format({
+    local left = {
       { Foreground = { Color = "#7aa2f7" } },
       { Background = { Color = "#1a1b26" } },
       { Text = "  " .. workspace .. " " },
-    }))
+    }
+    if key_table ~= "" then
+      table.insert(left, { Foreground = { Color = "#e0af68" } })
+      table.insert(left, { Background = { Color = "#1a1b26" } })
+      table.insert(left, { Text = " [" .. key_table .. "]" })
+    end
+
+    window:set_left_status(wezterm.format(left))
 
     window:set_right_status(wezterm.format({
       { Foreground = { Color = "#c6c6c6" } },
