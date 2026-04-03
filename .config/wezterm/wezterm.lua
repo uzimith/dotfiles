@@ -9,8 +9,8 @@ end
 config.color_scheme = 'Solarized Light (Gogh)'
 config.default_prog = { '/opt/homebrew/bin/fish' }
 
--- Leader key: Ctrl+r (matching tmux.conf)
-config.leader = { key = 'r', mods = 'CTRL', timeout_milliseconds = 1000 }
+-- Leader key: Ctrl+t
+config.leader = { key = 't', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 -- Tab index starts from 1 (base-index 1)
 config.tab_bar_at_bottom = true
@@ -31,8 +31,8 @@ wezterm.on('format-tab-title', function(tab)
 end)
 
 config.keys = {
-  -- Send Ctrl+r when pressing Leader + r
-  { key = 'r', mods = 'LEADER', action = act.SendKey { key = 'r', mods = 'CTRL' } },
+  -- Send Ctrl+t when pressing Leader + t
+  { key = 't', mods = 'LEADER', action = act.SendKey { key = 't', mods = 'CTRL' } },
 
   -- Pane splitting (Leader+s: vertical, Leader+v: horizontal)
   { key = 's', mods = 'LEADER', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
