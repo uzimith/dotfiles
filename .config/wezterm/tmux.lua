@@ -52,8 +52,8 @@ function M.apply(config)
     { key = "9", mods = "LEADER", action = act.ActivateTab(8) },
 
     -- Copy/Paste
-    { key = "y", mods = "LEADER|CTRL", action = act.ActivateCopyMode },
-    { key = "p", mods = "LEADER|CTRL", action = act.PasteFrom("Clipboard") },
+    { key = "y", mods = "LEADER", action = act.ActivateCopyMode },
+    { key = "p", mods = "LEADER", action = act.PasteFrom("Clipboard") },
 
     -- Search & Quick Select
     { key = "/", mods = "LEADER", action = act.Search("CurrentSelectionOrEmptyString") }, -- search
@@ -100,6 +100,7 @@ function M.apply(config)
       { key = "0", mods = "NONE", action = act.CopyMode("MoveToStartOfLine") },
       { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent") },
       { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
+      { key = " ", mods = "NONE", action = act.ActivateKeyTable({ name = "copy_mode_space", one_shot = true }) },
 
       -- Page movement
       { key = "g", mods = "NONE", action = act.CopyMode("MoveToScrollbackTop") },
@@ -132,6 +133,11 @@ function M.apply(config)
       { key = "N", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
     },
   }
+  config.key_tables.copy_mode_space = {
+    { key = "h", mods = "NONE", action = act.CopyMode("MoveToStartOfLineContent") },
+    { key = "l", mods = "NONE", action = act.CopyMode("MoveToEndOfLineContent") },
+  }
+
   local copy_mode = config.key_tables.copy_mode
   table.insert(copy_mode, { key = "J", mods = "SHIFT", action = act.CopyMode("PageDown") })
   table.insert(copy_mode, { key = "K", mods = "SHIFT", action = act.CopyMode("PageUp") })
