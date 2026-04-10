@@ -19,9 +19,7 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[](fg:#86BBD8 bg:#06969A)\
-$docker_context\
-[ ](fg:#06969A)\
+[ ](fg:#86BBD8)\
 """
 
 right_format = """
@@ -78,11 +76,6 @@ format = '[ $symbol ($version) ]($style)'
 symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
-
-[docker_context]
-symbol = " "
-style = "fg:#FFFFFF bg:#06969A"
-format = '[ $symbol $context ]($style)'
 
 [elixir]
 symbol = " "
