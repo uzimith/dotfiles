@@ -1,15 +1,12 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](#9A348E)\
+[](#9A348E)\
 $os\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:#DA627D fg:#9A348E)\
 $directory\
-[](fg:#DA627D bg:#FCA17D)\
-$git_branch\
-$git_status\
-[](fg:#FCA17D bg:#86BBD8)\
+[](fg:#DA627D bg:#86BBD8)\
 $c\
 $elixir\
 $elm\
@@ -22,17 +19,23 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[](fg:#86BBD8 bg:#06969A)\
+[](fg:#86BBD8 bg:#06969A)\
 $docker_context\
-[](fg:#06969A bg:#33658A)\
+[ ](fg:#06969A)\
+"""
+
+right_format = """
+[](fg:#FCA17D)\
+$git_branch\
+$git_status\
+[](fg:#33658A bg:#FCA17D)\
 $time\
-[ ](fg:#33658A)\
 """
 
 # Disable the blank line at the start of the prompt
 # add_newline = false
 
-# You can also replace your username with a neat symbol like   or disable this
+# You can also replace your username with a neat symbol like   or disable this
 # and use the os module below
 [username]
 show_always = true
@@ -57,42 +60,42 @@ truncation_symbol = "…/"
 # similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
 # Keep in mind that the order matters. For example:
-# "Important Documents" = " 󰈙 "
+# "Important Documents" = " 󰈙 "
 # will not be replaced, because "Documents" was already substituted before.
 # So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important 󰈙 " = " 󰈙 "
+# "Important 󰈙 " = " 󰈙 "
 
 [c]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [cpp]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [docker_context]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#06969A"
 format = '[ $symbol $context ]($style)'
 
 [elixir]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#FCA17D"
 format = '[ $symbol $branch ]($style)'
 
@@ -101,7 +104,7 @@ style = "fg:#FFFFFF bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
@@ -110,22 +113,22 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [haskell]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
@@ -135,12 +138,12 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [scala]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
