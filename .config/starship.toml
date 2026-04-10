@@ -1,10 +1,10 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](#9A348E)\
+[ ](bg:#9A348E)\
 $os\
 $username\
-[](fg:#9A348E bg:#86BBD8)\
+[](fg:#9A348E bg:#86BBD8)\
 $c\
 $elixir\
 $elm\
@@ -17,16 +17,17 @@ $nodejs\
 $nim\
 $rust\
 $scala\
-[](fg:#86BBD8 bg:#DA627D)\
+[](fg:#86BBD8 bg:#DA627D)\
 $directory\
-[ ](fg:#DA627D)\
+[](fg:#DA627D)\
+[ ]()\
 """
 
 right_format = """
-[](fg:#FCA17D)\
+[](fg:#FCA17D)\
 $git_branch\
 $git_status\
-[](fg:#33658A bg:#FCA17D)\
+[](fg:#33658A bg:#FCA17D)\
 $time\
 """
 
