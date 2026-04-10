@@ -59,37 +59,37 @@ truncation_symbol = "…/"
 # similar to mapped_locations in Oh My Posh:
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
-# Keep in mind that the order matters. For example:
-# "Important Documents" = " 󰈙 "
-# will not be replaced, because "Documents" was already substituted before.
-# So either put "Important Documents" before "Documents" or use the substituted version:
-# "Important 󰈙 " = " 󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
 
 [c]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [cpp]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
+[docker_context]
+symbol = " "
+style = "fg:#FFFFFF bg:#06969A"
+format = '[ $symbol $context ]($style)'
+
 [elixir]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#FCA17D"
 format = '[ $symbol $branch ]($style)'
 
@@ -98,7 +98,7 @@ style = "fg:#FFFFFF bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
@@ -107,22 +107,22 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [haskell]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
@@ -132,12 +132,12 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
-symbol = ""
+symbol = ""
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [scala]
-symbol = " "
+symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
