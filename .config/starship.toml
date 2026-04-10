@@ -4,9 +4,7 @@ format = """
 [](#9A348E)\
 $os\
 $username\
-[](bg:#DA627D fg:#9A348E)\
-$directory\
-[](fg:#DA627D bg:#86BBD8)\
+[](fg:#9A348E bg:#86BBD8)\
 $c\
 $elixir\
 $elm\
@@ -28,6 +26,8 @@ $git_branch\
 $git_status\
 [](fg:#33658A bg:#FCA17D)\
 $time\
+[](fg:#DA627D bg:#33658A)\
+$directory\
 """
 
 # Disable the blank line at the start of the prompt
