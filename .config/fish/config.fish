@@ -115,10 +115,6 @@ alias seq4='seq -f "%04g"'
 # ai
 alias add@="sed 's/^/@/'"
 
-# powerline
-powerline-daemon -q
-set fish_function_path $fish_function_path $HOME/dotfiles/powerline/powerline/bindings/fish
-powerline-setup
 function fish_mode_prompt
 end # fishmode
 
@@ -163,3 +159,4 @@ function y
 end
 
 source $HOME/.elan/env
+starship init fish | source

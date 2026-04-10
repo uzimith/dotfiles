@@ -34,6 +34,7 @@
   empty = commit --allow-empty 
 	pf = push --force-with-lease
 	d = diff
+	wdiff = diff --color-words
 [web]
 	browser = open
 [filter "lfs"]
@@ -45,6 +46,7 @@
 	autostash = true
 [diff]
 	tool = nvimdiff
+	wordRegex = [a-zA-Z0-9_]+|[ぁ-ん]+|[ァ-ヶー]+|[一-龥々〇〆]+|.
 [difftool]
 	prompt = false
 [merge]
