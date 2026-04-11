@@ -84,6 +84,8 @@ alias t='tig'
 alias ta='tig --all'
 alias ts='tig status'
 alias gd='git branch --merged | grep -v \'*\' | xargs git branch -d'
+alias lg='lazygit'
+alias ld='lazydocker'
 
 # kubectl
 alias k='kubectl'
