@@ -1,6 +1,7 @@
 gui:
   nerdFontsVersion: "3"
   showFileTree: false
+  border: "hidden"
 quitOnTopLevelReturn: true
 keybinding:
   universal:
