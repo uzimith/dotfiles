@@ -269,3 +269,6 @@ mise = "mise trust"
 
 [post-start]
 install = "pnpm install"
+
+[post-remove]
+tmux = "tmux kill-session -t {{ branch | sanitize }}"
