@@ -212,3 +212,7 @@ run = "move-node-to-workspace 7"
 if.app-id = "notion.id"
 run = "move-node-to-workspace 3"
 
+[[on-window-detected]]
+if.app-id = "com.linear"
+run = "move-node-to-workspace 5"
+
