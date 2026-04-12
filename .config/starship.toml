@@ -21,8 +21,6 @@ $scala\
 $directory\
 [](fg:#DA627D bg:#33658A)\
 $character\
-[](fg:#33658A)\
-[ ]()\
 """
 
 right_format = """
@@ -144,13 +142,13 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [character]
-format = '[$symbol]($style)'
-vimcmd_symbol = '[ NORMAL ](bold fg:#FFFFFF bg:#33658A)'
-vimcmd_replace_one_symbol = '[ REPLACE ](bold fg:#FFFFFF bg:#33658A)'
-vimcmd_replace_symbol = '[ REPLACE ](bold fg:#FFFFFF bg:#33658A)'
-vimcmd_visual_symbol = '[ VISUAL ](bold fg:#FFFFFF bg:#33658A)'
-success_symbol = '[ INSERT ](bold fg:#FFFFFF bg:#33658A)'
-error_symbol = '[ INSERT ](bold fg:#DA627D bg:#33658A)'
+format = '[$symbol]($style) '
+vimcmd_symbol = '[ NORMAL ](bold fg:#FFFFFF bg:#33658A)[](fg:#33658A)'
+vimcmd_replace_one_symbol = '[ REPLACE ](bold fg:#FFFFFF bg:#33658A)[](fg:#33658A)'
+vimcmd_replace_symbol = '[ REPLACE ](bold fg:#FFFFFF bg:#33658A)[](fg:#33658A)'
+vimcmd_visual_symbol = '[ VISUAL ](bold fg:#FFFFFF bg:#33658A)[](fg:#33658A)'
+success_symbol = '[ INSERT ](bold fg:#FFFFFF bg:#33658A)[](fg:#33658A)'
+error_symbol = '[ INSERT ](bold fg:#DA627D bg:#33658A)[](fg:#33658A)'
 
 [time]
 disabled = false
