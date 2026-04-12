@@ -208,3 +208,7 @@ run = "move-node-to-workspace 6"
 if.app-id = "com.anthropic.claudefordesktop"
 run = "move-node-to-workspace 7"
 
+[[on-window-detected]]
+if.app-id = "notion.id"
+run = "move-node-to-workspace 3"
+
