@@ -142,12 +142,12 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [character]
-vimcmd_symbol = '[N](bold green) '
-vimcmd_replace_one_symbol = '[R](bold purple) '
-vimcmd_replace_symbol = '[R](bold purple) '
-vimcmd_visual_symbol = '[V](bold yellow) '
-success_symbol = '[I](bold green) '
-error_symbol = '[I](bold red) '
+vimcmd_symbol = '[NORMAL](bold green) '
+vimcmd_replace_one_symbol = '[REPLACE](bold purple) '
+vimcmd_replace_symbol = '[REPLACE](bold purple) '
+vimcmd_visual_symbol = '[VISUAL](bold yellow) '
+success_symbol = '[INSERT](bold green) '
+error_symbol = '[INSERT](bold red) '
 
 [time]
 disabled = false
