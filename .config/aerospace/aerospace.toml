@@ -188,3 +188,7 @@ run = "layout floating"
 if.app-id = "dev.kdrag0n.MacVirt"
 run = "layout floating"
 
+[[on-window-detected]]
+if.app-id = "com.google.Chrome"
+run = "move-node-to-workspace 2"
+
