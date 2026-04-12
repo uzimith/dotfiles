@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+$character\
 [ ](bg:#9A348E)\
 $os\
 $username\
@@ -140,6 +141,14 @@ format = '[ $symbol ($version) ]($style)'
 symbol = " "
 style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
+
+[character]
+vimcmd_symbol = '[N](bold green) '
+vimcmd_replace_one_symbol = '[R](bold purple) '
+vimcmd_replace_symbol = '[R](bold purple) '
+vimcmd_visual_symbol = '[V](bold yellow) '
+success_symbol = '[I](bold green) '
+error_symbol = '[I](bold red) '
 
 [time]
 disabled = false
