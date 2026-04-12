@@ -10,3 +10,7 @@ gui:
     inactiveBorderColor:
       - default
 quitOnTopLevelReturn: true
+keybinding:
+  universal:
+    quit: "<esc>"
+    return: "q"
