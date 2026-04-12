@@ -100,7 +100,6 @@ function M.apply(config)
       { key = "0", mods = "NONE", action = act.CopyMode("MoveToStartOfLine") },
       { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent") },
       { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
-      { key = " ", mods = "NONE", action = act.ActivateKeyTable({ name = "copy_mode_space", one_shot = true }) },
 
       -- Page movement
       { key = "g", mods = "NONE", action = act.CopyMode("MoveToScrollbackTop") },
@@ -131,6 +130,8 @@ function M.apply(config)
       { key = "/", mods = "NONE", action = act.Search("CurrentSelectionOrEmptyString") },
       { key = "n", mods = "NONE", action = act.CopyMode("NextMatch") },
       { key = "N", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
+
+      { key = " ", mods = "NONE", action = act.ActivateKeyTable({ name = "copy_mode_space", one_shot = true }) },
     },
   }
   config.key_tables.copy_mode_space = {
