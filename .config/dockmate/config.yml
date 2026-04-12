@@ -1,0 +1,27 @@
+layout:
+    container_id_width: 8
+    container_name_width: 14
+    memory_width: 6
+    cpu_width: 6
+    net_io_width: 10
+    disk_io_width: 12
+    image_width: 18
+    status_width: 13
+    port_width: 13
+    container_id_visible: true
+    container_name_visible: true
+    memory_visible: true
+    cpu_visible: true
+    net_io_visible: false
+    disk_io_visible: false
+    image_visible: true
+    status_visible: true
+    port_visible: true
+performance:
+    poll_rate: 2
+runtime:
+    type: docker
+    socket: ""
+    run_pre_checks: false
+exec:
+    shell: /bin/sh

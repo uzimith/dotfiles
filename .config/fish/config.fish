@@ -120,6 +120,11 @@ alias add@="sed 's/^/@/'"
 function fish_mode_prompt
 end # fishmode
 
+function history-merge --on-event fish_preexec
+  history --save
+  history --merge
+end
+
 switch (uname)
     case Linux
         source $HOME/.config/fish/linux.fish

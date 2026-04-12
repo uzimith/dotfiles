@@ -1,12 +1,13 @@
 gui:
+  language: "en"
   nerdFontsVersion: "3"
   showFileTree: false
   border: "hidden"
 quitOnTopLevelReturn: true
 keybinding:
   universal:
-    quit: '<esc>'
-    return: 'q'
+    quit: "<esc>"
+    return: "q"
 git:
   pagers:
     - pager: delta --side-by-side --paging=never
