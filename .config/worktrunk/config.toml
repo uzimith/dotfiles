@@ -264,7 +264,8 @@ worktree-path = "~/worktrees/{{ repo }}/{{ branch | sanitize }}"
 #     { install = "npm ci" },
 #     { build = "npm run build", server = "npm run dev" }
 # ]
+[pre-start]
+mise = "mise trust"
 
 [post-start]
-copy = "wt step copy-ignored"
 install = "pnpm install"
