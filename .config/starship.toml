@@ -142,12 +142,12 @@ format = '[ $symbol ($version) ]($style)'
 
 [character]
 format = '[$symbol]($style) '
-vimcmd_symbol = '[](fg:#DA627D bg:#005F87)[ NORMAL ](bold fg:#FFFFFF bg:#005F87)[](fg:#005F87)'
-vimcmd_replace_one_symbol = '[](fg:#DA627D bg:#CC0000)[ REPLACE ](bold fg:#FFFFFF bg:#CC0000)[](fg:#CC0000)'
-vimcmd_replace_symbol = '[](fg:#DA627D bg:#CC0000)[ REPLACE ](bold fg:#FFFFFF bg:#CC0000)[](fg:#CC0000)'
-vimcmd_visual_symbol = '[](fg:#DA627D bg:#C4A000)[ VISUAL ](bold fg:#FFFFFF bg:#C4A000)[](fg:#C4A000)'
-success_symbol = '[](fg:#DA627D bg:#4E9A06)[ INSERT ](bold fg:#FFFFFF bg:#4E9A06)[](fg:#4E9A06)'
-error_symbol = '[](fg:#DA627D bg:#CC0000)[ INSERT ](bold fg:#FFFFFF bg:#CC0000)[](fg:#CC0000)'
+vimcmd_symbol = '[](fg:#DA627D bg:#258BD2)[ NORMAL ](bold fg:#FFFFFF bg:#258BD2)[](fg:#258BD2)'
+vimcmd_replace_one_symbol = '[](fg:#DA627D bg:#DD322F)[ REPLACE ](bold fg:#FFFFFF bg:#DD322F)[](fg:#DD322F)'
+vimcmd_replace_symbol = '[](fg:#DA627D bg:#DD322F)[ REPLACE ](bold fg:#FFFFFF bg:#DD322F)[](fg:#DD322F)'
+vimcmd_visual_symbol = '[](fg:#DA627D bg:#D23782)[ VISUAL ](bold fg:#FFFFFF bg:#D23782)[](fg:#D23782)'
+success_symbol = '[](fg:#DA627D bg:#859803)[ INSERT ](bold fg:#FFFFFF bg:#859803)[](fg:#859803)'
+error_symbol = '[](fg:#DA627D bg:#DD322F)[ INSERT ](bold fg:#FFFFFF bg:#DD322F)[](fg:#DD322F)'
 
 [time]
 disabled = false
