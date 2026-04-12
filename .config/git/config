@@ -18,9 +18,8 @@
 [alias]
   co = checkout
   f = fetch -p
-  s = status --short
-  a = add
-  m = merge
+  s = status
+  sw = switch
   c = commit
   ca = commit --amend --no-edit
   p = push
