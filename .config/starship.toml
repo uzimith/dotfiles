@@ -19,9 +19,10 @@ $rust\
 $scala\
 [](fg:#86BBD8 bg:#DA627D)\
 $directory\
-[](fg:#DA627D)\
-[ ]()\
-$character"""
+[](fg:#DA627D bg:#33658A)\
+$character\
+[](fg:#33658A)\
+"""
 
 right_format = """
 [](fg:#FCA17D)\
@@ -142,12 +143,12 @@ style = "fg:#FFFFFF bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [character]
-vimcmd_symbol = '[NORMAL](bold green) '
-vimcmd_replace_one_symbol = '[REPLACE](bold purple) '
-vimcmd_replace_symbol = '[REPLACE](bold purple) '
-vimcmd_visual_symbol = '[VISUAL](bold yellow) '
-success_symbol = '[INSERT](bold green) '
-error_symbol = '[INSERT](bold red) '
+vimcmd_symbol = '[ NORMAL ](fg:#FFFFFF bg:#33658A)'
+vimcmd_replace_one_symbol = '[ REPLACE ](fg:#FFFFFF bg:#33658A)'
+vimcmd_replace_symbol = '[ REPLACE ](fg:#FFFFFF bg:#33658A)'
+vimcmd_visual_symbol = '[ VISUAL ](fg:#FFFFFF bg:#33658A)'
+success_symbol = '[ INSERT ](fg:#FFFFFF bg:#33658A)'
+error_symbol = '[ INSERT ](fg:#FF0000 bg:#33658A)'
 
 [time]
 disabled = false
