@@ -2,7 +2,6 @@ gui:
   language: "en"
   nerdFontsVersion: "3"
   showAllContainers: false
-  border: "hidden"
   theme:
     activeBorderColor:
       - green

@@ -61,6 +61,7 @@ alias yolo='claude --dangerously-skip-permissions'
 # docker
 alias d='docker'
 alias dc='docker-compose'
+alias ld='lazydocker'
 
 # process
 alias j="jobs -l"
@@ -70,9 +71,6 @@ alias pk='pkill -f'
 alias du="du -h"
 alias df="df -h"
 alias duh="du -h ./ --max-depth=1"  
-
-#finder
-alias fo='open .'
 
 #gem
 alias be='bundle exec'
@@ -87,12 +85,9 @@ alias gd='git branch --merged | grep -v \'*\' | xargs git branch -d'
 alias lg='lazygit'
 alias lgl='lazygit log'
 alias lgs='lazygit status'
-alias ld='lazydocker'
 
-# kubectl
-alias k='kubectl'
-alias kc='kubectx | peco | xargs kubectx'
-alias kn='kubens | peco | xargs kubens'
+alias wtt='wt switch -x \'tmux new -d -s {{ branch | sanitize }}\''
+alias wtc='wt switch --create -x \'tmux new -d -s {{ branch | sanitize }}\''
 
 # util
 alias cat='bat --paging=never'
@@ -103,21 +98,11 @@ alias rgf='ripgrep_glob'
 zoxide init fish | source
 alias cd='z'
 
-# application
-alias firefox="open -a Firefox"
-alias safari="open -a Safari"
-alias itunes="open -a iTunes"
-alias prev="open -a Preview"
-alias vlc="open -a VLC.app"
-
 # seq
 alias seq1='seq -f "%01g"'
 alias seq2='seq -f "%02g"'
 alias seq3='seq -f "%03g"'
 alias seq4='seq -f "%04g"'
-
-# ai
-alias add@="sed 's/^/@/'"
 
 function fish_mode_prompt
 end # fishmode
