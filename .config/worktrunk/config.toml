@@ -271,7 +271,7 @@ mise = "mise trust"
 install = "pnpm install"
 
 [pre-remove]
-docker = "docker compose down -v"
+docker = "docker compose down -v --remove-orphans"
 
 [post-remove]
 tmux = "tmux kill-session -t {{ branch | sanitize }}"
