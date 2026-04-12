@@ -86,7 +86,6 @@ alias lg='lazygit'
 alias lgl='lazygit log'
 alias lgs='lazygit status'
 
-alias wtt='wt switch -x \'tmux new -d -s {{ branch | sanitize }}\''
 alias wtc='wt switch --create -x \'tmux new -d -s {{ branch | sanitize }}\''
 
 # util
