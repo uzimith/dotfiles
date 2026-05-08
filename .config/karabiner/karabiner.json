@@ -49641,7 +49641,7 @@
                     "to": [{ "key_code": "volume_increment" }]
                 }
             ],
-            "name": "Ver2",
+            "name": "default",
             "one_to_many_mappings": {},
             "selected": true,
             "simple_modifications": [
@@ -99303,7 +99303,7 @@
                     "to": [{ "key_code": "volume_increment" }]
                 }
             ],
-            "name": "Ver2 (copy)",
+            "name": "external",
             "one_to_many_mappings": {},
             "simple_modifications": [
                 {

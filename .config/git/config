@@ -63,10 +63,3 @@
   side-by-side = true
 [pull]
 	rebase = true
-[wt]
-	basedir = .wt
-	copyignored = true
-	nocopy = .git
-	nocopy = localonly/
-	nocopy = db
-	nocopy = node_modules

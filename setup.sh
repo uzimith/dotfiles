@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # dotfiles
-DOT_FILES=(.config .tmux.conf .ssh bin .tigrc .hammerspoon)
+DOT_FILES=(.config .tmux.conf bin .tigrc)
 
 ln -s $HOME/dotfiles/$file $HOME/$file
 

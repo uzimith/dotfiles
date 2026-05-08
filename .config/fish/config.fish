@@ -120,7 +120,6 @@ end
 source $HOME/.config/fish/secret.fish
 
 /opt/homebrew/bin/mise activate fish | source
-source "$HOME/.rye/env.fish"
 
 # pnpm
 set -gx PNPM_HOME "/Users/uzimith/Library/pnpm"
@@ -140,8 +139,6 @@ fish_add_path /Users/uzimith/.antigravity/antigravity/bin
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
-git wt --init fish | source
-
 function y
 	set tmp (mktemp -t "yazi-cwd.XXXXXX")
 	command yazi $argv --cwd-file="$tmp"
@@ -151,5 +148,4 @@ function y
 	rm -f -- "$tmp"
 end
 
-source $HOME/.elan/env
 starship init fish | source
