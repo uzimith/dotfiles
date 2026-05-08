@@ -2,14 +2,13 @@ gui:
   language: "en"
   nerdFontsVersion: "3"
   showAllContainers: false
+  border: "single"
+  returnImmediately: false
   theme:
     activeBorderColor:
       - green
       - bold
     inactiveBorderColor:
       - default
-quitOnTopLevelReturn: true
-keybinding:
-  universal:
-    quit: "<esc>"
-    return: "q"
+logs:
+  since: ""

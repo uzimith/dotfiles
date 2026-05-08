@@ -83,8 +83,8 @@ alias ta='tig --all'
 alias ts='tig status'
 alias gd='git branch --merged | grep -v \'*\' | xargs git branch -d'
 alias lg='lazygit'
-alias lgl='lazygit log'
-alias lgs='lazygit status'
+alias gl='lazygit log'
+alias gs='lazygit status'
 
 alias wtc='wt switch --create -x \'tmux new -d -s {{ branch | sanitize }}\''
 
