@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "CLAUDE_CODE_EFFORT_LEVEL": "high",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_NO_FLICKER": "0",
+    "EDITOR": "nvim +startinsert"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(terminal-notifier:*)",
+      "Bash(rg:*)",
+      "Bash(cd:*)",
+      "Bash(pnpm:*)",
+      "Bash(pnpx:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "mcp__playwright",
+      "mcp__notion.ai",
+      "mcp__linear-server",
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write",
+      "WebFetch",
+      "WebSearch",
+      "Skill(git-commit)",
+      "Bash(find:*)",
+      "Bash(ls)",
+      "WebFetch(domain:nextjs.org)",
+      "Bash(docker:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(node -e:*)",
+      "WebFetch(domain:linear.app)",
+      "Bash(cat:*)",
+      "Bash(node --version:*)",
+      "Bash(npx -y tsx@latest:*)",
+      "Bash(tree:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:www.nta.go.jp)",
+      "mcp__linear__get_issue",
+      "mcp__linear-server__get_issue",
+      "mcp__notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-fetch"
+    ],
+    "deny": [],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude",
+            "timeout": 86400
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/Users/uzimith/Library/Application Support/OpenIsland/bin/OpenIslandHooks' --source claude"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "/Users/uzimith/.open-island/bin/open-island-statusline",
+    "padding": 2
+  },
+  "enabledPlugins": {
+    "codex@openai-codex": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "worktrunk@worktrunk": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "worktrunk": {
+      "source": {
+        "source": "github",
+        "repo": "max-sixty/worktrunk"
+      }
+    }
+  },
+  "language": "日本語",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "api.github.com",
+        "*.githubusercontent.com",
+        "registry.npmjs.org",
+        "registry.yarnpkg.com",
+        "auth.docker.io",
+        "registry.docker.io",
+        "localhost"
+      ],
+      "allowAllUnixSockets": true
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.docker",
+        "~/.npmrc",
+        "~/.cache/uv",
+        "~/.local/share/pnpm"
+      ]
+    },
+    "enableWeakerNetworkIsolation": true,
+    "excludedCommands": [
+      "pnpm",
+      "docker"
+    ]
+  },
+  "alwaysThinkingEnabled": false,
+  "effortLevel": "high",
+  "showThinkingSummaries": true,
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "light",
+  "verbose": true,
+  "preferredNotifChannel": "terminal_bell",
+  "remoteControlAtStartup": true,
+  "voiceEnabled": true,
+  "_openIslandOriginalStatusLine": {
+    "command": "python3 \"$HOME/.claude/statusline.py\"",
+    "type": "command"
+  },
+  "feedbackSurveyState": {
+    "lastShownTime": 1754367027701
+  },
+  "agentPushNotifEnabled": true
+}
