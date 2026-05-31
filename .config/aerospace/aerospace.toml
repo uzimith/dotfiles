@@ -213,6 +213,14 @@ if.app-id = "com.anthropic.claudefordesktop"
 run = "move-node-to-workspace 10"
 
 [[on-window-detected]]
+if.app-id = "com.openai.chat"
+run = "move-node-to-workspace 10"
+
+[[on-window-detected]]
+if.app-id = "com.openai.codex"
+run = "move-node-to-workspace 10"
+
+[[on-window-detected]]
 if.app-id = "notion.id"
 run = "move-node-to-workspace 3"
 
