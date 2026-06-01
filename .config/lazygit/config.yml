@@ -3,6 +3,8 @@ gui:
   nerdFontsVersion: "3"
   showFileTree: false
   border: "hidden"
+  mainPanelSplitMode: "horizontal"
+  sidePanelWidth: 0.2
 quitOnTopLevelReturn: true
 keybinding:
   universal:

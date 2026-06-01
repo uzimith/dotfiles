@@ -99319,6 +99319,10 @@
                 "keyboard_type_v2": "ansi",
                 "standalone_keys_delay_milliseconds": 200
             }
+        },
+        {
+            "name": "New profile",
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
 }
