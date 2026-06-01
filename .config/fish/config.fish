@@ -149,3 +149,7 @@ function y
 end
 
 starship init fish | source
+
+
+# Added by Antigravity CLI installer
+set -gx PATH "/Users/uzimith/.local/bin" $PATH

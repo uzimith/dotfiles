@@ -1,4 +1,7 @@
 font-family = "HackGen35 Console NFJ"
+font-feature = -dlig
+font-feature = -liga
+font-feature = -calt
 theme = "Selenized Light"
 keybind = shift+enter=text:\x1b\r
 
