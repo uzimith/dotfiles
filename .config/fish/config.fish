@@ -1,7 +1,8 @@
 set -gx XDG_CONFIG_HOME $HOME/.config
 
 set -gx LC_ALL 'ja_JP.UTF-8'
-set -gx EDITOR vim
+set -gx VISUAL /opt/homebrew/bin/nvim
+set -gx EDITOR $VISUAL
 ulimit -n 4096
 
 ##
