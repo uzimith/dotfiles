@@ -1,0 +1,10 @@
+# Runtime logs
+*.log
+
+# Local session state
+session.json
+session-history.json
+
+# Locally installed plugins and their generated registry
+plugins/
+plugins.json
