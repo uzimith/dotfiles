@@ -78,9 +78,12 @@ vim.keymap.set("n", "[l", ":lprevious<CR>", opts)
 vim.keymap.set("n", "]L", ":lfirst<CR>", opts)
 vim.keymap.set("n", "[L", ":llast<CR>", opts)
 
--- if vim.g.vscode then
---   vim.keymap.set('n', 'u', 'u', { noremap = true, silent = true })
---   vim.keymap.set('n', 'p', 'p', { noremap = true, silent = true })
---   vim.keymap.set('n', '<C-r>', '<C-r>', { noremap = true, silent = true })
---   vim.keymap.set('v', 'y', 'y', { noremap = true, silent = true })
--- end
+-- herdr
+vim.keymap.set("n", "<Leader>z", function()
+  require("utils.herdr").send_file_to_agent()
+end, { desc = "Send file path to herdr agent" })
+
+-- herdr: send file path + selected line range, e.g. @path#L10-22
+vim.keymap.set("x", "<Leader>z", function()
+  require("utils.herdr").send_selection_to_agent()
+end, { desc = "Send file path + line range to herdr agent" })

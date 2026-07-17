@@ -1,4 +1,3 @@
-
 {
   "claudecode.nvim": { "branch": "main", "commit": "102d835c964069c9c5e37abaf05ae4f9c3ee6f00" },
   "cmp-look": { "branch": "master", "commit": "971e65a6be0e75c3438fe7b176d4fc020cb89d7b" },
@@ -63,7 +62,6 @@
   "nvim-rooter.lua": { "branch": "main", "commit": "7689d05e8ab95acb4b24785253d913c0aae18be9" },
   "nvim-scrollbar": { "branch": "main", "commit": "f8e87b96cd6362ef8579be456afee3b38fd7e2a8" },
   "nvim-surround": { "branch": "main", "commit": "2e93e154de9ff326def6480a4358bfc149d5da2c" },
-  "nvim-tmux-navigation": { "branch": "main", "commit": "4898c98702954439233fdaf764c39636681e2861" },
   "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
   "nvim-treesitter-context": { "branch": "master", "commit": "b311b30818951d01f7b4bf650521b868b3fece16" },
   "nvim-treesitter-endwise": { "branch": "master", "commit": "8fe8a95630f4f2c72a87ba1927af649e0bfaa244" },
@@ -87,5 +85,6 @@
   "vim-niceblock": { "branch": "master", "commit": "9302f527eefc0fde8df983cbb9710ad52c4213b5" },
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "vim-submode": { "branch": "master", "commit": "d29de4f55c40a7a03af1d8134453a703d6affbd2" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432" },
   "yazi.nvim": { "branch": "main", "commit": "aada50881aca7d13422e02a6681b8f0a0ec9a75c" }
 }
