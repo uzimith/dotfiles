@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "poetry-instance"
+version = "2.4.1"
+description = ""
+authors = []
+license = ""
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "3.14.1"
+poetry = "2.4.1"
+
+[dependency-groups]
+additional = [
+    "keyrings-google-artifactregistry-auth (>=1.1.2,<2.0.0)"
+]
