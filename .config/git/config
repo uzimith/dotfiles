@@ -63,3 +63,5 @@
   side-by-side = true
 [pull]
 	rebase = true
+[tig "color"]
+	status = white default

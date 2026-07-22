@@ -3,17 +3,16 @@ set refresh-interval = 3
 set ignore-space = at-eol
 set ignore-case = true
 set diff-highlight = true
+color status white default
 
 ######
 #key
 ######
 bind main V !@git revert %(commit)
-bind main <Ctrl-r> !#git reset --soft %(commit)
 bind main ! !@git reset --hard %(commit)
-bind main <Ctrl-p> !@git pull --rebase
+bind main d !@git rebase --autostash --keep-empty --empty=keep --no-autosquash --onto %(commit)^ %(commit)
 bind main R !git rebase -i %(commit)
 bind main m :enter
-bind main T !@git tag %(prompt) %(commit)
 
 bind diff R !@git rebase -i %(commit)
 bind diff n :next
@@ -30,12 +29,7 @@ bind status R !@?git restore --source=%(commit) -- %(file)
 bind stage n :next
 bind stage p :previous
 
-bind refs n !@?git checkout -b %(prompt) %(branch)
-bind refs N !@git checkout -b feature/%(prompt) %(branch)
 bind refs D !@?git branch -D %(branch)
-bind refs m !@git merge %(branch)
-bind refs r !@git rebase %(branch)
-bind refs c !@git checkout %(branch)
 
 bind stash s !@git stash save %(prompt)
 
@@ -54,18 +48,18 @@ bind generic J move-page-down
 bind generic K move-page-up
 bind generic ; view-main
 
-bind main    ;      @gh browse -- commit/%(commit)
-bind blame   ;      @gh browse -- commit/%(commit)
-bind diff    ;      @gh browse -- commit/%(commit)
-bind tree    ;      @gh browse -- %(branch)/%(file)
-bind blob    ;      @gh browse -- %(branch)/%(file)
-bind grep    ;      @gh browse -- %(branch)/%(file)
-bind tree    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
-bind blob    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
-bind grep    <Esc>; @gh browse -- "%(prompt Enter branch name: )"/%(file)
-bind main    w      @gh browse -- compare/%(branch)?expand=1
-bind diff    w      @gh browse -- compare/%(branch)?expand=1
-bind refs    w      @gh browse -- compare/%(branch)?expand=1
+bind main    ;      @gh browse %(commit)
+bind blame   ;      @gh browse --blame --commit="%(ref)" "%(file):%(lineno)"
+bind diff    ;      @gh browse --commit="%(head)" "%(file):%(lineno)"
+bind tree    ;      @gh browse --commit="%(head)" "%(file)"
+bind blob    ;      @gh browse --commit="%(head)" "%(file):%(lineno)"
+bind grep    ;      @gh browse --commit="%(head)" "%(file)"
+bind tree    <Esc>; @gh browse --branch "%(prompt Enter branch name: )" "%(file)"
+bind blob    <Esc>; @gh browse --branch "%(prompt Enter branch name: )" "%(file)"
+bind grep    <Esc>; @gh browse --branch "%(prompt Enter branch name: )" "%(file)"
+bind main    w      @sh -c 'open "$(gh repo view --json url --jq .url)/compare/$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)...%(branch)?expand=1"'
+bind diff    w      @sh -c 'open "$(gh repo view --json url --jq .url)/compare/$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)...%(branch)?expand=1"'
+bind refs    w      @sh -c 'open "$(gh repo view --json url --jq .url)/compare/$(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)...%(branch)?expand=1"'
 
 ######
 #display
