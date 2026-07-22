@@ -87,7 +87,7 @@ alias lg='lazygit'
 alias gl='lazygit log'
 alias gs='lazygit status'
 
-alias wtc='wt switch --create -x \'tmux new -d -s {{ branch | sanitize }}\''
+alias wtc='wt switch --create --no-cd -x \'herdr workspace create --cwd {{ worktree_path }} --label {{ branch | sanitize }} --focus\''
 
 # util
 alias cat='bat --paging=never'
