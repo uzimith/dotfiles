@@ -14,4 +14,4 @@ case "$(date '+%u')" in
   7) weekday='日' ;;
 esac
 
-sketchybar --set "$NAME" label="$(date '+%d/%m') (${weekday}) $(date '+%H:%M')"
+sketchybar --set "$NAME" label="$(date '+%m/%d') ${weekday} $(date '+%H:%M')"
