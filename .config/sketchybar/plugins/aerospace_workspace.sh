@@ -33,18 +33,14 @@ label_padding_right=0
 
 if [ "$workspace" = "$focused_workspace" ]; then
   sketchybar --set "$NAME" \
-    background.color=0xff268bd2 \
-    background.border_color=0xfffdf6e3 \
-    icon.color=0xffffffff \
-    label.color=0xffffffff \
+    background.color=0x9a4a4d60 \
+    background.border_color=0x80ffffff \
     label.padding_right="$label_padding_right" \
     label="$icons"
 else
   sketchybar --set "$NAME" \
     background.color=0x6a282a36 \
     background.border_color=0x48ffffff \
-    icon.color=0xffffffff \
-    label.color=0xffffffff \
     label.padding_right="$label_padding_right" \
     label="$icons"
 fi
