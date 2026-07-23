@@ -313,3 +313,27 @@ key = "ctrl+l"
 type = "plugin_action"
 command = "vim-herdr-navigation.right"
 description = "navigate right (vim/herdr)"
+
+# Hunk Diff
+[[keys.command]]
+key = "prefix+g"
+type = "plugin_action"
+command = "hunk.diff.worktree-tab"
+description = "open worktree diff in tab"
+
+[[keys.command]]
+key = "prefix+shift+g"
+type = "plugin_action"
+command = "hunk.diff.staged-tab"
+description = "open staged diff in tab"
+
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "plugin_action"
+command = "hunk.diff.branch-tab"
+description = "open branch diff in tab"
+
+[[keys.command]]
+key = "cmd+r"
+type = "plugin_action"
+command = "persiyanov.reviewr.toggle"   # <plugin_id>.<action_id> — note the id, not the name
