@@ -80,8 +80,8 @@ close_workspace = "prefix+ctrl+b"
 next_workspace = "prefix+j"
 previous_workspace = "prefix+k"
 new_tab = "prefix+c"
-previous_tab = ["ctrl+tab", "prefix+h"]
-next_tab = ["ctrl+alt+tab", "prefix+l"]
+previous_tab = ["ctrl+shift+tab", "prefix+h"]
+next_tab = ["ctrl+tab", "prefix+l"]
 switch_tab = "prefix+1..9"
 close_tab = "prefix+shift+x"
 # rename_pane = "prefix+shift+p"
@@ -232,7 +232,7 @@ pane_gaps = false
 
 # Play sounds when agents change state in background workspaces
 [ui.sound]
-# enabled = true
+enabled = true
 # Optional custom mp3 sound files. Relative paths are resolved from this config file's directory.
 # path = "sounds/notification.mp3"   # one mp3 file for all sound notifications
 # done_path = "sounds/done.mp3"      # overrides only finished notifications

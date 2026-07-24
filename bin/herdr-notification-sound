@@ -1,0 +1,49 @@
+#!/opt/homebrew/bin/fish
+
+function usage
+    echo "Usage: herdr-notification-sound <on|off|status>"
+end
+
+set -l config_root "$HOME/.config"
+if set -q XDG_CONFIG_HOME
+    set config_root "$XDG_CONFIG_HOME"
+end
+set -l config "$config_root/herdr/config.toml"
+
+if not test -f "$config"
+    echo "Herdr config not found: $config" >&2
+    exit 1
+end
+
+set -l setting (command perl -0ne 'if (/\[ui\.sound\]\R(.*?)(?:^\[|\z)/ms && $1 =~ /^\h*#?\h*enabled\h*=\h*(true|false)/m) { print "$1\n" }' "$config")
+
+switch $argv[1]
+    case on off
+        test -n "$setting"; or begin
+            echo "Could not find ui.sound.enabled in $config" >&2
+            exit 1
+        end
+
+        set -l enabled false
+        if test "$argv[1]" = on
+            set enabled true
+        end
+        set -lx HERDR_SOUND_ENABLED "$enabled"
+        command perl -0pi -e 's{(\[ui\.sound\]\R.*?^\h*)#?\h*enabled\h*=\h*(?:true|false)}{$1 . "enabled = $ENV{HERDR_SOUND_ENABLED}"}mse' "$config"
+        command herdr config check; or exit 1
+
+        if command herdr server reload-config
+            echo "Herdr notification sound: $argv[1]"
+        else
+            echo "Saved notification sound setting; it will apply when Herdr next starts." >&2
+        end
+    case status
+        if test "$setting" = false
+            echo "Herdr notification sound: off"
+        else
+            echo "Herdr notification sound: on"
+        end
+    case '*'
+        usage >&2
+        exit 2
+end

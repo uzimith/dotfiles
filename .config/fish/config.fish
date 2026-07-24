@@ -151,6 +151,8 @@ end
 
 starship init fish | source
 
+source "$XDG_CONFIG_HOME/fish/functions/update_main_on_enter.fish"
+
 
 # Added by Antigravity CLI installer
 set -gx PATH "/Users/uzimith/.local/bin" $PATH

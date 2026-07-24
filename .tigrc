@@ -10,13 +10,15 @@ color status white default
 ######
 bind main V !@git revert %(commit)
 bind main ! !@git reset --hard %(commit)
-bind main d !@git rebase --autostash --keep-empty --empty=keep --no-autosquash --onto %(commit)^ %(commit)
+bind main D !?@git rebase --autostash --keep-empty --empty=keep --no-autosquash --onto %(commit)^ %(commit)
 bind main R !git rebase -i %(commit)
 bind main m :enter
 
 bind diff R !@git rebase -i %(commit)
 bind diff n :next
 bind diff p :previous
+bind main d >sh -c "git show %(commit) | delta --paging always"
+bind diff d >sh -c "git show %(commit) | delta --paging always"
 
 bind status m :enter
 bind status P !git push

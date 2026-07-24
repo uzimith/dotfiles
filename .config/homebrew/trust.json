@@ -1,5 +1,6 @@
 {
   "trustedformulae": [
+    "dlvhdr/formulae/diffnav",
     "felixkratz/formulae/sketchyba",
     "felixkratz/formulae/sketchybar",
     "vjeantet/tap/alerter"
