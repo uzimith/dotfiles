@@ -86,6 +86,7 @@ switch_tab = "prefix+1..9"
 close_tab = "prefix+shift+x"
 # rename_pane = "prefix+shift+p"
 # edit_scrollback = "prefix+e"
+copy_mode = "prefix+ctrl+y"
 # tmux's direct C-h/j/k/l bindings are conditional on Vim; arrows avoid
 # stealing those keys from pane applications in Herdr.
 # focus_pane_left = "prefix+h"
