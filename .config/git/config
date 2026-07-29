@@ -34,6 +34,7 @@
 	pf = push --force-with-lease
 	d = diff
 	wdiff = diff --color-words
+	bd = "!f() { c=$(git branch --show-current); git switch main && git branch -D \"$c\"; }; f"
 [web]
 	browser = open
 [filter "lfs"]
