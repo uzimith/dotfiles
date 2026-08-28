@@ -229,3 +229,7 @@ run = "move-node-to-workspace 3"
 [[on-window-detected]]
 if.app-id = "com.linear"
 run = "move-node-to-workspace 5"
+
+[[on-window-detected]]
+if.app-id = "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"
+run = "move-node-to-workspace 8"
