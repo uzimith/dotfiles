@@ -6,4 +6,4 @@ SETUVAR Z_DATA:/Users/uzimith/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/Users/uzimith/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:/Users/uzimith
 SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/nix/var/nix/profiles/default/bin\x1e/Users/uzimith/\x2eantigravity/antigravity/bin\x1e/usr/local/opt/openssl/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS
+SETUVAR fish_user_paths:/opt/homebrew/opt/curl/bin\x1e/nix/var/nix/profiles/default/bin\x1e/Users/uzimith/\x2eantigravity/antigravity/bin\x1e/usr/local/opt/openssl/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS

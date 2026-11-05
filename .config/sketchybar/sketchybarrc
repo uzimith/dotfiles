@@ -12,7 +12,9 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar position=top height=30 blur_radius=30 color=0x40000000
+# Be explicit about rendering on each monitor; this avoids inheriting a
+# main-display-only setting after a display configuration change.
+sketchybar --bar position=top display=all height=30 blur_radius=30 color=0x40000000
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.

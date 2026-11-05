@@ -5,6 +5,7 @@
                 "rules": [
                     {
                         "description": "Left command + hjkl to arrow keys Vim",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {

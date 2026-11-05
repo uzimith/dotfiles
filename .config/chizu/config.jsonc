@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "default": {
+    "bundleID": "com.google.Chrome",
+    "profile": "Chrome"
+  },
+  "rules": [
+    {
+      "name": "google-meet",
+      // urlRegex は URL 全体に一致させる必要がある
+      "when": {
+        "urlRegex": "(?i)https?://([^/?#]+\\.)?meet\\.google\\.com([/?#].*)?"
+      },
+      // Google Meet の PWA
+      "destination": {
+        "bundleID": "com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan"
+      }
+    },
+    {
+      "name": "notion",
+      "when": {
+        "urlRegex": "(?i)https://((app|www)\\.)?notion\\.(com|so)([/?#].*)?"
+      },
+      "destination": {
+        "bundleID": "notion.id"
+      }
+    },
+    {
+      "name": "gcp-console",
+      "when": {
+        "urlRegex": "(?i)https://console\\.cloud\\.google\\.com([/?#].*)?"
+      },
+      // profile は Chrome の表示名 (Profile 1)
+      "destination": {
+        "bundleID": "com.google.Chrome",
+        "profile": "legalscape.co.jp"
+      }
+    }
+  ]
+}

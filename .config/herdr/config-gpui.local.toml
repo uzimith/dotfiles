@@ -1,0 +1,33 @@
+# Herdr UI overrides. Saved changes reload automatically.
+# Unset keys inherit config-gpui.toml; tables merge key by key.
+
+# New installs start with the roomy rounded sidebar. Remove this line for
+# the managed default, or pick another layout listed in config-gpui.toml.
+layout = "comfortable-rounded"
+theme = "Selenized Light"
+confirm_close_pane = false
+tab_layout = "outline"
+
+[backdrop]
+opacity = 1.0
+
+[terminal]
+family = "HackGen35 Console NF"
+size = 12.0
+
+[sidebar]
+family = "HackGen35 Console NF"
+size = 11.0
+
+[tabs]
+family = "HackGen35 Console NF"
+size = 10.0
+
+[ui]
+family = "HackGen35 Console NF"
+size = 10.0
+
+[status_bar]
+usage = "detailed"
+system_load = "detailed"
+theme = "label"
